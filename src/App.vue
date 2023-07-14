@@ -1,5 +1,11 @@
-<template>
+<!-- <template>
   <div>
+    <h1>Vue Router Example</h1>
+    <router-view></router-view>
+  </div>
+</template> -->
+<template>
+  <v-app>
     <v-app-bar
       app
       color="orange"
@@ -14,27 +20,30 @@
           :src="LogoPokemons"
           style="width: 200px;"
         />
-        <!-- <h1>Pokemon Api</h1> -->
       </div>
 
       <v-spacer></v-spacer>
 
       <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        href="https://pokeapi.co/api/v2/pokemon/"
         target="_blank"
         text
       >
-        <span class="mr-2">Latest Release</span>
+        <span class="mr-2">Pokeapi</span>
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
     </v-app-bar>
-    <router-view></router-view>
-  </div>
+
+    <v-main>
+      <router-view></router-view>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-
+// images
 import LogoPokemons from '@/assets/img/logo-pokemon.png';
+
 export default {
   name: 'App',
 
