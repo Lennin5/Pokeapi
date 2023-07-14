@@ -1,9 +1,3 @@
-<!-- <template>
-  <div>
-    <h1>Vue Router Example</h1>
-    <router-view></router-view>
-  </div>
-</template> -->
 <template>
   <v-app>
     <v-app-bar
@@ -48,7 +42,6 @@ export default {
   name: 'App',
 
   data: () => ({
-    //
     LogoPokemons: LogoPokemons
   }),
 };

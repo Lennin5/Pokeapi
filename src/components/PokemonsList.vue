@@ -44,7 +44,8 @@
                     <strong>Element:</strong> {{ pokemon.element[0].toUpperCase() + pokemon.element.slice(1)  }}
                   </div>
                   <v-btn
-                  :color="getElementColor(pokemon.element)"
+                    :to="{ path: '/red', query: { pokemon: pokemon } }"
+                    :color="getElementColor(pokemon.element)"
                     dark
                   >
                     Details
