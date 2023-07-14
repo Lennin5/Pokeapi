@@ -4,12 +4,14 @@ import VueRouter from 'vue-router';
 import vuetify from './plugins/vuetify';
 import PokemonsList from './components/PokemonsList';
 import PokemonDetails from './components/PokemonDetails';
+import PokemonAbilities from './components/PokemonAbilities';
 
 Vue.use(VueRouter);
 
 const routes = [
   { path: '/', component: PokemonsList },
-  { path: '/red', component: PokemonDetails },
+  { path: '/details', component: PokemonDetails },
+  { path: '/abilities', component: PokemonAbilities },
 ];
 
 const router = new VueRouter({

@@ -44,11 +44,18 @@
                     <strong>Element:</strong> {{ pokemon.element[0].toUpperCase() + pokemon.element.slice(1)  }}
                   </div>
                   <v-btn
-                    :to="{ path: '/red', query: { pokemon: pokemon } }"
+                    :to="{ path: '/details', query: { pokemon: pokemon } }"
                     :color="getElementColor(pokemon.element)"
                     dark
                   >
                     Details
+                  </v-btn>
+                  <v-btn
+                    :to="{ path: '/abilities', query: { pokemon: pokemon } }"
+                    :color="getElementColor(pokemon.element)"
+                    dark
+                  >
+                    Abilities
                   </v-btn>
                 </div>
               </v-timeline-item>
@@ -146,7 +153,7 @@ export default {
       case 'ground':
         return 'brown darken-2'
       case 'fairy':
-        return 'pink darken-1'
+        return 'pink lighten-2'
       default:
         return 'orange';
     }
