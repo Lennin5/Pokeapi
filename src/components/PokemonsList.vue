@@ -46,16 +46,11 @@
                   <v-btn
                     :to="{ path: '/details', query: { pokemon: pokemon } }"
                     :color="getElementColor(pokemon.element)"
+                    class="mt-2"
                     dark
                   >
+                    <v-icon class="mr-2">mdi-open-in-new</v-icon>
                     Details
-                  </v-btn>
-                  <v-btn
-                    :to="{ path: '/abilities', query: { pokemon: pokemon } }"
-                    :color="getElementColor(pokemon.element)"
-                    dark
-                  >
-                    Abilities
                   </v-btn>
                 </div>
               </v-timeline-item>
@@ -69,6 +64,7 @@
 
 <script>
 import pokeApi from '../plugins/axios';
+import BgPokemon from '@/assets/img/bg-pokemon.png';
 
 export default {
   name: 'PokemonsList',
@@ -98,7 +94,7 @@ export default {
   methods: {
     async getPokemonData() {
       try {
-        const response = await pokeApi.get('pokemon/?offset=0&limit=50');
+        const response = await pokeApi.get('pokemon/?offset=200&limit=100');
         const pokemons = response.data.results;
         console.log(pokemons);
 
@@ -154,11 +150,30 @@ export default {
         return 'brown darken-2'
       case 'fairy':
         return 'pink lighten-2'
+      case 'fighting':
+        return 'deep-orange lighten-2'
+      case 'rock':
+        return 'grey darken-1'
+      case 'psychic':
+        return 'pink darken-1'
+      case 'ghost':
+        return 'deep-purple lighten-2'
+      case 'ice':
+        return 'cyan lighten-3'
+      case 'dragon':
+        return 'indigo darken-1'
+      case 'dark':
+        return 'grey darken-3'
+      case 'steel':
+        return 'blue-grey darken-1'
       default:
         return 'orange';
     }
   },
 
+  data: () => ({
+    BgPokemon: BgPokemon,
+  }),
   },
 };
 </script>

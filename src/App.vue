@@ -15,8 +15,14 @@
           style="width: 200px;"
         />
       </div>
+      <v-btn href="/" text>
+        <span class="mr-2">Home</span>
+        <v-icon>mdi-home</v-icon>
+      </v-btn>      
 
       <v-spacer></v-spacer>
+
+
 
       <v-btn
         href="https://pokeapi.co/api/v2/pokemon/"
