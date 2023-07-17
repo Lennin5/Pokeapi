@@ -17,7 +17,7 @@
         <v-card width="400" style="border-radius: 20px !important;">
           <div class="d-flex justify-center">
             <v-img :src="pokemon.spriteURL" max-height="300px" max-width="150" class="">
-          </v-img>
+            </v-img>
           </div>
           <v-card-text>
             <div class="font-weight-bold ml-8 mb-2 gray--text d-flex justify-left">
@@ -25,26 +25,14 @@
                 {{ pokemon.name[0].toUpperCase() + pokemon.name.slice(1) }}
               </h2>
             </div>
-            <!-- <div class="ml-8 mb-2 gray--text">
-              <strong>Habilidad:</strong> {{ getPokemonAbility(pokemon) }}
-            </div> -->
-            <!-- <div class="ml-8 mb-2 gray--text">
-              <strong>Nivel:</strong> {{ getPokemonLevel(pokemon) }}
-            </div> -->
-            <!-- <div class="ml-8 mb-2 gray--text">
-              <strong>Elemento:</strong> {{ pokemon.element }}
-            </div> -->
             <v-timeline align-top dense>
-              <v-timeline-item
-                :color="getElementColor(pokemon.element)"
-                small
-              >
+              <v-timeline-item :color="getElementColor(pokemon.element)" small>
                 <div>
                   <div class="font-weight-normal">
                     <strong>Element:</strong> {{ pokemon.element[0].toUpperCase() + pokemon.element.slice(1)  }}
                   </div>
                   <v-btn
-                    :to="{ path: '/details', query: { pokemon: pokemon } }"
+                    :to="{ path: '/details', query: { pokemonObject: pokemon, spritesObject: Object.values(pokemon.sprites) } }"
                     :color="getElementColor(pokemon.element)"
                     class="mt-2"
                     dark
@@ -72,18 +60,7 @@ export default {
   data() {
     return {
       pokemons: [],
-      messages: [
-        {
-          from: 'John Doe',
-          time: '10:00 AM',
-          message: 'Hello there!',
-        },
-        {
-          from: 'Jane Smith',
-          time: '11:30 AM',
-          message: 'How are you?',
-        },
-      ],
+      BgPokemon: BgPokemon,
     };
   },
 
@@ -94,24 +71,29 @@ export default {
   methods: {
     async getPokemonData() {
       try {
-        const response = await pokeApi.get('pokemon/?offset=200&limit=100');
+        const response = await pokeApi.get('pokemon/?offset=0&limit=10');
         const pokemons = response.data.results;
         console.log(pokemons);
 
-        // Obtener los sprites, nombres, habilidades, niveles y elementos de todos los Pokémon
         const pokemonData = await Promise.all(
           pokemons.map(async (pokemon) => {
             const pokemonResponse = await pokeApi.get(`pokemon/${pokemon.name}`);
             const spriteURL = pokemonResponse.data.sprites.front_default;
-            const ability = pokemonResponse.data.abilities[0].ability.name;
-            const level = pokemonResponse.data.base_experience;
             const element = pokemonResponse.data.types[0].type.name;
+            const abilities = pokemonResponse.data.abilities;
+            
+            const sprites = [
+              pokemonResponse.data.sprites.front_default,
+              pokemonResponse.data.sprites.back_default,
+              pokemonResponse.data.sprites.front_shiny,
+              pokemonResponse.data.sprites.back_shiny,
+            ];
             return {
               name: pokemon.name,
               spriteURL: spriteURL,
-              ability: ability,
-              level: level,
               element: element,
+              sprites: sprites,
+              abilities: abilities,
             };
           })
         );
@@ -122,59 +104,47 @@ export default {
       }
     },
 
-    getPokemonAbility(pokemon) {
-      return pokemon.ability;
-    },
-
-    getPokemonLevel(pokemon) {
-      return pokemon.level;
-    },
-
     getElementColor(element) {
-    switch (element) {
-      case 'grass':
-        return 'teal lighten-2';
-      case 'fire':
-        return 'red lighten-1';
-      case 'water':
-        return 'light-blue lighten-2';
-      case 'bug':
-        return 'green accent-4';
-      case 'normal':
-        return 'orange';
-      case 'poison':
-        return 'deep-purple accent-2'
-      case 'electric':
-        return 'yellow darken-2'
-      case 'ground':
-        return 'brown darken-2'
-      case 'fairy':
-        return 'pink lighten-2'
-      case 'fighting':
-        return 'deep-orange lighten-2'
-      case 'rock':
-        return 'grey darken-1'
-      case 'psychic':
-        return 'pink darken-1'
-      case 'ghost':
-        return 'deep-purple lighten-2'
-      case 'ice':
-        return 'cyan lighten-3'
-      case 'dragon':
-        return 'indigo darken-1'
-      case 'dark':
-        return 'grey darken-3'
-      case 'steel':
-        return 'blue-grey darken-1'
-      default:
-        return 'orange';
-    }
+      switch (element) {
+        case 'grass':
+          return 'teal lighten-2';
+        case 'fire':
+          return 'red lighten-1';
+        case 'water':
+          return 'light-blue lighten-2';
+        case 'bug':
+          return 'green accent-4';
+        case 'normal':
+          return 'orange';
+        case 'poison':
+          return 'deep-purple accent-2';
+        case 'electric':
+          return 'yellow darken-2';
+        case 'ground':
+          return 'brown darken-2';
+        case 'fairy':
+          return 'pink lighten-2';
+        case 'fighting':
+          return 'deep-orange lighten-2';
+        case 'rock':
+          return 'grey darken-1';
+        case 'psychic':
+          return 'pink darken-1';
+        case 'ghost':
+          return 'deep-purple lighten-2';
+        case 'ice':
+          return 'cyan lighten-3';
+        case 'dragon':
+          return 'indigo darken-1';
+        case 'dark':
+          return 'grey darken-3';
+        case 'steel':
+          return 'blue-grey darken-1';
+        default:
+          return 'orange';
+      }
+    },
   },
 
-  data: () => ({
-    BgPokemon: BgPokemon,
-  }),
-  },
 };
 </script>
-  
