@@ -34,7 +34,7 @@
       </v-btn>
     </v-app-bar>
 
-    <v-main>
+    <v-main style="background-color: #f2f2f2;">
       <router-view></router-view>
     </v-main>
   </v-app>

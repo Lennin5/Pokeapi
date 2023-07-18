@@ -22,7 +22,7 @@
     <v-container>
       <br>
     <v-row justify="space-around">
-      <v-card width="400">
+      <v-card width="400" class="rounded-xl">
         <v-img
           height="210px"
           :src="BgPokemon"
@@ -34,8 +34,17 @@
                 :src="pokemonData.sprites[index]"
                 class="l-r pa-2"
                 style="border: 5px solid white"
-              >              
-            </v-avatar>    
+              >   
+                  
+            </v-avatar> 
+            <v-badge
+        bordered
+        bottom
+        color="deep-purple accent-4"
+        dot
+        offset-x="50"
+        offset-y="50"
+      />                    
             <div class="pa-1 mt-2" style="background-color: #622301;">
               <h2>{{ pokemonData.name[0].toUpperCase() + pokemonData.name.slice(1) }}</h2>                 
             </div>
@@ -43,47 +52,80 @@
           </v-card-title>
         </v-img>
 
-        <v-card-text >
-          <div class="font-weight-bold mb-2 display-flex justify-center">
-            <!-- {{ pokemonData.element[0].toUpperCase() + pokemonData.element.slice(1) }} -->
-            <v-card-title class="white--text l-b">
-            <v-avatar size="60" :style="{ backgroundColor: getElementColorHex(pokemonData.element) }">
-              <img
-                alt="user"
-                :src="getElementType(pokemonData.element)"
-                class="pa-3"
-              >
-            </v-avatar>
-            <p class="ml-3 grey--text mt-5">
-              {{ pokemonData.element[0].toUpperCase() + pokemonData.element.slice(1) }}
-            </p>
-          </v-card-title>      
-          </div>
-
-          <v-timeline
-            align-top
-            dense
-            class="l-g"
-          >
-            <v-timeline-item
-              color="blue"
-              small
-            >                       
-              <div>
-                <v-avatar size="90">
+        <v-card-text>
+          <v-timeline align-bottom dense class="mt-2" style="padding-top: 0px !important">
+              <v-card-title class="white--text">
+                <v-avatar 
+                  size="56" 
+                  :style="{ backgroundColor: getElementColorHex(pokemonData.element) }">
                   <img
                     alt="user"
-                    :src="pokemonData.sprites[2]"
-                    class="pa-3"
+                    :src="getElementType(pokemonData.element)"
+                    class="pa-2"
                   >
-                </v-avatar>                 
-                <div class="font-weight-normal">
-                  <strong>Fo</strong> @Bar
+                </v-avatar>
+                  <p class="ml-3 font-weight-bold grey--text mt-5">
+                    Type {{ pokemonData.element[0].toUpperCase() + pokemonData.element.slice(1) }} Pokemon<br>
+                  </p>                  
+              </v-card-title>    
+              <v-timeline-item 
+              :color="getElementColor(pokemonData.element)" 
+              medium 
+              icon="mdi-information" 
+              :fill-dot="true">
+              <div>                
+                <div class="font-weight-normal grey--text">
+                  <strong>Basic Information</strong>
                 </div>
-                <div>Len</div>
-              </div>
-            </v-timeline-item>
-          </v-timeline>
+                <div>
+                  <ul>
+                    <li>
+                      <strong class="grey--text">ID:</strong> {{ pokemonId }} <br>
+                      <strong class="grey--text">Height:</strong> {{ pokemonHeight }} cm <br>
+                      <strong class="grey--text">Level:</strong> {{ pokemonLevel }} cm <br>
+                    </li>
+                  </ul>
+                </div>                               
+              </div>                
+              </v-timeline-item>       
+              <v-timeline-item 
+              :color="getElementColor(pokemonData.element)" 
+              medium 
+              icon="mdi-flash" 
+              :fill-dot="true">
+              <div>                
+                <div class="font-weight-normal grey--text">
+                  <strong>Abilities</strong>
+                </div>
+                <div>
+                  <ul>
+                    <li v-for="(pokemon, index) in pokemonData.abilities" :key="index">
+                      {{ pokemon.ability.name }}
+                    </li>
+                  </ul>
+                </div>                               
+              </div>                
+              </v-timeline-item>     
+              <v-timeline-item 
+              :color="getElementColor(pokemonData.element)" 
+              medium 
+              icon="mdi-star" 
+              :fill-dot="true">
+              <div>                
+                <div class="font-weight-normal grey--text">
+                  <strong>Level</strong>
+                </div>
+                <div>
+                  <ul>
+                    <li>
+                      {{ pokemonLevel }}
+
+                    </li>
+                  </ul>
+                </div>                               
+              </div>                
+              </v-timeline-item>            
+            </v-timeline>          
 
           <!-- <v-timeline
             align-top
@@ -138,6 +180,10 @@ export default {
   data() {
     return {
       pokemonData: null,
+      pokemonAbilities: null,
+      pokemonId: null,
+      pokemonHeight: null,
+      pokemonLevel: null,
       BgPokemon,
       FireTypeLogo,
       messages: [
@@ -167,10 +213,11 @@ export default {
     this.getPokemonData();
     
     // setTimeout(() => {
+
       setInterval(() => {
-      this.index = this.index === 3 ? 0 : this.index + 1;
-      // console.log("hola");
+     this.index = this.index === 3 ? 0 : this.index + 1;
       }, 1000);
+
     // }, 5000);
 
   },
@@ -179,11 +226,13 @@ export default {
       // const sprites = this.$route.query.spritesObject;
       const pokemon = this.$route.query.pokemonObject;
       if (pokemon) {
-        // this.pokemonData = {
-        //   name: pokemon.name,
-        //   sprites: Array.isArray(sprites) ? sprites : [sprites],
-        // };
         this.pokemonData = pokemon;
+        this.pokemonAbilities = pokemon.abilities;
+
+        this.pokemonId = pokemon.id;
+        this.pokemonHeight = pokemon.height;
+        this.pokemonLevel = pokemon.level;
+        console.log(this.pokemonData);
       }
       console.log(pokemon);
     },
@@ -230,43 +279,83 @@ export default {
     getElementColorHex(element) {
       switch (element) {
         case 'grass':
-          return '#008080';
+          return '#4DB6AC';
         case 'fire':
-          return '#FF5733';
+          return '#EF5350';
         case 'water':
-          return '#87CEFA';
+          return '#4FC3F7';
         case 'bug':
-          return '#4CAF50';
+          return '#00C853';
         case 'normal':
-          return '#FFA500';
+          return '#FF9800';
         case 'poison':
-          return '#673AB7';
+          return '#7C4DFF';
         case 'electric':
-          return '#FFD700';
+          return '#FBC02D';
         case 'ground':
-          return '#654321';
+          return '#5D4037';
         case 'fairy':
-          return '#FFC0CB';
+          return '#F06292';
         case 'fighting':
-          return '#FF8C00';
+          return '#FF8A65';
         case 'rock':
-          return '#808080';
+          return '#757575';
         case 'psychic':
-          return '#FF1493';
+          return '#D81B60';
         case 'ghost':
-          return '#9370DB';
+          return '#9575CD';
         case 'ice':
-          return '#E0FFFF';
+          return '#80DEEA';
         case 'dragon':
-          return '#1A237E';
+          return '#3949AB';
         case 'dark':
           return '#424242';
         case 'steel':
-          return '#37474F';
+          return '#546E7A';
         default:
-          return '#FFA500';
+          return '#FF9800';
       }
-    }
+    },
+    getElementColor(element) {
+      switch (element) {
+        case 'grass':
+          return 'teal lighten-2';
+        case 'fire':
+          return 'red lighten-1';
+        case 'water':
+          return 'light-blue lighten-2';
+        case 'bug':
+          return 'green accent-4';
+        case 'normal':
+          return 'orange';
+        case 'poison':
+          return 'deep-purple accent-2';
+        case 'electric':
+          return 'yellow darken-2';
+        case 'ground':
+          return 'brown darken-2';
+        case 'fairy':
+          return 'pink lighten-2';
+        case 'fighting':
+          return 'deep-orange lighten-2';
+        case 'rock':
+          return 'grey darken-1';
+        case 'psychic':
+          return 'pink darken-1';
+        case 'ghost':
+          return 'deep-purple lighten-2';
+        case 'ice':
+          return 'cyan lighten-3';
+        case 'dragon':
+          return 'indigo darken-1';
+        case 'dark':
+          return 'grey darken-3';
+        case 'steel':
+          return 'blue-grey darken-1';
+        default:
+          return 'orange';
+      }
+    },    
   },
 };
 
