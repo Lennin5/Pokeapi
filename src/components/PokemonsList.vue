@@ -1,17 +1,27 @@
 <template>
   <div style="margin-top: 40px">
-    <h1 style="text-align: center;" class="grey--text">Pokémon Sprites</h1>
-    <br>
     <v-container>
+      <h1 style="text-align: center;" class="grey--text">All Pokémons</h1>
+    <!-- Agregamos la paginación -->
+    <div class="text-center">
+      <v-pagination
+        v-model="page"
+        :length="totalPages"
+        circle
+        color="orange"
+      >
+    </v-pagination>
+    </div>
+    <br>
       <v-row>
         <v-col
-          v-for="pokemon in pokemons"
+          v-for="pokemon in paginatedPokemons"
           :key="pokemon.name"
           cols="12"
           xs="12"
           sm="6"
           md="4"
-          lg="3"
+          lg="4"
           xl="3"
           class="d-flex justify-center"
         >
@@ -57,6 +67,8 @@
         </v-col>
       </v-row>      
     </v-container>
+
+
   </div>
 </template>
 
@@ -72,22 +84,18 @@ export default {
       pokemons: [],
       BgPokemon: BgPokemon,
       index: 0,
-
+      page: 1, // Página inicial
     };
   },
 
   async created() {
     this.getPokemonData();
-
-  //  setInterval(() => {
-  //    this.index = this.index === 3 ? 0 : this.index + 1;
-  //    }, 1000);    
   },
 
   methods: {
     async getPokemonData() {
       try {
-        const response = await pokeApi.get('/pokemon/?offset=0&limit=100');
+        const response = await pokeApi.get('/pokemon/?offset=0&limit=800');
         const pokemons = response.data.results;
         console.log(pokemons);
 
@@ -137,7 +145,16 @@ export default {
     }  
   },
 
+  computed: {
+    totalPages() {
+      return Math.ceil(this.pokemons.length / 100);
+    },
+
+    paginatedPokemons() {
+      const startIndex = (this.page - 1) * 100;
+      const endIndex = startIndex + 100;
+      return this.pokemons.slice(startIndex, endIndex);
+    }
+  }
 };
-
-
 </script>
