@@ -22,8 +22,6 @@
 
       <v-spacer></v-spacer>
 
-
-
       <v-btn
         href="https://pokeapi.co/api/v2/pokemon/"
         target="_blank"

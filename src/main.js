@@ -2,16 +2,15 @@ import Vue from 'vue';
 import App from './App.vue';
 import VueRouter from 'vue-router';
 import vuetify from './plugins/vuetify';
+import GlobalMethods from './utils/customMethods';
 import PokemonsList from './components/PokemonsList';
 import PokemonDetails from './components/PokemonDetails';
-import PokemonAbilities from './components/PokemonAbilities';
 
 Vue.use(VueRouter);
 
 const routes = [
   { path: '/', component: PokemonsList },
   { path: '/details', component: PokemonDetails },
-  { path: '/abilities', component: PokemonAbilities },
 ];
 
 const router = new VueRouter({
@@ -22,6 +21,7 @@ const router = new VueRouter({
 new Vue({
   router,
   vuetify,
+  GlobalMethods,
   render: h => h(App)
 }).$mount('#app');
 

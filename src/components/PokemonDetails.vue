@@ -36,15 +36,7 @@
                 style="border: 5px solid white"
               >   
                   
-            </v-avatar> 
-            <v-badge
-        bordered
-        bottom
-        color="deep-purple accent-4"
-        dot
-        offset-x="50"
-        offset-y="50"
-      />                    
+            </v-avatar>                 
             <div class="pa-1 mt-2" style="background-color: #622301;">
               <h2>{{ pokemonData.name[0].toUpperCase() + pokemonData.name.slice(1) }}</h2>                 
             </div>
@@ -60,8 +52,8 @@
                   :style="{ backgroundColor: getElementColorHex(pokemonData.element) }">
                   <img
                     alt="user"
-                    :src="getElementType(pokemonData.element)"
-                    class="pa-2"
+                    :src="getElementTypeLogo(pokemonData.element)"
+                    class="pa-2 l-r"
                   >
                 </v-avatar>
                   <p class="ml-3 font-weight-bold grey--text mt-5">
@@ -69,7 +61,7 @@
                   </p>                  
               </v-card-title>    
               <v-timeline-item 
-              :color="getElementColor(pokemonData.element)" 
+              :color="getElementColorNormal(pokemonData.element)" 
               medium 
               icon="mdi-information" 
               :fill-dot="true">
@@ -79,17 +71,15 @@
                 </div>
                 <div>
                   <ul>
-                    <li>
                       <strong class="grey--text">ID:</strong> {{ pokemonId }} <br>
                       <strong class="grey--text">Height:</strong> {{ pokemonHeight }} cm <br>
-                      <strong class="grey--text">Level:</strong> {{ pokemonLevel }} cm <br>
-                    </li>
+                      <strong class="grey--text">Level:</strong> {{ pokemonLevel }} <br>
                   </ul>
                 </div>                               
               </div>                
               </v-timeline-item>       
               <v-timeline-item 
-              :color="getElementColor(pokemonData.element)" 
+              :color="getElementColorNormal(pokemonData.element)" 
               medium 
               icon="mdi-flash" 
               :fill-dot="true">
@@ -107,7 +97,7 @@
               </div>                
               </v-timeline-item>     
               <v-timeline-item 
-              :color="getElementColor(pokemonData.element)" 
+              :color="getElementColorNormal(pokemonData.element)" 
               medium 
               icon="mdi-star" 
               :fill-dot="true">
@@ -157,24 +147,6 @@
 
 import BgPokemon from '@/assets/img/bg-pokemon.png';
 
-import FireTypeLogo from '@/assets/img/types/fire.svg';
-import GrassTypeLogo from '@/assets/img/types/grass.svg';
-import WaterTypeLogo from '@/assets/img/types/water.svg';
-import BugTypeLogo from '@/assets/img/types/bug.svg';
-import NormalTypeLogo from '@/assets/img/types/normal.svg';
-import PoisonTypeLogo from '@/assets/img/types/poison.svg';
-import ElectricTypeLogo from '@/assets/img/types/electric.svg';
-import GroundTypeLogo from '@/assets/img/types/ground.svg';
-import FairyTypeLogo from '@/assets/img/types/fairy.svg';
-import FightingTypeLogo from '@/assets/img/types/fighting.svg';
-import PsychicTypeLogo from '@/assets/img/types/psychic.svg';
-import RockTypeLogo from '@/assets/img/types/rock.svg';
-import SteelTypeLogo from '@/assets/img/types/steel.svg';
-import IceTypeLogo from '@/assets/img/types/ice.svg';
-import GhostTypeLogo from '@/assets/img/types/ghost.svg';
-import DragonTypeLogo from '@/assets/img/types/dragon.svg';
-import DarkTypeLogo from '@/assets/img/types/dark.svg';
-
 export default {
   name: 'PokemonDetails',
   data() {
@@ -185,7 +157,6 @@ export default {
       pokemonHeight: null,
       pokemonLevel: null,
       BgPokemon,
-      FireTypeLogo,
       messages: [
         {
           from: 'You',
@@ -236,126 +207,15 @@ export default {
       }
       console.log(pokemon);
     },
-    getElementType(element) {
-      switch (element) {
-        case 'grass':
-          return GrassTypeLogo;
-        case 'fire':
-          return FireTypeLogo;
-        case 'water':
-          return WaterTypeLogo;
-        case 'bug':
-          return BugTypeLogo;
-        case 'normal':
-          return NormalTypeLogo;
-        case 'poison':
-          return PoisonTypeLogo;
-        case 'electric':
-          return ElectricTypeLogo;
-        case 'ground':
-          return GroundTypeLogo;
-        case 'fairy':
-          return FairyTypeLogo;
-        case 'fighting':
-          return FightingTypeLogo;
-        case 'rock':
-          return RockTypeLogo;
-        case 'psychic':
-          return PsychicTypeLogo;
-        case 'ghost':
-          return GhostTypeLogo;
-        case 'ice':
-          return IceTypeLogo;
-        case 'dragon':
-          return DragonTypeLogo;
-        case 'dark':
-          return DarkTypeLogo;
-        case 'steel':
-          return SteelTypeLogo;
-        default:
-          return NormalTypeLogo
-      }
+    getElementTypeLogo(element) {
+      return this.$root.getElementTypeLogo(element);
+    },
+    getElementColorNormal(element) {
+      return this.$root.getElementColorNormal(element);
     },
     getElementColorHex(element) {
-      switch (element) {
-        case 'grass':
-          return '#4DB6AC';
-        case 'fire':
-          return '#EF5350';
-        case 'water':
-          return '#4FC3F7';
-        case 'bug':
-          return '#00C853';
-        case 'normal':
-          return '#FF9800';
-        case 'poison':
-          return '#7C4DFF';
-        case 'electric':
-          return '#FBC02D';
-        case 'ground':
-          return '#5D4037';
-        case 'fairy':
-          return '#F06292';
-        case 'fighting':
-          return '#FF8A65';
-        case 'rock':
-          return '#757575';
-        case 'psychic':
-          return '#D81B60';
-        case 'ghost':
-          return '#9575CD';
-        case 'ice':
-          return '#80DEEA';
-        case 'dragon':
-          return '#3949AB';
-        case 'dark':
-          return '#424242';
-        case 'steel':
-          return '#546E7A';
-        default:
-          return '#FF9800';
-      }
-    },
-    getElementColor(element) {
-      switch (element) {
-        case 'grass':
-          return 'teal lighten-2';
-        case 'fire':
-          return 'red lighten-1';
-        case 'water':
-          return 'light-blue lighten-2';
-        case 'bug':
-          return 'green accent-4';
-        case 'normal':
-          return 'orange';
-        case 'poison':
-          return 'deep-purple accent-2';
-        case 'electric':
-          return 'yellow darken-2';
-        case 'ground':
-          return 'brown darken-2';
-        case 'fairy':
-          return 'pink lighten-2';
-        case 'fighting':
-          return 'deep-orange lighten-2';
-        case 'rock':
-          return 'grey darken-1';
-        case 'psychic':
-          return 'pink darken-1';
-        case 'ghost':
-          return 'deep-purple lighten-2';
-        case 'ice':
-          return 'cyan lighten-3';
-        case 'dragon':
-          return 'indigo darken-1';
-        case 'dark':
-          return 'grey darken-3';
-        case 'steel':
-          return 'blue-grey darken-1';
-        default:
-          return 'orange';
-      }
-    },    
+      return this.$root.getElementColorHex(element);      
+    }       
   },
 };
 
