@@ -138,7 +138,7 @@ Vue.prototype.getElementColorHex = function(element) {
     case 'steel':
       return '#546E7A';
     default:
-      return '#FF9800';
+      return '#f2f';
   }
 };
 

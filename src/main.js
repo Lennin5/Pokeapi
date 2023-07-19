@@ -5,12 +5,14 @@ import vuetify from './plugins/vuetify';
 import GlobalMethods from './utils/customMethods';
 import PokemonsList from './components/PokemonsList';
 import PokemonDetails from './components/PokemonDetails';
+import PokemonTypes from './components/PokemonTypes';
 
 Vue.use(VueRouter);
 
 const routes = [
   { path: '/', component: PokemonsList },
   { path: '/details', component: PokemonDetails },
+  { path: '/types', component: PokemonTypes }
 ];
 
 const router = new VueRouter({

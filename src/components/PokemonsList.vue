@@ -87,13 +87,13 @@ export default {
   methods: {
     async getPokemonData() {
       try {
-        const response = await pokeApi.get('pokemon/?offset=4&limit=10');
+        const response = await pokeApi.get('/pokemon/?offset=4&limit=10');
         const pokemons = response.data.results;
         console.log(pokemons);
 
         const pokemonData = await Promise.all(
           pokemons.map(async (pokemon) => {
-            const pokemonResponse = await pokeApi.get(`pokemon/${pokemon.name}`);
+            const pokemonResponse = await pokeApi.get(`/pokemon/${pokemon.name}`);
             const spriteURL = pokemonResponse.data.sprites.front_default;
             const element = pokemonResponse.data.types[0].type.name;
             const abilities = pokemonResponse.data.abilities;
