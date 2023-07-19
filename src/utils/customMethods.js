@@ -100,7 +100,7 @@ Vue.prototype.getElementColorNormal = function(element) {
     case 'steel':
       return 'blue-grey darken-1';
     case 'flying':
-      return 'light-green darken-4';
+      return 'white';
     default:
       return 'orange';  
   }
@@ -143,7 +143,7 @@ Vue.prototype.getElementColorHex = function(element) {
     case 'steel':
       return '#546E7A';
     case 'flying':
-      return '#33691E';
+      return '#fff';
     default:
       return '#FF9800';
   }

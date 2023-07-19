@@ -18,7 +18,7 @@
             <v-card
                 class="mx-auto rounded-xl"
                 :color="getElementColorNormal(pokemonType.name)"
-                dark
+                :dark="pokemonType.name === 'flying' ? false : true"
                 max-width="400"                    
             >                
                 <div>
@@ -52,7 +52,7 @@
                             :to="{ path: '/details', query: { pokemonTypeObject: pokemonType } }"
                             :color="getElementColorNormal(pokemonType.name)"
                             class="mt-2"
-                            dark>
+                            :lihght="pokemonType.name === 'flying' ? true : false">
                             View Pokemons
                         </v-btn>
                     </v-card-text>

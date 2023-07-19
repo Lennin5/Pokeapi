@@ -95,7 +95,8 @@ export default {
   methods: {
     async getPokemonData() {
       try {
-        const response = await pokeApi.get('/pokemon/?offset=0&limit=800');
+        // 640 we encounter a flying pokemon (white color)
+        const response = await pokeApi.get('/pokemon/?offset=1&limit=100');
         const pokemons = response.data.results;
         console.log(pokemons);
 
