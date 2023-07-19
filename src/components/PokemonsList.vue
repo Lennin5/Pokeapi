@@ -1,6 +1,6 @@
 <template>
   <div style="margin-top: 40px">
-    <h1 style="text-align: center;">Pokémon Sprites</h1>
+    <h1 style="text-align: center;" class="grey--text">Pokémon Sprites</h1>
     <br>
     <v-container>
       <v-row>
@@ -87,7 +87,7 @@ export default {
   methods: {
     async getPokemonData() {
       try {
-        const response = await pokeApi.get('/pokemon/?offset=4&limit=10');
+        const response = await pokeApi.get('/pokemon/?offset=100&limit=100');
         const pokemons = response.data.results;
         console.log(pokemons);
 

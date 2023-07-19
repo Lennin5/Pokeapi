@@ -18,6 +18,7 @@ import IceTypeLogo from '@/assets/img/types/ice.svg';
 import GhostTypeLogo from '@/assets/img/types/ghost.svg';
 import DragonTypeLogo from '@/assets/img/types/dragon.svg';
 import DarkTypeLogo from '@/assets/img/types/dark.svg';
+import FlyingTypeLogo from '@/assets/img/types/flying.svg';
 
 Vue.prototype.getElementTypeLogo = function(element) {
   switch (element) {
@@ -55,6 +56,8 @@ Vue.prototype.getElementTypeLogo = function(element) {
       return DarkTypeLogo;
     case 'steel':
       return SteelTypeLogo;
+    case 'flying':
+      return FlyingTypeLogo;
     default:
       return NormalTypeLogo
   }  
@@ -96,6 +99,8 @@ Vue.prototype.getElementColorNormal = function(element) {
       return 'grey darken-3';
     case 'steel':
       return 'blue-grey darken-1';
+    case 'flying':
+      return 'light-green darken-4';
     default:
       return 'orange';  
   }
@@ -137,8 +142,10 @@ Vue.prototype.getElementColorHex = function(element) {
       return '#424242';
     case 'steel':
       return '#546E7A';
+    case 'flying':
+      return '#33691E';
     default:
-      return '#f2f';
+      return '#FF9800';
   }
 };
 

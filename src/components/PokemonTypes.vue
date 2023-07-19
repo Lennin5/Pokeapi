@@ -30,7 +30,7 @@
                             height: 150px; 
                             margin-top: 100px; 
                             margin-bottom: 5px; 
-                            margin-left: 105px;
+                            margin-left: 90px;
                             opacity: 0.1;
                             position: absolute;">
                         <v-avatar 
