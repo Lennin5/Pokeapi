@@ -87,7 +87,7 @@ export default {
   methods: {
     async getPokemonData() {
       try {
-        const response = await pokeApi.get('/pokemon/?offset=100&limit=100');
+        const response = await pokeApi.get('/pokemon/?offset=0&limit=100');
         const pokemons = response.data.results;
         console.log(pokemons);
 

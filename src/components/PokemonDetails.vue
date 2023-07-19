@@ -53,7 +53,7 @@
                   <img
                     alt="user"
                     :src="getElementTypeLogo(pokemonData.element)"
-                    class="pa-2 l-r"
+                    class="pa-2"
                   >
                 </v-avatar>
                   <p class="ml-3 font-weight-bold grey--text mt-5">

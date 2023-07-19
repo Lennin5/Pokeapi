@@ -1,6 +1,6 @@
 <template>
   <div style="margin-top: 40px">
-    <h1 style="text-align: center;">Pokémon Types</h1>
+    <h1 style="text-align: center;" class="grey--text">Pokémon Types</h1>
     <br>
       <v-container>
         <v-row>
@@ -37,7 +37,7 @@
                         size="56" 
                         >
                         <img
-                            alt="user"
+                            alt="type-logo"
                             :src="getElementTypeLogo(pokemonType.name)"
                             class="pa-2"
                         >
@@ -63,16 +63,16 @@
                             align="center"
                             justify="space-around"
                         >
-                        <div>
+                        <div title="Pokemon's Number" style="cursor: help">
                             <v-icon class="mr-1">
-                            mdi-pokeball
-                        </v-icon>
-                        <span class="subheading mr-2">
-                            {{ pokemonTypes[index].numberOfPokemon }}
-                        </span>
+                                mdi-pokeball
+                            </v-icon>
+                            <span class="subheading mr-2">
+                                {{ pokemonTypes[index].numberOfPokemon }}
+                            </span>
                         </div>
                         
-                        <div>
+                        <div title="Pokemon's Moves" style="cursor: help">
                             <v-icon class="mr-1">
                                 mdi-star
                             </v-icon>
@@ -81,11 +81,13 @@
                             </span>
                         </div>
 
-                        <div>
+                        <div title="Pokemon's Generations" style="cursor: help">
                             <v-icon class="mr-1">
-                                mdi-share-variant
+                                mdi-cube
                             </v-icon>
-                            <span class="subheading">45</span>
+                            <span class="subheading">
+                                {{ pokemonTypes[index].pokemonGeneration }}
+                            </span>
                         </div>
 
                         </v-row>
@@ -126,12 +128,14 @@
                         const pokemonResponse = await pokeApi.get(`/type/${type.name}`);
                         const pokemonList = pokemonResponse.data.pokemon;
                         const pokemonMoves = pokemonResponse.data.moves;
+                        const pokemonGeneration = pokemonResponse.data.game_indices;
                         // console.log(`Type: ${type.name}, Number of Pokemon: ${pokemonList.length || 0} and Moves: ${pokemonMoves.length || 0}`);
                         return {
                             name: type.name,
                             type: type.name,
                             numberOfPokemon: pokemonList.length,
                             pokemonMoves: pokemonMoves.length,
+                            pokemonGeneration: pokemonGeneration.length,
                         };
                     })
                 );
