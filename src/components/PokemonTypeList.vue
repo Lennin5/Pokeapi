@@ -1,95 +1,136 @@
 <template>
     <div >
-      <div :style="{ backgroundColor: getElementColorHex(pokemonType) }">
+      <v-container>      
+        <v-row justify="center" class="mt-5">
+          <v-col cols="12">
+            <v-card
+                class="mx-auto rounded-xl d-flex align-center justify-center"
+                width="fullscreen"
+                height="200px"
+                :color="getElementColorNormal(pokemonType)"
+                :dark="pokemonType === 'flying' ? false : true"
+              >                
+              <img :src="getElementTypeLogo(pokemonType)" v-if="pokemonType !== 'flying'"
+                  class="" 
+                  style="
+                  width: 350px; 
+                  height: 350px; 
+                  margin-right: 750px;
+                  opacity: 0.1;
+                  position: absolute;">                  
+              <!-- <img :src="getElementTypeLogo(pokemonType)" 
+                  class="" 
+                  style="
+                  width: 180px; 
+                  height: 180px; 
+                  margin-left: 900px;
+                  opacity: 0.1;
+                  position: absolute;">             -->
+                  <v-container class="d-flex justify-space-between align-center" style="border: 1px solid transparent" width="100%">
+                    <div class="ml-0" style="border: 1px solid transparent">
+                      <v-card-title class="d-flex align-center">
+                          <v-avatar 
+                          size="80" 
+                          :style="{ borderRadius: pokemonType === 'flying' ? '0px' : '50%' }"
+                          >
+                          <img                          
+                              alt="type-logo"
+                              :src="getElementTypeLogo(pokemonType)"
+                          />
+                          </v-avatar>
+                          <span class="text-h4 font-weight-bold ml-2" style="text-align: center; word-spacing: px;">
+                              {{ pokemonType.toUpperCase() }}
+                          </span>                                                                                            
+                      </v-card-title>
+                    </div>
+                    <div style="border: 1px solid transparent; width: 50%">
 
-      </div>
+        <v-container>
+            <v-tabs v-model="tab" color="white" background-color="transparent">
+            <v-tab @click="fetchPokemonsByType()">
+              <v-icon class="mr-2">mdi-pokeball</v-icon>
+              <span>Total pokemons {{  pokemonsList.length }}</span>
+            </v-tab>
+            <v-tab @click="setPurePokemons()">
+              <v-icon class="mr-2">mdi-star-shooting</v-icon>
+              <span class="text-subtitle-2">Pures {{  pokemonsPure.length }}</span>
+            </v-tab>
+            <v-tab @click="setNotPurePokemons()">
+              <v-icon class="mr-2">mdi-star-off</v-icon>
+              <span class="text-subtitle-2">Not Pures {{  pokemonsNotPure.length }}</span>
+            </v-tab>
+            <!-- <v-tab-item>
+                <span>Tab1</span>
+            </v-tab-item>
+            <v-tab-item>
+                <span>Tab2</span>
+            </v-tab-item>             -->
+            </v-tabs>
+        </v-container>  
 
-      <v-row justify="center" class="mt-5">
-        <v-col cols="9">
-          <v-card
-              class="mx-auto rounded-xl"
-              :color="getElementColorNormal(pokemonType)"
-              :dark="pokemonType === 'flying' ? false : true"
-            >                
-                <div>
-                    <v-card-title>
-                        <img :src="getElementTypeLogo(pokemonType)" 
-                            class="" 
-                            style="
-                            width: 180px; 
-                            height: 180px; 
-                            margin-top: 60px; 
-                            margin-bottom: 0px; 
-                            margin-left: 900px;
-                            opacity: 0.1;
-                            position: absolute;">
-                        <v-avatar 
-                        size="90" 
-                        >
-                        <img
-                            alt="type-logo"
-                            :src="getElementTypeLogo(pokemonType)"
-                            class="pa-2"
-                        >
-                        </v-avatar>
-                        
-                        
-                        <div class="d-flex justify-end" style="border: 1px solid blue">
-                          <div>
-                            <span class="text-h4 font-weight-bold">
-                                {{ pokemonType[0].toUpperCase() + pokemonType.slice(1) }}
-                            </span>                            
+
+                      
+                      <!-- <v-list-item class="d-flex mt-5" style="border: 1px solid transparent;">
+                          <v-row
+                              class="d-flex justify-space-around"
+                              style="border: 1px solid transparent;"
+                          >
+                          <div style="pointer-events: none; border-radius: 10px;"
+                          :style="{backgroundColor: this.pokemonType === 'flying' ? '#00000055' : '#ffffff33'}">
+                            <v-chip
+                              class="ma-2"
+                              color="transparent"
+                              label
+                              text-color="white"
+                              style="border: none;"
+                            >
+                              <v-icon left>
+                                mdi-pokeball
+                              </v-icon>
+                              Total pokemons {{  pokemonsList.length }}
+                            </v-chip>                            
                           </div>
-                          <div>
-                            <v-list-item class="grow">
-                                <v-row
-                                    align="center"
-                                    justify="space-around"
-                                >
-                                <div title="Pokemon's Number" style="cursor: help">
-                                    <v-icon class="mr-1">
-                                        mdi-pokeball
-                                    </v-icon>
-                                    <span class="subheading mr-2">
-                                        97
-                                    </span>
-                                </div>
-                                
-                                <div title="Pokemon's Moves" style="cursor: help">
-                                    <v-icon class="mr-1">
-                                        mdi-star
-                                    </v-icon>
-                                    <span class="subheading mr-2">
-                                        98
-                                    </span>
-                                </div>
-
-                                <div title="Pokemon's Generations" style="cursor: help">
-                                    <v-icon class="mr-1">
-                                        mdi-cube
-                                    </v-icon>
-                                    <span class="subheading">
-                                        99
-                                    </span>
-                                </div>
-
-                                </v-row>
-                            </v-list-item>                            
+                          
+                          <div style="pointer-events: none; border-radius: 10px;"
+                          :style="{backgroundColor: this.pokemonType === 'flying' ? '#00000055' : '#ffffff33'}">
+                            <v-chip
+                              class="ma-2"
+                              color="transparent"                              
+                              label
+                              text-color="white"                              
+                            >
+                              <v-icon left>
+                                mdi-star-shooting
+                              </v-icon>
+                              Pures {{  pokemonsPure.length }}
+                            </v-chip>
                           </div>
-                        </div>
-                    </v-card-title>
 
-                    <v-card-actions>
+                          <div style="border-radius: 10px; cursor: pointer;"
+                          class="d-flex justify-center align-center"
+                          :style="{backgroundColor: this.pokemonType === 'flying' ? '#00000055' : '#ffffff33'}"
+                          @click="setNotPurePokemons()">
+                            <v-div
+                              class="ma-3"
+                            >
+                              <v-icon left>
+                                mdi-star-off
+                              </v-icon>
+                              Not Pures {{  pokemonsNotPure.length }}
+                            </v-div>
+                          </div>
 
-                    </v-card-actions>
-                </div>
-            </v-card>
-        </v-col>    
-      </v-row>  
+                          </v-row>
+                      </v-list-item>   -->
+                    </div>
+                      <v-card-actions>
+                      </v-card-actions>
+                  </v-container>
+              </v-card>
+          </v-col>    
+        </v-row>  
+      </v-container>
 
-
-      <h1 style="text-align: center;" class="grey--text mt-2">Pokémon Types: {{ pokemonType }}</h1>
-      
       <v-container>
         <FloatingButtons />
       <v-row>
@@ -126,7 +167,7 @@
                 <v-avatar 
                     size="45"                     
                     :style="{ backgroundColor: getElementColorHex(pokemonType), 
-                      boxShadow: pokemonType === 'flying' ? '0px 0px 3px 0px #343838' : 'none' }">
+                      boxShadow: pokemonType === 'flying' ? '0px 0px 2px 0px #343838' : 'none' }">
                     <img
                       alt="user"
                       :src="getElementTypeLogo(pokemonType)"
@@ -137,7 +178,7 @@
                     v-if="pokemon.element !== pokemonType"
                     size="45" 
                     :style="{ backgroundColor: getElementColorHex(pokemon.element), 
-                      boxShadow: pokemon.element === 'flying' ? '0px 0px 3px 0px #343838' : 'none' }"
+                      boxShadow: pokemon.element === 'flying' ? '0px 0px 2px 0px #343838' : 'none' }"
                     class="ms-1">
                     <img
                       alt="user"
@@ -174,23 +215,35 @@
   export default {
     data() {
       return {
+        tab: 0,
         pokemonType: this.$route.params.type,
         pokemonsList: [],
+        pokemonsPure: [],
+        pokemonsNotPure: [],
       };
     },
     mounted() {
       this.fetchPokemonsByType();
+      this.getPurePokemons();
     },
     components: {
       FloatingButtons,
     },
     methods: {
+      async getPurePokemons(){
+        setTimeout(() => {
+          const pokemonsPure = this.pokemonsList.filter(pokemon => pokemon.element === this.pokemonType);
+          const pokemonsNotPure = this.pokemonsList.filter(pokemon => pokemon.element !== this.pokemonType);
+          this.pokemonsPure = pokemonsPure;
+          this.pokemonsNotPure = pokemonsNotPure;
+        }, 1000);
+      },
       async fetchPokemonsByType() {
         try {
           const response = await pokeApi.get('/type/' + this.pokemonType);
           const pokemons = response.data.pokemon;
 
-          console.log(pokemons, 'pokemons');
+          // console.log(pokemons, 'pokemons');
 
           const pokemonData = await Promise.all(
           pokemons.map(async (pokemon) => {
@@ -227,11 +280,17 @@
         );
 
         this.pokemonsList = pokemonData;          
-        console.log(this.pokemonsList, 'pokemonsList');
+        // console.log(this.pokemonsList, 'pokemonsList');
 
         } catch (error) {
           console.error('Error al cargar los Pokémon:', error);
         }
+      },
+      setPurePokemons(){
+        this.pokemonsList = this.pokemonsPure;
+      },
+      setNotPurePokemons(){
+        this.pokemonsList = this.pokemonsNotPure;
       },
     },
   };
