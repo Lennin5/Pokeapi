@@ -19,7 +19,7 @@
         <span class="mr-2">Home</span>
         <v-icon>mdi-home</v-icon>
       </v-btn>   
-      <v-btn href="/types" text>
+      <v-btn href="/type" text>
         <span class="mr-2">Types</span>
         <v-icon>mdi-bookmark-box-multiple</v-icon>
       </v-btn>      

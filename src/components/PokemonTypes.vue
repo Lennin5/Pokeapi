@@ -49,7 +49,7 @@
 
                     <v-card-text class="text-h5 font-weight-bold d-flex justify-center">
                         <v-btn
-                            :to="{ path: '/details', query: { pokemonTypeObject: pokemonType } }"
+                            :to="{ path: '/type/' + pokemonType.name }"
                             :color="getElementColorNormal(pokemonType.name)"
                             class="mt-2"
                             :lihght="pokemonType.name === 'flying' ? true : false">

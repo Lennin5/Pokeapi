@@ -1,21 +1,11 @@
 <template>
-  <div style="margin-top: 40px">
-    <v-container>
-      <h1 style="text-align: center;" class="grey--text">All Pokémons</h1>
-    <!-- Agregamos la paginación -->
-    <div class="text-center">
-      <v-pagination
-        v-model="page"
-        :length="totalPages"
-        circle
-        color="orange"
-      >
-    </v-pagination>
-    </div>
-    <br>
+    <div>
+      <h1>Pokémon de Tipo {{ pokemonType }}</h1>
+      
+      <!-- <v-container>
       <v-row>
         <v-col
-          v-for="pokemon in paginatedPokemons"
+          v-for="pokemon in pokemonsList"
           :key="pokemon.name"
           cols="12"
           xs="12"
@@ -27,7 +17,7 @@
         >
           <v-card width="400" style="border-radius: 20px !important;">
             <div class="d-flex justify-center">
-              <v-img :src="pokemon.sprites[index]" max-height="300px" max-width="150" class="">
+              <v-img :src="pokemon.url" max-height="300px" max-width="150" class="">
               </v-img>
             </div>
             <v-card-text>
@@ -66,43 +56,39 @@
           </v-card>
         </v-col>
       </v-row>      
-    </v-container>
+    </v-container> -->
 
+    </div>
+  </template>
+  
+  <script>
+    import pokeApi from '../plugins/axios';
+  
+  export default {
+    data() {
+      return {
+        pokemonType: this.$route.params.type,
+        pokemonsList: [],
+      };
+    },
+    mounted() {
+      this.fetchPokemonsByType();
+    },
+    methods: {
+      async fetchPokemonsByType() {
+        try {
+          const response = await pokeApi.get('/type/' + this.pokemonType);
+          const pokemons = response.data.pokemon;
 
-  </div>
-</template>
+          console.log(pokemons, 'pokemons');
 
-<script>
-import pokeApi from '../plugins/axios';
-import BgPokemon from '@/assets/img/bg-pokemon.png';
-
-export default {
-  name: 'PokemonsList',
-
-  data() {
-    return {
-      pokemons: [],
-      BgPokemon: BgPokemon,
-      index: 0,
-      page: 1, // Página inicial
-    };
-  },
-
-  async created() {
-    this.getPokemonData();
-  },
-
-  methods: {
-    async getPokemonData() {
-      try {
-        // 640 we encounter a flying pokemon (white color)
-        const response = await pokeApi.get('/pokemon/?offset=1&limit=100');
-        const pokemons = response.data.results;
-        console.log(pokemons);
-
-        const pokemonData = await Promise.all(
+          const pokemonData = await Promise.all(
           pokemons.map(async (pokemon) => {
-            const pokemonResponse = await pokeApi.get(`/pokemon/${pokemon.name}`);
+            const pokemonResponse = await pokeApi.get(`/pokemon/${pokemon.pokemon.name}`);
+            // console.log(pokemon.pokemon.name);
+            // console.log(pokemonResponse.data);
+
+            const name = pokemonResponse.data.name;
             const spriteURL = pokemonResponse.data.sprites.front_default;
             const element = pokemonResponse.data.types[0].type.name;
             const abilities = pokemonResponse.data.abilities;
@@ -118,7 +104,7 @@ export default {
               pokemonResponse.data.sprites.back_shiny,
             ];
             return {
-              name: pokemon.name,
+              name: name,
               spriteURL: spriteURL,
               element: element,
               sprites: sprites,
@@ -130,23 +116,14 @@ export default {
           })
         );
 
-        this.pokemons = pokemonData;
-      } catch (error) {
-        console.error(error);
-      }
-    }, 
-  },
+        this.pokemonsList = pokemonData;          
+        console.log(this.pokemonsList, 'pokemonsList');
 
-  computed: {
-    totalPages() {
-      return Math.ceil(this.pokemons.length / 100);
+        } catch (error) {
+          console.error('Error al cargar los Pokémon:', error);
+        }
+      },
     },
-
-    paginatedPokemons() {
-      const startIndex = (this.page - 1) * 100;
-      const endIndex = startIndex + 100;
-      return this.pokemons.slice(startIndex, endIndex);
-    }
-  }
-};
-</script>
+  };
+  </script>
+  

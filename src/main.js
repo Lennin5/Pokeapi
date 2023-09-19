@@ -6,13 +6,15 @@ import GlobalMethods from './utils/customMethods';
 import PokemonsList from './components/PokemonsList';
 import PokemonDetails from './components/PokemonDetails';
 import PokemonTypes from './components/PokemonTypes';
+import PokemonType from './components/PokemonType';
 
 Vue.use(VueRouter);
 
 const routes = [
   { path: '/', component: PokemonsList },
   { path: '/details', component: PokemonDetails },
-  { path: '/types', component: PokemonTypes }
+  { path: '/type', component: PokemonTypes },
+  { path: '/type/:type', component: PokemonType }
 ];
 
 const router = new VueRouter({

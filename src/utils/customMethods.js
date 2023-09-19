@@ -20,7 +20,7 @@ import DragonTypeLogo from '@/assets/img/types/dragon.svg';
 import DarkTypeLogo from '@/assets/img/types/dark.svg';
 import FlyingTypeLogo from '@/assets/img/types/flying.svg';
 
-Vue.prototype.getElementTypeLogo = function(element) {
+Vue.prototype.getElementTypeLogo = (element) => {
   switch (element) {
     case 'grass':
       return GrassTypeLogo;
@@ -63,7 +63,7 @@ Vue.prototype.getElementTypeLogo = function(element) {
   }  
 }
 
-Vue.prototype.getElementColorNormal = function(element) {
+Vue.prototype.getElementColorNormal = (element) => {
   switch (element) {
     case 'grass':
       return 'teal lighten-2';
@@ -106,7 +106,7 @@ Vue.prototype.getElementColorNormal = function(element) {
   }
 }
 
-Vue.prototype.getElementColorHex = function(element) {
+Vue.prototype.getElementColorHex = (element) => {
   switch (element) {
     case 'grass':
       return '#4DB6AC';
