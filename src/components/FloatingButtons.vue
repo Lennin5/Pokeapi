@@ -11,6 +11,7 @@
       :transition="transition"
     >
       <template v-slot:activator>
+
         <v-btn
           v-model="fab"
           :color="getElementColorNormal(pokemonType)"
@@ -34,30 +35,21 @@
           </div>          
         </v-btn>
       </template>
-      <v-btn
-        fab
-        dark
-        small
-        color="green"
-      >
-        <v-icon>mdi-pencil</v-icon>
-      </v-btn>
-      <v-btn
-        fab
-        dark
-        small
-        color="indigo"
-      >
-        <v-icon>mdi-plus</v-icon>
-      </v-btn>
-      <v-btn
+        <div style="overflow-y: auto; height: 400px; border-radius: 20px;"
+        :style="{backgroundColor: 'transparent'}">
+          <v-btn
+      :key="key"
+      v-for="(n, key) in 16"
         fab
         dark
         small
         color="red"
       >
-        <v-icon>mdi-delete</v-icon>
+        <v-icon>mdi-pokeball</v-icon>
       </v-btn>
+        </div>      
+
+
     </v-speed-dial>  
   </div>
 </template>
@@ -74,7 +66,7 @@ export default {
       direction: 'top',
       fab: false,
       fling: false,
-      hover: true,
+      hover: false,
       tabs: null,
       top: false,
       right: true,
