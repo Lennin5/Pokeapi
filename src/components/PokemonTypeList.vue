@@ -154,29 +154,47 @@
                       {{ pokemonType !== pokemon.element ? ' / ' + pokemon.element[0].toUpperCase() + pokemon.element.slice(1) : '' }}
                 </h4>
               </div>              
-              <div class="d-flex justify-center mb-2">
-                <v-avatar 
-                    size="45"                     
-                    :style="{ backgroundColor: getElementColorHex(pokemonType), 
-                      boxShadow: pokemonType === 'flying' ? '0px 0px 2px 0px #343838' : 'none' }">
-                    <img
-                      alt="user"
-                      :src="getElementTypeLogo(pokemonType)"
-                      class="pa-2"
-                    >
-                  </v-avatar><br>
-                  <v-avatar           
-                    v-if="pokemon.element !== pokemonType"
-                    size="45" 
-                    :style="{ backgroundColor: getElementColorHex(pokemon.element), 
-                      boxShadow: pokemon.element === 'flying' ? '0px 0px 2px 0px #343838' : 'none' }"
-                    class="ms-1">
-                    <img
-                      alt="user"
-                      :src="getElementTypeLogo(pokemon.element)"
-                      class="pa-2"
-                    >
-                  </v-avatar>
+              <div class="d-flex justify-center mb-3">
+                <div
+                  :style="{
+                  width: '45px',
+                  height: '45px',                  
+                  backgroundColor: getElementColorHex(pokemonType),
+                  padding: '10px',
+                  borderRadius: '50px',
+                  boxShadow: pokemonType === 'flying' ? '0px 0px 2px 0px #343838' : 'none',
+                  }"
+                >
+                  <div
+                    :style="{
+                      height: '50px',
+                      backgroundSize: 'contain',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundImage: 'url(' + getElementTypeLogo(pokemonType) + ')',
+                    }"
+                  />
+                </div>
+                <div
+                  v-if="pokemon.element !== pokemonType"
+                  :style="{
+                  width: '45px',
+                  height: '45px',                  
+                  backgroundColor: getElementColorHex(pokemon.element),
+                  padding: '10px',
+                  borderRadius: '50px',
+                  boxShadow: pokemon.element === 'flying' ? '0px 0px 2px 0px #343838' : 'none',
+                  }"
+                  class="ms-1"
+                >
+                  <div
+                    :style="{
+                      height: '50px',
+                      backgroundSize: 'contain',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundImage: 'url(' + getElementTypeLogo(pokemon.element) + ')',
+                    }"
+                  />
+                </div>
               </div>
               <div class="d-flex justify-center pb-4">
                 <v-btn
