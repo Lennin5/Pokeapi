@@ -1,5 +1,10 @@
 <template>
-    <div >
+    <div>
+      <!-- Floating type pokemons button -->
+      <FloatingButtons 
+        :pokemonType="pokemonType"
+      />
+
       <v-container>      
         <v-row justify="center" class="mt-5">
           <v-col cols="12">
@@ -96,11 +101,7 @@
         </v-row>  
       </v-container>
 
-      <!-- Floating type pokemons button -->
-      <FloatingButtons />
-
       <v-container>
-
       <!-- Skeleton loader -->
       <v-row v-if="pokemonsList.length === 0">
         <v-col cols="4" v-for="n in 6" :key="n" >

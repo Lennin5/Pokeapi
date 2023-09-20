@@ -1,67 +1,107 @@
 <template>
-    <div class="floating-buttons" 
-    style="border: 1px solid red">
-
-    <!-- <div class="containerr" style="border: 1px solid blue"> -->
-      <!-- Botón A -->
+  <div class="fab-container">
+    <v-speed-dial
+      v-model="fab"
+      :top="top"
+      :bottom="bottom"
+      :right="right"
+      :left="left"
+      :direction="direction"
+      :open-on-hover="hover"
+      :transition="transition"
+    >
+      <template v-slot:activator>
+        <v-btn
+          v-model="fab"
+          :color="getElementColorNormal(pokemonType)"
+          dark
+          fab
+        >
+          <v-icon v-if="fab"
+            :color="pokemonType === 'flying' ? 'black' : 'white'"          >
+            mdi-close
+          </v-icon>
+          <div
+            v-else
+            class="container-element"
+          >
+            <div
+              class="element-icon"
+              :style="{
+                  backgroundImage: 'url(' + getElementTypeLogo(pokemonType) + ')',
+              }"
+              />
+          </div>          
+        </v-btn>
+      </template>
       <v-btn
-        :key="key"
-        v-for="(n, key) in 20"
         fab
+        dark
         small
-        color="primary"
-        class="ma-2"
-        @click="handleButtonClick(n)"
+        color="green"
       >
-        {{ n }}
+        <v-icon>mdi-pencil</v-icon>
       </v-btn>
+      <v-btn
+        fab
+        dark
+        small
+        color="indigo"
+      >
+        <v-icon>mdi-plus</v-icon>
+      </v-btn>
+      <v-btn
+        fab
+        dark
+        small
+        color="red"
+      >
+        <v-icon>mdi-delete</v-icon>
+      </v-btn>
+    </v-speed-dial>  
+  </div>
+</template>
 
-    </div>
-
-
-    <!-- </div> -->
-  </template>
-  
-  <script>
-  import pokeApi from '../plugins/axios';
-  export default {
-    created() {
-      this.getPokemonTypes()
-    },
-    methods: {
-      handleButtonClick(buttonText) {
-        // Aquí puedes manejar la lógica cuando se hace clic en uno de los botones.
-        // Por ejemplo, puedes mostrar un mensaje o realizar una acción específica.
-        console.log(`Botón ${buttonText} clickeado.`);
+<script>
+export default {
+  props: {
+      pokemonType: {
+          type: String,
+          required: true,
       },
-      async getPokemonTypes(){
-        try {
-          const response = await pokeApi.get('/type');
-          console.log(response, 'pokemonsTypes');          
-        } catch (error) {
-          console.log(error, 'error');
-        }
-      }
-    },
-  };
-  </script>
-  
-  <style>
-  .floating-buttons {    
+  },  
+  data: () => ({
+      direction: 'top',
+      fab: false,
+      fling: false,
+      hover: true,
+      tabs: null,
+      top: false,
+      right: true,
+      bottom: true,
+      left: false,
+      transition: 'slide-y-reverse-transition',
+    }),
+};
+</script>
+
+<style>
+  .fab-container {
     position: fixed;
-    background-color: black;
-    width: 100%;
-    bottom: 0px;
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    align-items: center;
-    z-index: 999;
+    bottom: 10px;
+    right: 5px;
+    z-index: 99;
   }
-  .containerr{
-    height: 100px;
-    display: flex;
-    flex-direction: row;
+
+  .container-element {
+      width: 50px;
+      height: 50px;
+      padding: 10px;
+      border-radius: 50px;
   }
-  </style>
-  
+  .element-icon {
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+  } 
+</style>
