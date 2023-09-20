@@ -44,84 +44,28 @@
                       </v-card-title>
                     </div>
                     <div style="border: 1px solid transparent; width: 50%">
-
-        <v-container>
-            <v-tabs v-model="tab" color="white" background-color="transparent">
-            <v-tab @click="fetchPokemonsByType()">
-              <v-icon class="mr-2">mdi-pokeball</v-icon>
-              <span>Total pokemons {{  pokemonsList.length }}</span>
-            </v-tab>
-            <v-tab @click="setPurePokemons()">
-              <v-icon class="mr-2">mdi-star-shooting</v-icon>
-              <span class="text-subtitle-2">Pures {{  pokemonsPure.length }}</span>
-            </v-tab>
-            <v-tab @click="setNotPurePokemons()">
-              <v-icon class="mr-2">mdi-star-off</v-icon>
-              <span class="text-subtitle-2">Not Pures {{  pokemonsNotPure.length }}</span>
-            </v-tab>
-            <!-- <v-tab-item>
-                <span>Tab1</span>
-            </v-tab-item>
-            <v-tab-item>
-                <span>Tab2</span>
-            </v-tab-item>             -->
-            </v-tabs>
-        </v-container>  
-
-
-                      
-                      <!-- <v-list-item class="d-flex mt-5" style="border: 1px solid transparent;">
-                          <v-row
-                              class="d-flex justify-space-around"
-                              style="border: 1px solid transparent;"
-                          >
-                          <div style="pointer-events: none; border-radius: 10px;"
-                          :style="{backgroundColor: this.pokemonType === 'flying' ? '#00000055' : '#ffffff33'}">
-                            <v-chip
-                              class="ma-2"
-                              color="transparent"
-                              label
-                              text-color="white"
-                              style="border: none;"
-                            >
-                              <v-icon left>
-                                mdi-pokeball
-                              </v-icon>
-                              Total pokemons {{  pokemonsList.length }}
-                            </v-chip>                            
-                          </div>
-                          
-                          <div style="pointer-events: none; border-radius: 10px;"
-                          :style="{backgroundColor: this.pokemonType === 'flying' ? '#00000055' : '#ffffff33'}">
-                            <v-chip
-                              class="ma-2"
-                              color="transparent"                              
-                              label
-                              text-color="white"                              
-                            >
-                              <v-icon left>
-                                mdi-star-shooting
-                              </v-icon>
-                              Pures {{  pokemonsPure.length }}
-                            </v-chip>
-                          </div>
-
-                          <div style="border-radius: 10px; cursor: pointer;"
-                          class="d-flex justify-center align-center"
-                          :style="{backgroundColor: this.pokemonType === 'flying' ? '#00000055' : '#ffffff33'}"
-                          @click="setNotPurePokemons()">
-                            <v-div
-                              class="ma-3"
-                            >
-                              <v-icon left>
-                                mdi-star-off
-                              </v-icon>
-                              Not Pures {{  pokemonsNotPure.length }}
-                            </v-div>
-                          </div>
-
-                          </v-row>
-                      </v-list-item>   -->
+                      <v-container>
+                          <v-tabs v-model="tab" color="white" background-color="transparent">
+                          <v-tab @click="setAllPokemons()">
+                            <v-icon class="mr-2">mdi-pokeball</v-icon>
+                            <span>Total pokemons {{  pokemonsAll.length }}</span>
+                          </v-tab>
+                          <v-tab @click="setPurePokemons()">
+                            <v-icon class="mr-2">mdi-star-shooting</v-icon>
+                            <span class="text-subtitle-2">Pures {{  pokemonsPure.length }}</span>
+                          </v-tab>
+                          <v-tab @click="setNotPurePokemons()">
+                            <v-icon class="mr-2">mdi-star-off</v-icon>
+                            <span class="text-subtitle-2">Not Pures {{  pokemonsNotPure.length }}</span>
+                          </v-tab>
+                          <!-- <v-tab-item>
+                              <span>Tab1</span>
+                          </v-tab-item>
+                          <v-tab-item>
+                              <span>Tab2</span>
+                          </v-tab-item>             -->
+                          </v-tabs>
+                      </v-container>  
                     </div>
                       <v-card-actions>
                       </v-card-actions>
@@ -133,25 +77,25 @@
 
       <v-container>
         <FloatingButtons />
-        <!-- v-if="pokemonsList.length === 0" -->
-        <v-row >
-          <v-col cols="4" v-bind="pokemonType" v-for="n in 3" :key="n" >
-
-  <v-card>
-    <v-skeleton-loader type="avatar" class="mb-3 text-center"></v-skeleton-loader>
-    <v-skeleton-loader type="image" aspect-ratio="1.5" class="mb-3"></v-skeleton-loader>
-    <v-card-title>
-      <v-skeleton-loader type="text" class="mb-1"></v-skeleton-loader>
-    </v-card-title>
-    <v-card-subtitle>
-      <v-skeleton-loader type="text" class="mb-1"></v-skeleton-loader>
-    </v-card-subtitle>
-    <v-card-actions>
-      <v-skeleton-loader type="button" class="w-100"></v-skeleton-loader>
-    </v-card-actions>
-  </v-card>           
-
-
+        <v-row v-if="pokemonsList.length === 0">
+          <v-col cols="4" v-for="n in 3" :key="n" >
+            <v-card style="border-radius: 20px;">
+              <div class="d-flex justify-center">
+                <v-skeleton-loader type="image" aspect-ratio="0.5" class="mb-3 mt-4" style="width: 80%; border-radius: 20px"></v-skeleton-loader>
+              </div>    
+              <div>
+                <v-col class="d-flex justify-center" style="margin: 0px; padding: 0px;">
+                  <v-skeleton-loader type="text" style="width: 50%"></v-skeleton-loader>
+                </v-col>
+                <v-col class="d-flex justify-center" style="margin: 0px; padding: 0px;">
+                  <v-skeleton-loader type="text" style="width: 40%"></v-skeleton-loader>
+                </v-col>
+              </div>
+              <v-skeleton-loader type="avatar" class="mb-3 mt-1 d-flex justify-center"></v-skeleton-loader>
+              <v-card-actions class="d-flex justify-center pb-4">
+                <v-skeleton-loader type="button" class="w-100"></v-skeleton-loader>
+              </v-card-actions>
+            </v-card>           
           </v-col>
         </v-row>
 
@@ -241,9 +185,14 @@
         tab: 0,
         pokemonType: this.$route.params.type,
         pokemonsList: [],
+        pokemonsAll: [],
         pokemonsPure: [],
         pokemonsNotPure: [],
       };
+    },
+    created(){
+      // top to scroll
+      window.scrollTo(0, 0);
     },
     mounted() {
       this.fetchPokemonsByType();      
@@ -302,11 +251,15 @@
         );
 
         this.pokemonsList = pokemonData;          
+        this.pokemonsAll = pokemonData;
         this.getPurePokemons();
 
         } catch (error) {
           console.error('Error al cargar los Pokémon:', error);
         }
+      },
+      setAllPokemons(){
+        this.pokemonsList = this.pokemonsAll;
       },
       setPurePokemons(){
         this.pokemonsList = this.pokemonsPure;
