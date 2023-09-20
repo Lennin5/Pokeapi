@@ -156,41 +156,30 @@
               </div>              
               <div class="d-flex justify-center mb-3">
                 <div
-                  :style="{
-                  width: '45px',
-                  height: '45px',                  
-                  backgroundColor: getElementColorHex(pokemonType),
-                  padding: '10px',
-                  borderRadius: '50px',
-                  boxShadow: pokemonType === 'flying' ? '0px 0px 2px 0px #343838' : 'none',
+                  class="container-element"
+                  :style="{                
+                    backgroundColor: getElementColorHex(pokemonType),
+                    boxShadow: pokemonType === 'flying' ? '0px 0px 2px 0px #343838' : 'none',
                   }"
                 >
                   <div
+                    class="element-icon"
                     :style="{
-                      height: '50px',
-                      backgroundSize: 'contain',
-                      backgroundRepeat: 'no-repeat',
                       backgroundImage: 'url(' + getElementTypeLogo(pokemonType) + ')',
                     }"
                   />
                 </div>
                 <div
                   v-if="pokemon.element !== pokemonType"
-                  :style="{
-                  width: '45px',
-                  height: '45px',                  
+                  class="container-element ms-1"
+                  :style="{                  
                   backgroundColor: getElementColorHex(pokemon.element),
-                  padding: '10px',
-                  borderRadius: '50px',
                   boxShadow: pokemon.element === 'flying' ? '0px 0px 2px 0px #343838' : 'none',
                   }"
-                  class="ms-1"
                 >
                   <div
+                  class="element-icon"
                     :style="{
-                      height: '50px',
-                      backgroundSize: 'contain',
-                      backgroundRepeat: 'no-repeat',
                       backgroundImage: 'url(' + getElementTypeLogo(pokemon.element) + ')',
                     }"
                   />
@@ -313,7 +302,15 @@
   };
   </script>
   <style scoped>
-  /* .v-avatar{
-    border-radius: 0px !important;
-  } */
+  .container-element {
+    width: 45px;
+    height: 45px;
+    padding: 10px;
+    border-radius: 50px;
+  }
+  .element-icon {
+    height: 45px;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }  
   </style>

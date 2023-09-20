@@ -68,7 +68,7 @@ Vue.prototype.getElementColorNormal = (element) => {
     case 'grass':
       return 'teal lighten-2';
     case 'fire':
-      return 'red lighten-1';
+      return 'red darken-1';
     case 'water':
       return 'light-blue lighten-2';
     case 'bug':
@@ -111,7 +111,7 @@ Vue.prototype.getElementColorHex = (element) => {
     case 'grass':
       return '#4DB6AC';
     case 'fire':
-      return '#EF5350';
+      return '#E53935';
     case 'water':
       return '#4FC3F7';
     case 'bug':
