@@ -133,7 +133,30 @@
 
       <v-container>
         <FloatingButtons />
-      <v-row>
+        <!-- v-if="pokemonsList.length === 0" -->
+        <v-row >
+          <v-col cols="4" v-bind="pokemonType" v-for="n in 3" :key="n" >
+
+  <v-card>
+    <v-skeleton-loader type="avatar" class="mb-3 text-center"></v-skeleton-loader>
+    <v-skeleton-loader type="image" aspect-ratio="1.5" class="mb-3"></v-skeleton-loader>
+    <v-card-title>
+      <v-skeleton-loader type="text" class="mb-1"></v-skeleton-loader>
+    </v-card-title>
+    <v-card-subtitle>
+      <v-skeleton-loader type="text" class="mb-1"></v-skeleton-loader>
+    </v-card-subtitle>
+    <v-card-actions>
+      <v-skeleton-loader type="button" class="w-100"></v-skeleton-loader>
+    </v-card-actions>
+  </v-card>           
+
+
+          </v-col>
+        </v-row>
+
+
+      <v-row>      
         <v-col
           v-for="(pokemon, index) in pokemonsList"
           :key="pokemon.name"
@@ -223,8 +246,7 @@
       };
     },
     mounted() {
-      this.fetchPokemonsByType();
-      this.getPurePokemons();
+      this.fetchPokemonsByType();      
     },
     components: {
       FloatingButtons,
@@ -280,7 +302,7 @@
         );
 
         this.pokemonsList = pokemonData;          
-        // console.log(this.pokemonsList, 'pokemonsList');
+        this.getPurePokemons();
 
         } catch (error) {
           console.error('Error al cargar los Pokémon:', error);
@@ -295,4 +317,6 @@
     },
   };
   </script>
-  
+  <style>
+
+  </style>
