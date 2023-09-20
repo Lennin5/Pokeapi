@@ -31,7 +31,7 @@
                       <v-card-title class="d-flex align-center">
                           <v-avatar 
                           size="80" 
-                          :style="{ borderRadius: pokemonType === 'flying' ? '0px' : '50%' }"
+                          style="border-radius: 0px;"
                           >
                           <img                          
                               alt="type-logo"
@@ -48,7 +48,7 @@
                         <div>
                           <v-tabs 
                            v-model="tab"
-                           :color="pokemonType === 'flying' ? 'black' : 'white'"
+                           :color="pokemonType === 'flying' ? 'grey darken-3' : 'white'"
                            background-color="transparent">
                           <v-tab @click="setAllPokemons()">
                             <v-icon class="mr-2">mdi-pokeball</v-icon>
@@ -60,7 +60,7 @@
                             </span>
                           </v-tab>
                           <v-tab @click="setPurePokemons()">
-                            <v-icon class="mr-2">mdi-star-shooting</v-icon>
+                            <v-icon class="mr-2">mdi-star</v-icon>
                             <span v-if="pokemonsPure.length === 0">
                               Pure ...
                             </span>
@@ -97,30 +97,33 @@
       </v-container>
 
       <v-container>
-        <FloatingButtons />
-        <v-row v-if="pokemonsList.length === 0">
-          <v-col cols="4" v-for="n in 6" :key="n" >
-            <v-card style="border-radius: 20px;">
-              <div class="d-flex justify-center">
-                <v-skeleton-loader type="image" aspect-ratio="0.5" class="mb-3 mt-4" style="width: 80%; border-radius: 20px"></v-skeleton-loader>
-              </div>    
-              <div>
-                <v-col class="d-flex justify-center" style="margin: 0px; padding: 0px;">
-                  <v-skeleton-loader type="text" style="width: 50%"></v-skeleton-loader>
-                </v-col>
-                <v-col class="d-flex justify-center" style="margin: 0px; padding: 0px;">
-                  <v-skeleton-loader type="text" style="width: 40%"></v-skeleton-loader>
-                </v-col>
-              </div>
-              <v-skeleton-loader type="avatar" class="mb-3 mt-1 d-flex justify-center"></v-skeleton-loader>
-              <v-card-actions class="d-flex justify-center pb-4">
-                <v-skeleton-loader type="button" class="w-100"></v-skeleton-loader>
-              </v-card-actions>
-            </v-card>           
-          </v-col>
-        </v-row>
+      <!-- Floating type pokemons button -->
+      <FloatingButtons />
 
+      <!-- Skeleton loader -->
+      <v-row v-if="pokemonsList.length === 0">
+        <v-col cols="4" v-for="n in 6" :key="n" >
+          <v-card style="border-radius: 20px;">
+            <div class="d-flex justify-center">
+              <v-skeleton-loader type="image" aspect-ratio="0.5" class="mb-3 mt-4" style="width: 80%; border-radius: 20px"></v-skeleton-loader>
+            </div>    
+            <div>
+              <v-col class="d-flex justify-center" style="margin: 0px; padding: 0px;">
+                <v-skeleton-loader type="text" style="width: 50%"></v-skeleton-loader>
+              </v-col>
+              <v-col class="d-flex justify-center" style="margin: 0px; padding: 0px;">
+                <v-skeleton-loader type="text" style="width: 40%"></v-skeleton-loader>
+              </v-col>
+            </div>
+            <v-skeleton-loader type="avatar" class="mb-3 mt-1 d-flex justify-center"></v-skeleton-loader>
+            <v-card-actions class="d-flex justify-center pb-4">
+              <v-skeleton-loader type="button" class="w-100"></v-skeleton-loader>
+            </v-card-actions>
+          </v-card>           
+        </v-col>
+      </v-row>
 
+      <!-- Pokemons list -->
       <v-row>      
         <v-col
           v-for="(pokemon, index) in pokemonsList"
@@ -291,6 +294,8 @@
     },
   };
   </script>
-  <style>
-
+  <style scoped>
+  /* .v-avatar{
+    border-radius: 0px !important;
+  } */
   </style>

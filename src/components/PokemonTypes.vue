@@ -35,6 +35,7 @@
                             position: absolute;">
                         <v-avatar 
                         size="56" 
+                        style="border-radius: 0px;"
                         >
                         <img
                             alt="type-logo"
