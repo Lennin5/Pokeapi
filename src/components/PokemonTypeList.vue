@@ -44,19 +44,38 @@
                       </v-card-title>
                     </div>
                     <div style="border: 1px solid transparent; width: 50%">
-                      <v-container>
-                          <v-tabs v-model="tab" color="white" background-color="transparent">
+                      <v-container class="d-flex justify-end">
+                        <div>
+                          <v-tabs 
+                           v-model="tab"
+                           :color="pokemonType === 'flying' ? 'black' : 'white'"
+                           background-color="transparent">
                           <v-tab @click="setAllPokemons()">
                             <v-icon class="mr-2">mdi-pokeball</v-icon>
-                            <span>Total pokemons {{  pokemonsAll.length }}</span>
+                            <span v-if="pokemonsAll.length === 0">
+                              Total Pokemons ...
+                            </span>
+                            <span v-else>
+                              Total Pokemons {{  pokemonsAll.length }}
+                            </span>
                           </v-tab>
                           <v-tab @click="setPurePokemons()">
                             <v-icon class="mr-2">mdi-star-shooting</v-icon>
-                            <span class="text-subtitle-2">Pures {{  pokemonsPure.length }}</span>
+                            <span v-if="pokemonsPure.length === 0">
+                              Pure ...
+                            </span>
+                            <span v-else>
+                              Pure {{  pokemonsPure.length }}
+                            </span>
                           </v-tab>
                           <v-tab @click="setNotPurePokemons()">
                             <v-icon class="mr-2">mdi-star-off</v-icon>
-                            <span class="text-subtitle-2">Not Pures {{  pokemonsNotPure.length }}</span>
+                            <span v-if="pokemonsNotPure.length === 0">
+                              Not Pure ...
+                            </span>
+                            <span v-else>
+                              Not Pure {{  pokemonsNotPure.length }}
+                            </span>
                           </v-tab>
                           <!-- <v-tab-item>
                               <span>Tab1</span>
@@ -65,7 +84,9 @@
                               <span>Tab2</span>
                           </v-tab-item>             -->
                           </v-tabs>
+                        </div>
                       </v-container>  
+
                     </div>
                       <v-card-actions>
                       </v-card-actions>
@@ -78,7 +99,7 @@
       <v-container>
         <FloatingButtons />
         <v-row v-if="pokemonsList.length === 0">
-          <v-col cols="4" v-for="n in 3" :key="n" >
+          <v-col cols="4" v-for="n in 6" :key="n" >
             <v-card style="border-radius: 20px;">
               <div class="d-flex justify-center">
                 <v-skeleton-loader type="image" aspect-ratio="0.5" class="mb-3 mt-4" style="width: 80%; border-radius: 20px"></v-skeleton-loader>
@@ -202,12 +223,12 @@
     },
     methods: {
       async getPurePokemons(){
-        setTimeout(() => {
+        // setTimeout(() => {
           const pokemonsPure = this.pokemonsList.filter(pokemon => pokemon.element === this.pokemonType);
           const pokemonsNotPure = this.pokemonsList.filter(pokemon => pokemon.element !== this.pokemonType);
           this.pokemonsPure = pokemonsPure;
           this.pokemonsNotPure = pokemonsNotPure;
-        }, 1000);
+        // }, 1000);
       },
       async fetchPokemonsByType() {
         try {
