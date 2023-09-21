@@ -6,7 +6,7 @@
       />
 
       <v-container>      
-        <v-row justify="center" class="mt-5">
+        <v-row justify="center" class="mt-0">
           <v-col cols="12">
             <v-card
                 class="mx-auto rounded-xl d-flex align-center justify-center"
@@ -17,21 +17,36 @@
               >           
               <div
                 :style="{
-                  backgroundImage: 'url(' + getElementTypeLogo(pokemonType) + ')'}"
+                  marginRight: getMarginToTypeBackground(pokemonType),
+                  backgroundImage: 'url(' + getElementTypeLogo(pokemonType) + ')',
+                  
+                }"
                 style="
                   width: 350px; 
                   height: 200px; 
-                  border-radius: 0px;                  
-                  margin-right: 750px;
+                  border-radius: 0px;                                    
                   opacity: 0.1;
                   position: absolute;
                   background-size: cover;
                   background-position: center;"
                 >
               </div>
-              <v-container class="d-flex justify-space-between align-center" style="border: 1px solid transparent" width="100%">
-                <div class="ml-0" style="border: 1px solid transparent">
-                  <v-card-title class="d-flex align-center">
+              <div class="d-flex justify-start align-end mb-0 cursor-pointer" style="margin-top: -150px; margin-left: 10px; z-index: 10" @click="$router.go(-1)">
+                <div>
+                  <v-icon                  
+                  :style="{color: pokemonType === 'flying' ? '#0000008a' : '#ffffff8a'}"
+                  >mdi-chevron-left</v-icon>                      
+                </div>
+                <div>
+                  <span class="text-subtitle-2"
+                  :style="{color: pokemonType === 'flying' ? '#0000008a' : '#ffffff8a'}"
+                  >Back</span>
+                </div>
+              </div>                 
+              <v-container class="d-flex justify-center align-center" style="border: 1px solid transparent" width="100%">
+                <div class="ml-0" style="border: 1px solid transparent;" >
+               
+                  <v-card-title class="d-flex align-center" >
                       <v-avatar 
                       size="80" 
                       style="border-radius: 0px;"
@@ -272,6 +287,30 @@
       setNotPurePokemons(){
         document.getElementById('notPurePokemonsCloneTab').click();
       },
+      getMarginToTypeBackground(pokemonType) {
+        const typeMarginMapping = {
+          'normal': '640px',
+          'fighting': '680px',
+          'flying': '480px',
+          'poison': '615px',
+          'ground': '700px',
+          'rock': '500px',
+          'bug': '562px',
+          'ghost': '950px',
+          'steel': '600px',
+          'fire': '510px',
+          'water': '610px',
+          'grass': '890px',
+          'electric': '635px',
+          'psychic': '670px',
+          'ice': '545px',
+          'dragon': '830px',
+          'dark': '580px',
+          'fairy': '587px',
+        };
+
+        return typeMarginMapping[pokemonType] || '0px';
+      }
     },
   };
   </script>
