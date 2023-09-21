@@ -12,7 +12,10 @@
                 class="mx-auto rounded-xl d-flex align-center justify-center"
                 width="fullscreen"
                 height="200px"
-                :color="getElementColorNormal(pokemonType)"
+                :style="{
+                  background: tab === 0 || tab === 1 ? getElementColorHex(pokemonType) 
+                  : 'linear-gradient(to right, ' + getElementColorHex(pokemonType) + ', ' + getElementColorHex(getRandomPokemonType()) + ')'
+                  }"
                 :dark="pokemonType === 'flying' ? false : true"
               >           
               <div
@@ -310,7 +313,32 @@
         };
 
         return typeMarginMapping[pokemonType] || '0px';
-      }
+      },
+      getRandomPokemonType() {
+        const tiposDeElementos = [
+          'normal',
+          'fighting',
+          'flying',
+          'poison',
+          'ground',
+          'rock',
+          'bug',
+          'ghost',
+          'steel',
+          'fire',
+          'water',
+          'grass',
+          'electric',
+          'psychic',
+          'ice',
+          'dragon',
+          'dark',
+          'fairy'
+        ];
+
+        const indiceAleatorio = Math.floor(Math.random() * tiposDeElementos.length);
+        return tiposDeElementos[indiceAleatorio];
+      }      
     },
   };
   </script>
