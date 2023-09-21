@@ -117,7 +117,7 @@
       <v-container>
       <!-- Skeleton loader -->
       <v-row v-if="pokemonsList.length === 0">
-        <v-col cols="4" v-for="n in 6" :key="n" >
+        <v-col cols="3" v-for="n in 6" :key="n" >
           <v-card style="border-radius: 20px;">
             <div class="d-flex justify-center">
               <v-skeleton-loader type="image" aspect-ratio="0.5" class="mb-3 mt-4" style="width: 80%; border-radius: 20px"></v-skeleton-loader>
@@ -200,8 +200,8 @@
   export default {
     data() {
       return {
-        tab: 0,
-        tabClone: 0,
+        tab: 1,
+        tabClone: 1,
         pokemonType: this.$route.params.type,
         pokemonsList: [],
         pokemonsAll: [],

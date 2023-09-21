@@ -101,7 +101,7 @@ export default {
         window.location.href = `/type/${pokemonType}`;
       },  
     },
-    mounted() {
+    created() {
       this.getPokemonTypes();
     }
 };
