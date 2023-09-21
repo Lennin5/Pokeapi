@@ -15,7 +15,7 @@
                 :color="getElementColorNormal(pokemonType)"
                 :dark="pokemonType === 'flying' ? false : true"
               >                
-              <img :src="getElementTypeLogo(pokemonType)" v-if="pokemonType !== 'flying'"
+              <img :src="pokemonType !== 'flying' && getElementTypeLogo(pokemonType)"
                   class="" 
                   style="
                   width: 350px; 
@@ -43,7 +43,7 @@
                               :src="getElementTypeLogo(pokemonType)"
                           />
                           </v-avatar>
-                          <span class="text-h4 font-weight-bold ml-2" style="text-align: center; word-spacing: px;">
+                          <span class="text-h4 font-weight-bold ml-2" style="text-align: center;">
                               {{ pokemonType.toUpperCase() }}
                           </span>                                                                                            
                       </v-card-title>

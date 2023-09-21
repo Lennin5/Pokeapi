@@ -3,7 +3,7 @@ import App from './App.vue';
 import VueRouter from 'vue-router';
 import vuetify from './plugins/vuetify';
 import GlobalMethods from './utils/customMethods';
-import PokemonsList from './components/PokemonsList';
+import PokemonsList from './components/Homepage';
 import PokemonDetails from './components/PokemonDetails';
 import PokemonTypes from './components/PokemonTypes';
 import PokemonsTypeList from './components/PokemonsTypeList';
