@@ -1,5 +1,10 @@
 <template>
     <div style="margin-top: 40px">
+      <!-- Floating type pokemons button -->
+      <FloatingButtons 
+        :pokemonType="pokemonType"
+      />
+
       <v-container>
         <h1 style="text-align: center;" class="grey--text">All Pokémons</h1>
       <!-- Agregamos la paginación -->
@@ -21,7 +26,7 @@
             xs="12"
             sm="6"
             md="4"
-            lg="4"
+            lg="2"
             xl="3"
             class="d-flex justify-center"
           >
@@ -30,7 +35,46 @@
                 <v-img :src="pokemon.sprites[index]" max-height="300px" max-width="150" class="">
                 </v-img>
               </div>
+
               <v-card-text>
+                  <div class="font-weight-bold ml-0 gray--text d-flex justify-center">
+                  <h2>                  
+                      {{ pokemon.name[0].toUpperCase() + pokemon.name.slice(1) }}
+                  </h2>
+                  </div>
+                  <div class="font-weight-bold mt-2 grey--text d-flex justify-center">
+                  <h4>                  
+                      {{ pokemon.element[0].toUpperCase() + pokemon.element.slice(1) }}
+                  </h4>
+                  </div>              
+                  <div class="d-flex justify-center mb-3">
+                  <div
+                      class="container-element"
+                      :style="{                
+                      backgroundColor: getElementColorHex(pokemon.element),
+                      boxShadow: pokemon.element === 'flying' ? '0px 0px 2px 0px #343838' : 'none',
+                      }"
+                  >
+                      <div
+                      class="element-icon"
+                      :style="{
+                          backgroundImage: 'url(' + getElementTypeLogo(pokemon.element) + ')',
+                      }"
+                      />
+                  </div>
+                  </div>
+                  <div class="d-flex justify-center pb-4">
+                  <v-btn
+                  :to="{ path: '/details', query: { pokemonObject: pokemon, spritesObject: Object.values(pokemon.sprites) } }"
+                  :color="getElementColorNormal(pokemon.element)"
+                  class="mt-2"
+                  :dark="pokemon.element === 'flying' ? false : true"
+                  :lihght="pokemon.element === 'flying' ? true : false">
+                      View Details
+                          </v-btn>                
+                  </div>
+              </v-card-text>              
+              <!-- <v-card-text>
                 <div class="font-weight-bold ml-8 gray--text d-flex justify-left">
                   <h2>
                     {{ pokemon.name[0].toUpperCase() + pokemon.name.slice(1) }}
@@ -61,7 +105,7 @@
                       </p>                  
                   </v-card-title>                
                 </v-timeline>
-              </v-card-text>
+              </v-card-text> -->
   
             </v-card>
           </v-col>
@@ -75,6 +119,7 @@
   <script>
   import pokeApi from '../plugins/axios';
   import BgPokemon from '@/assets/img/bg-pokemon.png';
+  import FloatingButtons from './FloatingButtons.vue';
   
   export default {
     name: 'PokemonsList',
@@ -91,7 +136,11 @@
     async created() {
       this.getPokemonData();
     },
-  
+    
+    components: {
+      FloatingButtons,
+    },
+
     methods: {
       async getPokemonData() {
         try {
