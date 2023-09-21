@@ -35,29 +35,29 @@
           </div>          
         </v-btn>
       </template>
-        <div style="overflow-y: scroll; height: 400px; border-radius: 0px; background-color: transparent;"
-        class="scroll-container-for-vertical-pokemon-types">
+        <div class="scroll-container-for-vertical-pokemon-types">
           <div
             v-for="(pokemon, key) in pokemonTypes"
-            :key="key"
-            class="container-element2 mb-2 me-1"
-            style="cursor: pointer;"
-            :style="{                
-            backgroundColor: getElementColorHex(pokemon.name),
-            boxShadow: pokemon.name === 'flying' ? '0px 0px 2px 0px #343838' : 'none',
-            }"
-            @click="goToPokemonType(pokemon.name)"
-          >
+            :key="key">
             <div
-            class="element-icon2"
-            :style="{
-                backgroundImage: 'url(' + getElementTypeLogo(pokemon.name) + ')',
-            }"
-            />
-          </div>        
+              class="container-element-floating-button mt-0 mb-2 ms-1 me-1"
+              style="cursor: pointer;"
+              :style="{                
+              backgroundColor: getElementColorHex(pokemon.name),
+              boxShadow: pokemon.name === 'flying' ? '0px 0px 2px 0px #343838' : 'none',
+              }"
+              @click="goToPokemonType(pokemon.name)"
+              v-if="pokemon.name !== 'shadow' && pokemon.name !== 'unknown'"
+            >
+              <div
+              class="element-icon-floating-button"
+              :style="{
+                  backgroundImage: 'url(' + getElementTypeLogo(pokemon.name) + ')',
+              }"
+              />
+            </div> 
+          </div>       
         </div>      
-
-
     </v-speed-dial>  
   </div>
 </template>
@@ -115,27 +115,10 @@ export default {
     z-index: 99;
   }
 
-  .container-element {
-    width: 50px;
-    height: 50px;
-    padding: 10px;
-    border-radius: 50px;
+  .scroll-container-for-vertical-pokemon-types{
+    overflow-y: scroll;
+    height: 400px;
+    border-radius: 0px;
+    background-color: transparent;
   }
-  .element-icon {
-    height: 50px;
-    background-size: contain;
-    background-repeat: no-repeat;
-  } 
-
-  .container-element2 {
-    width: 40px;
-    height: 40px;
-    padding: 10px;
-    border-radius: 50px;
-  }
-  .element-icon2 {
-    height: 40px;
-    background-size: contain;
-    background-repeat: no-repeat;
-  }   
 </style>

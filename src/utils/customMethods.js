@@ -90,7 +90,7 @@ Vue.prototype.getElementColorNormal = (element) => {
     case 'psychic':
       return 'pink darken-1';
     case 'ghost':
-      return 'deep-purple lighten-2';
+      return 'purple lighten-1';
     case 'ice':
       return 'cyan lighten-3';
     case 'dragon':
@@ -133,7 +133,7 @@ Vue.prototype.getElementColorHex = (element) => {
     case 'psychic':
       return '#D81B60';
     case 'ghost':
-      return '#9575CD';
+      return '#AB47BC';
     case 'ice':
       return '#80DEEA';
     case 'dragon':

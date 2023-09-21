@@ -93,16 +93,5 @@ export default {
 }
 </script>
 
-<style scoped>
-  .container-element {
-    width: 45px;
-    height: 45px;
-    padding: 10px;
-    border-radius: 50px;
-  }
-  .element-icon {
-    height: 45px;
-    background-size: contain;
-    background-repeat: no-repeat;
-  }  
+<style scoped> 
 </style>
