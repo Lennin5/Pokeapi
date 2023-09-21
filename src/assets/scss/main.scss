@@ -1,0 +1,39 @@
+body{
+    overflow: hidden;
+  } 
+  
+  // Scrollbar styles
+  @mixin scrollbar {
+    &::-webkit-scrollbar {
+      width: 10px; /* Width of the entire scrollbar */
+    }
+  
+    &::-webkit-scrollbar-track {
+      background-color: #f2f2f2; /* Background color of the tracking area */
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: #bebebe; /* Thumb color */
+      border-radius: 5px;
+    }
+  
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: #bebebe; /* Thumb color on hover */
+    }
+  }
+    
+  // Apply scrollbar styles to the body and page render overflow
+  body {
+    @include scrollbar;
+  }
+
+  .scroll-container-for-vertical-pokemon-types {
+    @include scrollbar;
+  
+    &::-webkit-scrollbar {
+    width: 5px;
+    //   height: 9px;
+    }
+  }
+  
+  

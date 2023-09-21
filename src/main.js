@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import './assets/scss/main.scss'
 import App from './App.vue';
 import VueRouter from 'vue-router';
 import vuetify from './plugins/vuetify';

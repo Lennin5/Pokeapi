@@ -35,18 +35,26 @@
           </div>          
         </v-btn>
       </template>
-        <div style="overflow-y: auto; height: 400px; border-radius: 20px;"
-        :style="{backgroundColor: 'transparent'}">
-          <v-btn
-      :key="key"
-      v-for="(n, key) in 16"
-        fab
-        dark
-        small
-        color="red"
-      >
-        <v-icon>mdi-pokeball</v-icon>
-      </v-btn>
+        <div style="overflow-y: scroll; height: 400px; border-radius: 0px; background-color: transparent;"
+        class="scroll-container-for-vertical-pokemon-types">
+          <div
+            v-for="(pokemon, key) in pokemonTypes"
+            :key="key"
+            class="container-element2 mb-2 me-1"
+            style="cursor: pointer;"
+            :style="{                
+            backgroundColor: getElementColorHex(pokemon.name),
+            boxShadow: pokemon.name === 'flying' ? '0px 0px 2px 0px #343838' : 'none',
+            }"
+            @click="goToPokemonType(pokemon.name)"
+          >
+            <div
+            class="element-icon2"
+            :style="{
+                backgroundImage: 'url(' + getElementTypeLogo(pokemon.name) + ')',
+            }"
+            />
+          </div>        
         </div>      
 
 
@@ -55,6 +63,8 @@
 </template>
 
 <script>
+import pokeApi from '../plugins/axios';
+// import { useRouter } from 'vue-router';
 export default {
   props: {
       pokemonType: {
@@ -62,7 +72,7 @@ export default {
           required: true,
       },
   },  
-  data: () => ({
+  data: () => ({      
       direction: 'top',
       fab: false,
       fling: false,
@@ -73,7 +83,27 @@ export default {
       bottom: true,
       left: false,
       transition: 'slide-y-reverse-transition',
+      pokemonTypes: [],
     }),
+    methods:{
+      async getPokemonTypes() {
+          try {
+              const response = await pokeApi.get('/type');
+              this.pokemonTypes = response.data.results;
+
+              console.log(this.pokemonTypes, 'Floating Types');
+
+          } catch (error) {
+              console.log(error);
+          }
+      },    
+      goToPokemonType(pokemonType) {
+        window.location.href = `/type/${pokemonType}`;
+      },  
+    },
+    mounted() {
+      this.getPokemonTypes();
+    }
 };
 </script>
 
@@ -81,19 +111,31 @@ export default {
   .fab-container {
     position: fixed;
     bottom: 10px;
-    right: 5px;
+    right: 10px;
     z-index: 99;
   }
 
   .container-element {
-      width: 50px;
-      height: 50px;
-      padding: 10px;
-      border-radius: 50px;
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    border-radius: 50px;
   }
   .element-icon {
     height: 50px;
     background-size: contain;
     background-repeat: no-repeat;
   } 
+
+  .container-element2 {
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    border-radius: 50px;
+  }
+  .element-icon2 {
+    height: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }   
 </style>
