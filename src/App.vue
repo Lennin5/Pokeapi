@@ -1,5 +1,18 @@
 <template>
   <v-app>
+    <v-app-bar
+      :collapse-on-scroll="collapseOnScroll"
+      fixed
+      color="deep-purple accent-4"
+      dark
+      scroll-target="#scrolling-techniques-6"
+    >
+      <v-app-bar-nav-icon />
+      <v-toolbar-title>Collapsing Bar</v-toolbar-title>
+      <v-spacer />
+    </v-app-bar>
+    <v-container />
+
     <v-navigation-drawer
       app
       v-model="drawer"
@@ -61,7 +74,7 @@ export default {
 
   data: () => ({
     LogoPokemons: LogoPokemons,
-    drawer: true, // Controla el estado de la barra lateral (colapsada o expandida)
+    drawer: false, // Controla el estado de la barra lateral (colapsada o expandida)
     mini: false, // Controla el estado mini del menú (solo iconos)
     menuItems: [ // Define los elementos del menú
       { text: 'Opción 1', icon: 'mdi-home' },
