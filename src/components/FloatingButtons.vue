@@ -87,12 +87,9 @@ export default {
     }),
     methods:{
       async getPokemonTypes() {
-          try {
-              const response = await pokeApi.get('/type');
-              this.pokemonTypes = response.data.results;
-
-              console.log(this.pokemonTypes, 'Floating Types');
-
+        try {
+            const response = await pokeApi.get('/type');
+            this.pokemonTypes = response.data.results;
           } catch (error) {
               console.log(error);
           }

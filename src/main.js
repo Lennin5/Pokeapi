@@ -4,18 +4,18 @@ import App from './App.vue';
 import VueRouter from 'vue-router';
 import vuetify from './plugins/vuetify';
 import GlobalMethods from './utils/customMethods';
-import PokemonsList from './components/Homepage';
-import PokemonDetails from './components/PokemonDetails';
-import PokemonTypes from './components/PokemonTypes';
-import PokemonsTypeList from './components/PokemonsTypeList';
+import Homepage from './views/Homepage';
+import PokemonDetails from './views/PokemonDetails';
+import PokemonTypes from './views/PokemonTypes';
+import PokemonType from './views/PokemonType';
 
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/', component: PokemonsList },
+  { path: '/', component: Homepage },
   { path: '/details', component: PokemonDetails },
   { path: '/type', component: PokemonTypes },
-  { path: '/type/:type', component: PokemonsTypeList }
+  { path: '/type/:type', component: PokemonType }
 ];
 
 const router = new VueRouter({

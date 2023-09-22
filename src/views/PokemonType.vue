@@ -120,7 +120,7 @@
       <v-container>
       <!-- Skeleton loader -->
       <v-row v-if="pokemonsList.length === 0">
-        <v-col cols="3" v-for="n in 6" :key="n" >
+        <v-col cols="3" v-for="n in 8" :key="n" >
           <v-card style="border-radius: 20px;">
             <div class="d-flex justify-center">
               <v-skeleton-loader type="image" aspect-ratio="0.5" class="mb-3 mt-4" style="width: 80%; border-radius: 20px"></v-skeleton-loader>
@@ -171,19 +171,19 @@
 
         <!-- Tabs content for each type pokemons -->
         <v-tab-item class="bg-transparent">
-            <PokemonsList
+            <PokemonTypeList
               :pokemonsList="pokemonsAll"
               :pokemonType="pokemonType"
             />
         </v-tab-item>
         <v-tab-item class="bg-transparent">
-            <PokemonsList
+            <PokemonTypeList
                 :pokemonsList="pokemonsPure"
                 :pokemonType="pokemonType"
               />
         </v-tab-item>  
         <v-tab-item class="bg-transparent">
-            <PokemonsList
+            <PokemonTypeList
                 :pokemonsList="pokemonsNotPure"
                 :pokemonType="pokemonType"
               />
@@ -197,8 +197,8 @@
   
   <script>
     import pokeApi from '../plugins/axios';
-    import FloatingButtons from './FloatingButtons.vue';
-    import PokemonsList from './PokemonsList.vue';
+    import FloatingButtons from '../components/FloatingButtons.vue';
+    import PokemonTypeList from '../components/PokemonTypeList.vue';
   
   export default {
     data() {
@@ -221,7 +221,7 @@
     },
     components: {
       FloatingButtons,
-      PokemonsList,
+      PokemonTypeList,
     },
     methods: {
       async getPurePokemons(){
@@ -237,13 +237,9 @@
           const response = await pokeApi.get('/type/' + this.pokemonType);
           const pokemons = response.data.pokemon;
 
-          // console.log(pokemons, 'pokemons');
-
           const pokemonData = await Promise.all(
           pokemons.map(async (pokemon) => {
             const pokemonResponse = await pokeApi.get(`/pokemon/${pokemon.pokemon.name}`);
-            // console.log(pokemon.pokemon.name);
-            // console.log(pokemonResponse.data);
 
             const name = pokemonResponse.data.name;
             const spriteURL = pokemonResponse.data.sprites.front_default;
@@ -273,7 +269,7 @@
           })
         );
 
-        this.pokemonsList = pokemonData;          
+        this.pokemonsList = pokemonData;       
         this.pokemonsAll = pokemonData;
         this.getPurePokemons();
 

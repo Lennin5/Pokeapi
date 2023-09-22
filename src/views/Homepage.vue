@@ -2,7 +2,7 @@
     <div style="margin-top: 40px">
       <!-- Floating type pokemons button -->
       <FloatingButtons 
-        :pokemonType="pokemonType"
+        :pokemonType="'normal'"
       />
 
       <v-container>
@@ -119,7 +119,7 @@
   <script>
   import pokeApi from '../plugins/axios';
   import BgPokemon from '@/assets/img/bg-pokemon.png';
-  import FloatingButtons from './FloatingButtons.vue';
+  import FloatingButtons from '../components/FloatingButtons.vue';
   
   export default {
     name: 'PokemonsList',
@@ -147,7 +147,6 @@
           // 640 we encounter a flying pokemon (white color)
           const response = await pokeApi.get('/pokemon/?offset=1&limit=200');
           const pokemons = response.data.results;
-          console.log(pokemons);
   
           const pokemonData = await Promise.all(
             pokemons.map(async (pokemon) => {
