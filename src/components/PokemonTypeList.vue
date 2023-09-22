@@ -12,19 +12,19 @@
         class="d-flex justify-center"
     >
         <v-card width="400" style="border-radius: 20px !important;"
-        >
+        :style="{background: pokemon.element !== pokemonType ? 'linear-gradient(to right, ' + getElementColorHex(pokemonType) + ', ' + getElementColorHex(pokemon.element) + ')' : getElementColorHex(pokemonType) }">
         <div class="d-flex justify-center">
             <v-img :src="pokemon.spriteURL || pokemon.sprites[index]
             " max-height="300px" max-width="150" class="">
             </v-img>
         </div>
         <v-card-text>
-            <div class="font-weight-bold ml-0 gray--text d-flex justify-center">
+            <div class="font-weight-bold ml-0 white--text d-flex justify-center">
             <h2>                  
                 {{ pokemon.name[0].toUpperCase() + pokemon.name.slice(1) }}
             </h2>
             </div>
-            <div class="font-weight-bold mt-2 gray--text d-flex justify-center" >
+            <div class="font-weight-bold mt-2 white--text d-flex justify-center" style="opacity: 0.4;">
             <h4>                  
                 {{ pokemonType[0].toUpperCase() + pokemonType.slice(1) }}
                     {{ pokemonType !== pokemon.element ? ' / ' + pokemon.element[0].toUpperCase() + pokemon.element.slice(1) : '' }}
