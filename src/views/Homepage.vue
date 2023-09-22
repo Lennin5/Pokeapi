@@ -119,7 +119,7 @@
   <script>
   import pokeApi from '../plugins/axios';
   import BgPokemon from '@/assets/img/bg-pokemon.png';
-  import FloatingButtons from '../components/FloatingButtons.vue';
+  import FloatingButtons from '../components/FloatingTypesButton.vue';
   
   export default {
     name: 'PokemonsList',
@@ -130,6 +130,8 @@
         BgPokemon: BgPokemon,
         index: 0,
         page: 1, // Página inicial
+        pokemonsLimit: 300, // 200 pokemons
+        pokemonsPerPage: 50, // 50 pokemons por página
       };
     },
   
@@ -145,7 +147,7 @@
       async getPokemonData() {
         try {
           // 640 we encounter a flying pokemon (white color)
-          const response = await pokeApi.get('/pokemon/?offset=1&limit=200');
+          const response = await pokeApi.get(`/pokemon/?offset=1&limit=${this.pokemonsLimit}`);
           const pokemons = response.data.results;
   
           const pokemonData = await Promise.all(
@@ -188,12 +190,12 @@
     computed: {
       totalPages() {
         // 100 is the number of pokemons per page
-        return Math.ceil(this.pokemons.length / 50);
+        return Math.ceil(this.pokemons.length / this.pokemonsPerPage);
       },
   
       paginatedPokemons() {
-        const startIndex = (this.page - 1) * 100;
-        const endIndex = startIndex + 100;
+        const startIndex = (this.page - 1) * this.pokemonsPerPage;
+        const endIndex = startIndex + this.pokemonsPerPage;
         return this.pokemons.slice(startIndex, endIndex);
       }
     }

@@ -197,7 +197,7 @@
   
   <script>
     import pokeApi from '../plugins/axios';
-    import FloatingButtons from '../components/FloatingButtons.vue';
+    import FloatingButtons from '../components/FloatingTypesButton.vue';
     import PokemonTypeList from '../components/PokemonTypeList.vue';
   
   export default {
