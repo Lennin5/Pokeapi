@@ -6,9 +6,64 @@
       />
 
       <v-container>
+        <v-row>
+          <v-col cols="2" lg="2" style="border: 1px solid red">
+            <v-card
+              height="400"
+              width="100%"
+              class=""
+            >
+              <v-navigation-drawer permanent color="orange" dark>
+                <v-list-item>
+                  <v-list-item-content>
+                    <v-list-item-title class="text-h6">
+                      Application
+                    </v-list-item-title>
+                    <v-list-item-subtitle>
+                      subtext
+                    </v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+
+                <v-divider></v-divider>
+
+                <v-list
+                  dense
+                  nav
+                >
+                  <v-list-item
+                    v-for="item in items"
+                    :key="item.title"
+                    link
+                  >
+                    <v-list-item-icon>
+                      <v-icon>{{ item.icon }}</v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-content>
+                      <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>                
+              </v-navigation-drawer>
+
+              
+            </v-card>  
+          </v-col>
+          <v-col cols="10" lg="10" style="border: 1px solid blue">
+            <h1 class="grey--text ml-7">All Pokémons</h1>
+            <HorizontalCards />   
+          </v-col>
+        </v-row>
+      </v-container>
+
+
+    
+
+      <v-container>
         <h1 style="text-align: center;" class="grey--text">All Pokémons</h1>
 
-        <HorizontalCards />        
+             
       <!-- Agregamos la paginación -->
       <!-- <div class="text-center">
         <v-pagination
@@ -136,6 +191,12 @@
         page: 1, // Página inicial
         pokemonsLimit: 300, // 200 pokemons
         pokemonsPerPage: 50, // 50 pokemons por página
+        items: [
+          { title: 'Dashboard', icon: 'mdi-view-dashboard' },
+          { title: 'Photos', icon: 'mdi-image' },
+          { title: 'About', icon: 'mdi-help-box' },
+        ],
+        right: true,        
       };
     },
   

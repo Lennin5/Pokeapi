@@ -57,7 +57,7 @@
                   <v-btn
                     :to="{ path: '/details', query: { pokemonObject: pokemon, spritesObject: Object.values(pokemon.sprites) } }"
                     :color="getElementColorNormal(pokemon.element)"
-                    class="mt-2"
+                    class="mt-2 rounded-lg"
                     :dark="pokemon.element === 'flying' ? false : true"
                     :light="pokemon.element === 'flying' ? true : false">
                         View Details
@@ -86,7 +86,7 @@ export default {
     async getPokemonData() {
         try {
           // 640 we encounter a flying pokemon (white color)
-          const response = await pokeApi.get(`/pokemon/?offset=1&limit=900`);
+          const response = await pokeApi.get(`/pokemon/?offset=200&limit=100`);
           const pokemons = response.data.results;
   
           const pokemonData = await Promise.all(
@@ -123,7 +123,7 @@ export default {
           // sort by random
           this.allPokemons.sort(() => Math.random() - 0.5);
           // filter by 'flying' element
-          // this.allPokemons = this.allPokemons.filter(pokemon => pokemon.element === 'flying');
+          // this.allPokemons = this.allPokemons.filter(pokemon => pokemon.element === 'fire');
           console.log(this.allPokemons, 'allPokemons');
         } catch (error) {
           console.error(error);
