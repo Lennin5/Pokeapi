@@ -11,7 +11,8 @@
         xl="3"
         class="d-flex justify-center"
     >
-        <v-card width="400" style="border-radius: 20px !important;">
+        <v-card width="400" style="border-radius: 20px !important;"
+        >
         <div class="d-flex justify-center">
             <v-img :src="pokemon.spriteURL || pokemon.sprites[index]
             " max-height="300px" max-width="150" class="">
@@ -23,7 +24,7 @@
                 {{ pokemon.name[0].toUpperCase() + pokemon.name.slice(1) }}
             </h2>
             </div>
-            <div class="font-weight-bold mt-2 grey--text d-flex justify-center">
+            <div class="font-weight-bold mt-2 gray--text d-flex justify-center" >
             <h4>                  
                 {{ pokemonType[0].toUpperCase() + pokemonType.slice(1) }}
                     {{ pokemonType !== pokemon.element ? ' / ' + pokemon.element[0].toUpperCase() + pokemon.element.slice(1) : '' }}
