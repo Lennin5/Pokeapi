@@ -5,7 +5,7 @@
         :pokemonType="'normal'"
       />
 
-      <v-container>
+      <!-- <v-container>
         <v-row>
           <v-col cols="2" lg="2" style="border: 1px solid red">
             <v-card
@@ -55,9 +55,10 @@
             <HorizontalCards />   
           </v-col>
         </v-row>
-      </v-container>
-
-
+      </v-container> -->
+      
+      <h1 class="grey--text ml-7">All Pokémons</h1>
+      <HorizontalCards />
     
 
       <v-container>
@@ -190,13 +191,7 @@
         index: 0,
         page: 1, // Página inicial
         pokemonsLimit: 300, // 200 pokemons
-        pokemonsPerPage: 50, // 50 pokemons por página
-        items: [
-          { title: 'Dashboard', icon: 'mdi-view-dashboard' },
-          { title: 'Photos', icon: 'mdi-image' },
-          { title: 'About', icon: 'mdi-help-box' },
-        ],
-        right: true,        
+        pokemonsPerPage: 50, // 50 pokemons por página      
       };
     },
   
