@@ -7,8 +7,10 @@
 
       <v-container>
         <h1 style="text-align: center;" class="grey--text">All Pokémons</h1>
+
+        <HorizontalCards />        
       <!-- Agregamos la paginación -->
-      <div class="text-center">
+      <!-- <div class="text-center">
         <v-pagination
           v-model="page"
           :length="totalPages"
@@ -16,7 +18,7 @@
           color="orange"
         >
       </v-pagination>
-      </div>
+      </div> -->
       <br>
         <v-row>
           <v-col
@@ -73,7 +75,8 @@
                       View Details
                           </v-btn>                
                   </div>
-              </v-card-text>              
+              </v-card-text>  
+
               <!-- <v-card-text>
                 <div class="font-weight-bold ml-8 gray--text d-flex justify-left">
                   <h2>
@@ -120,6 +123,7 @@
   import pokeApi from '../plugins/axios';
   import BgPokemon from '@/assets/img/bg-pokemon.png';
   import FloatingButtons from '../components/FloatingTypesButton.vue';
+  import HorizontalCards from '@/components/HorizontalCards.vue';
   
   export default {
     name: 'PokemonsList',
@@ -141,6 +145,7 @@
     
     components: {
       FloatingButtons,
+      HorizontalCards
     },
 
     methods: {
