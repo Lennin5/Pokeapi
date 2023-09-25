@@ -9,10 +9,15 @@
         <h1 class="orange--text ml-10" >
         <v-icon color="orange" size="40">mdi-cards</v-icon>
         All Pokémons</h1>
-        <span class="text-decoration-underline orange--text me-15">          
+        <v-hover v-slot="{ hover }" class="d-flex justify-center align-start">
+        <span class="text-decoration-underline me-15 cursor-pointer" @click="$router.push('/pokemons')"
+        :class="hover ? 'orange--text' : 'deep-orange--text accent-4--text'">
           View all
-          <v-icon color="orange" size="20">mdi-arrow-right</v-icon>
+          <v-icon 
+           :color="hover ? 'orange' : 'deep-orange accent-2'"
+           size="20">mdi-arrow-right</v-icon>
         </span>
+        </v-hover>
       </div>
       <HorizontalScrollAllPokemons />
 
