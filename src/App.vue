@@ -1,41 +1,62 @@
 <template>
   <v-app>
     <v-app-bar
-      :collapse-on-scroll="collapseOnScroll"
       fixed
-      color="deep-purple accent-4"
+      color="orange"
       dark
       scroll-target="#scrolling-techniques-6"
+      class="d-md-block d-lg-none"
     >
-      <v-app-bar-nav-icon />
+      <v-app-bar-nav-icon @click="drawer = !drawer" />
       <v-toolbar-title>Collapsing Bar</v-toolbar-title>
       <v-spacer />
     </v-app-bar>
-    <v-container />
+    <v-container
+      class="d-md-block d-lg-none"
+    />
 
     <v-navigation-drawer
       app
+      color="orange"
+      dark
       v-model="drawer"
       :mini-variant.sync="mini"
+      class="d-block"
     >
+
+
+
       <!-- Logo o título -->
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="text-h6">
-            <img :src="LogoPokemons" alt="Logo" height="32" />
+          <v-list-item-title class="text-h6 d-flex justify-center">
+            <img 
+            style="object-fit: contain;"
+            :src="mini ? LogoPokemonsMobile : LogoPokemons"
+            alt="Logo" height="100" width="100%" />
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
 
       <!-- Botón para expandir/contraer el menú -->
-      <v-list-item @click="toggleMenu">
+      <v-list-item @click="toggleMenu" class="d-none d-lg-flex">
         <v-list-item-icon>
-          <v-icon>{{ mini ? 'mdi-menu-open' : 'mdi-menu' }}</v-icon>
+          <v-icon>{{ mini ? 'mdi-arrow-expand-all' : 'mdi-arrow-collapse-all' }}</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>{{ mini ? 'Expandir' : 'Contraer' }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>      
+
+      <!-- Botón para mostrar/ocultar el menú -->
+      <v-list-item @click="drawer = !drawer" class="d-md-block d-lg-none">
+        <v-list-item-icon>
+          <v-icon>{{ mini ? 'mdi-menu' : 'mdi-menu' }}</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content>
+          <v-list-item-title>{{ mini ? 'Mostrar' : 'Ocultar' }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>          
 
       <!-- Contenido del menú (iconos) -->
       <v-list dense>
@@ -68,13 +89,15 @@
 <script>
 // images
 import LogoPokemons from '@/assets/img/logo-pokemon.png';
+import LogoPokemonsMobile from '@/assets/img/logo-pokemon-mobile.png';
 
 export default {
   name: 'App',
 
   data: () => ({
     LogoPokemons: LogoPokemons,
-    drawer: false, // Controla el estado de la barra lateral (colapsada o expandida)
+    LogoPokemonsMobile: LogoPokemonsMobile,
+    drawer: true, // Controla el estado de la barra lateral (colapsada o expandida)
     mini: false, // Controla el estado mini del menú (solo iconos)
     menuItems: [ // Define los elementos del menú
       { text: 'Opción 1', icon: 'mdi-home' },
