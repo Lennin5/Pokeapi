@@ -4,7 +4,6 @@
       fixed
       color="orange"
       dark
-      scroll-target="#scrolling-techniques-6"
       class="d-md-block d-lg-none"
     >
       <v-app-bar-nav-icon @click="drawer = !drawer" />

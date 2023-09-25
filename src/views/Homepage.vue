@@ -4,61 +4,16 @@
       <FloatingButtons 
         :pokemonType="'normal'"
       />
-
-      <!-- <v-container>
-        <v-row>
-          <v-col cols="2" lg="2" style="border: 1px solid red">
-            <v-card
-              height="400"
-              width="100%"
-              class=""
-            >
-              <v-navigation-drawer permanent color="orange" dark>
-                <v-list-item>
-                  <v-list-item-content>
-                    <v-list-item-title class="text-h6">
-                      Application
-                    </v-list-item-title>
-                    <v-list-item-subtitle>
-                      subtext
-                    </v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
-
-                <v-divider></v-divider>
-
-                <v-list
-                  dense
-                  nav
-                >
-                  <v-list-item
-                    v-for="item in items"
-                    :key="item.title"
-                    link
-                  >
-                    <v-list-item-icon>
-                      <v-icon>{{ item.icon }}</v-icon>
-                    </v-list-item-icon>
-
-                    <v-list-item-content>
-                      <v-list-item-title>{{ item.title }}</v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list>                
-              </v-navigation-drawer>
-
-              
-            </v-card>  
-          </v-col>
-          <v-col cols="10" lg="10" style="border: 1px solid blue">
-            <h1 class="grey--text ml-7">All Pokémons</h1>
-            <HorizontalCards />   
-          </v-col>
-        </v-row>
-      </v-container> -->
       
-      <h1 class="grey--text ml-7">All Pokémons</h1>
+      <h1 class="orange--text ml-10" >
+        <v-icon color="orange" size="40">mdi-cards</v-icon>
+        All Pokémons</h1>
       <HorizontalScrollAllPokemons />
+
+      <h1 class="orange--text ml-10 mt-5" >
+        <v-icon color="orange" size="35">mdi-checkbox-multiple-blank</v-icon>
+        All Types</h1>
+      <HorizontalScrollAllTypes />
     
 
       <v-container>
@@ -180,6 +135,7 @@
   import BgPokemon from '@/assets/img/bg-pokemon.png';
   import FloatingButtons from '../components/FloatingTypesButton.vue';
   import HorizontalScrollAllPokemons from '@/components/horizontal_scrolls/AllPokemons.vue';
+  import HorizontalScrollAllTypes from '@/components/horizontal_scrolls/AllTypes.vue';
   
   export default {
     name: 'PokemonsList',
@@ -201,7 +157,8 @@
     
     components: {
       FloatingButtons,
-      HorizontalScrollAllPokemons
+      HorizontalScrollAllPokemons,
+      HorizontalScrollAllTypes,
     },
 
     methods: {

@@ -8,7 +8,7 @@
           class="card ma-3 rounded-xl"
           :style="{
             width: '200px',
-            height: '250px',  
+            height: '255px',  
             }" 
             v-for="n in 8" :key="n">
             <div class="d-flex justify-center align-center flex-column">
@@ -126,7 +126,7 @@ methods: {
         this.allPokemons.sort(() => Math.random() - 0.5);
         // filter by 'flying' element
         // this.allPokemons = this.allPokemons.filter(pokemon => pokemon.element === 'fire');
-        console.log(this.allPokemons, 'allPokemons');
+        // console.log(this.allPokemons, 'allPokemons');
       } catch (error) {
         console.error(error);
       }
