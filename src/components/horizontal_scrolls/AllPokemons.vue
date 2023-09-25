@@ -8,7 +8,7 @@
         <div class="d-flex justify-center">
           <v-icon 
             class="me-5 cursor-pointer"
-            :color="filter === 'all' ? 'orange' : getElementColorNormal(filter)"
+            :color="filter === 'all' ? 'orange' : filter === 'flying' ? 'grey lighten-1' : getElementColorNormal(filter)"
             size="25"
             @click="getPokemonData(getRandomPokemonType())">
             mdi-dice-5            
