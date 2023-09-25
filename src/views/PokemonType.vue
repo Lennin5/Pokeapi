@@ -309,32 +309,7 @@
         };
 
         return typeMarginMapping[pokemonType] || '0px';
-      },
-      getRandomPokemonType() {
-        const tiposDeElementos = [
-          'normal',
-          'fighting',
-          'flying',
-          'poison',
-          'ground',
-          'rock',
-          'bug',
-          'ghost',
-          'steel',
-          'fire',
-          'water',
-          'grass',
-          'electric',
-          'psychic',
-          'ice',
-          'dragon',
-          'dark',
-          'fairy'
-        ];
-
-        const indiceAleatorio = Math.floor(Math.random() * tiposDeElementos.length);
-        return tiposDeElementos[indiceAleatorio];
-      }      
+      },     
     },
   };
   </script>

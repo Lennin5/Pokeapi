@@ -5,20 +5,7 @@
         :pokemonType="'normal'"
       />
       
-      <div class="d-flex justify-space-between align-center">
-        <h1 class="orange--text ml-10" >
-        <v-icon color="orange" size="40">mdi-cards</v-icon>
-        All Pokémons</h1>
-        <v-hover v-slot="{ hover }" class="d-flex justify-center align-start">
-        <span class="text-decoration-underline me-15 cursor-pointer" @click="$router.push('/pokemons')"
-        :class="hover ? 'orange--text' : 'deep-orange--text accent-4--text'">
-          View all
-          <v-icon 
-           :color="hover ? 'orange' : 'deep-orange accent-2'"
-           size="20">mdi-arrow-right</v-icon>
-        </span>
-        </v-hover>
-      </div>
+
       <HorizontalScrollAllPokemons />
 
       <h1 class="orange--text ml-10 mt-5" >

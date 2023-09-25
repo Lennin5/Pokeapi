@@ -1,5 +1,30 @@
 <template>
   <v-container>
+    <div class="d-flex justify-space-between align-center">
+        <h1 class="orange--text ml-10" >
+        <v-icon color="orange" size="40">mdi-cards</v-icon>
+        All Pokémons</h1>
+
+        <div class="d-flex justify-center">
+          <v-icon 
+            class="me-5 cursor-pointer"
+            :color="filter === 'all' ? 'orange' : getElementColorNormal(filter)"
+            size="25"
+            @click="getPokemonData(getRandomPokemonType())">
+            mdi-dice-5            
+          </v-icon>          
+          <v-hover v-slot="{ hover }" class="d-flex justify-center align-center">
+          <span class="me-15 cursor-pointer" @click="$router.push('/pokemons')"
+          :class="hover ? 'orange--text text-decoration-underline' : 'deep-orange--text accent-4--text'">
+            View all
+            <v-icon 
+            class="ms-1"
+            :color="hover ? 'orange' : 'deep-orange accent-2'"
+            size="15">mdi-arrow-right</v-icon>
+          </span>
+          </v-hover>            
+        </div>
+      </div>    
     <div class="horizontal-scroll scroll-container-for-horizontal-div">
       <div>
         <!-- Skeleton loader -->
@@ -81,17 +106,17 @@ export default {
 data() {
   return {
     allPokemons: [],
-    
+    filter: 'all',
   };
 },
 created() {
-  this.getPokemonData();
+  this.getPokemonData(this.filter);
 },
 methods: {
-  async getPokemonData() {
+  async getPokemonData(filter) {
       try {
         // 640 we encounter a flying pokemon (white color)
-        const response = await pokeApi.get(`/pokemon/?offset=300&limit=100`);
+        const response = await pokeApi.get(`/pokemon/?offset=0&limit=1500`);
         const pokemons = response.data.results;
 
         const pokemonData = await Promise.all(
@@ -127,7 +152,16 @@ methods: {
         this.allPokemons = pokemonData;
         // sort by random
         this.allPokemons.sort(() => Math.random() - 0.5);
-        // filter by 'flying' element
+        // filter by element
+        this.filter = filter;
+        if(this.filter !== 'all') {
+          this.allPokemons = this.allPokemons.filter(pokemon => pokemon.element === filter);
+          // If random filter gets empty, show all pokemons
+          if(this.allPokemons.length === 0) {
+            this.allPokemons = pokemonData;
+            this.filter = 'all';
+          }
+        }
         // this.allPokemons = this.allPokemons.filter(pokemon => pokemon.element === 'fire');
         // console.log(this.allPokemons, 'allPokemons');
       } catch (error) {

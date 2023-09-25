@@ -148,5 +148,30 @@ Vue.prototype.getElementColorHex = (element) => {
       return '#FF9800';
   }
 };
+Vue.prototype.getRandomPokemonType = () => {
+  const elementTypes = [
+    'normal',
+    'fighting',
+    'flying',
+    'poison',
+    'ground',
+    'rock',
+    'bug',
+    'ghost',
+    'steel',
+    'fire',
+    'water',
+    'grass',
+    'electric',
+    'psychic',
+    'ice',
+    'dragon',
+    'dark',
+    'fairy'
+  ];
+
+  const randomType = Math.floor(Math.random() * elementTypes.length);
+  return elementTypes[randomType];
+} 
 
 export default new Vue();
