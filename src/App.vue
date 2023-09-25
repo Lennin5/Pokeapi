@@ -8,7 +8,13 @@
       class="d-md-block d-lg-none"
     >
       <v-app-bar-nav-icon @click="drawer = !drawer" />
-      <v-toolbar-title>Collapsing Bar</v-toolbar-title>
+      <v-toolbar-title class="d-flex justify-center w-100" style="margin-right: 50px;">
+        <img 
+        style="object-fit: contain;"
+        class="pa-4"
+        :src="mini ? LogoPokemonsMobile : LogoPokemons"
+        alt="Logo" height="100" width="100%" />        
+      </v-toolbar-title>
       <v-spacer />
     </v-app-bar>
     <v-container
@@ -24,39 +30,35 @@
       class="d-block"
     >
 
-
+    <v-list-item>
+      <v-list-item-content>
+        <v-list-item-title class="text-h6 d-flex justify-end" :class="mini ? 'justify-center' : 'justify-end'" width="100%">
+          <!-- Botón para expandir/contraer el menú -->
+          <v-btn x-small icon @click.stop="mini = !mini" class="d-none d-lg-flex ">
+            <v-icon>{{ mini ? 'mdi-arrow-collapse-right' : 'mdi-arrow-collapse-left' }}</v-icon>
+          </v-btn>         
+          <!-- Botón para mostrar/ocultar el menú -->   
+          <v-btn icon @click.stop="drawer = !drawer" class="d-md-block d-lg-none">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-list-item-title>
+      </v-list-item-content>
+    </v-list-item>
 
       <!-- Logo o título -->
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="text-h6 d-flex justify-center">
             <img 
-            style="object-fit: contain;"
-            :src="mini ? LogoPokemonsMobile : LogoPokemons"
-            alt="Logo" height="100" width="100%" />
+              alt="Logo"
+              style="object-fit: contain;"
+              :src="mini ? LogoPokemonsMobile : LogoPokemons"
+              width="100%"
+              :height="mini ? 'auto' : '100' " />
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-
-      <!-- Botón para expandir/contraer el menú -->
-      <v-list-item @click="toggleMenu" class="d-none d-lg-flex">
-        <v-list-item-icon>
-          <v-icon>{{ mini ? 'mdi-arrow-expand-all' : 'mdi-arrow-collapse-all' }}</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>{{ mini ? 'Expandir' : 'Contraer' }}</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>      
-
-      <!-- Botón para mostrar/ocultar el menú -->
-      <v-list-item @click="drawer = !drawer" class="d-md-block d-lg-none">
-        <v-list-item-icon>
-          <v-icon>{{ mini ? 'mdi-menu' : 'mdi-menu' }}</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>{{ mini ? 'Mostrar' : 'Ocultar' }}</v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>          
+    
 
       <!-- Contenido del menú (iconos) -->
       <v-list dense>
