@@ -179,7 +179,7 @@
   import pokeApi from '../plugins/axios';
   import BgPokemon from '@/assets/img/bg-pokemon.png';
   import FloatingButtons from '../components/FloatingTypesButton.vue';
-  import HorizontalCards from '@/components/HorizontalCards.vue';
+  import HorizontalCards from '@/components/horizontal_scrolls/AllPokemons.vue';
   
   export default {
     name: 'PokemonsList',

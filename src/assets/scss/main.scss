@@ -38,6 +38,14 @@ body{
     //   height: 9px;
     }
   }
+
+  .scroll-container-for-horizontal-div{
+    @include scrollbar;
+
+    &::-webkit-scrollbar {
+      height: 12px;
+    }
+  }
   
   .container-element {
     width: 50px;
