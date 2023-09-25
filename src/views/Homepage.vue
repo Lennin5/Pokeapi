@@ -5,9 +5,15 @@
         :pokemonType="'normal'"
       />
       
-      <h1 class="orange--text ml-10" >
+      <div class="d-flex justify-space-between align-center">
+        <h1 class="orange--text ml-10" >
         <v-icon color="orange" size="40">mdi-cards</v-icon>
         All Pokémons</h1>
+        <span class="text-decoration-underline orange--text me-15">          
+          View all
+          <v-icon color="orange" size="20">mdi-arrow-right</v-icon>
+        </span>
+      </div>
       <HorizontalScrollAllPokemons />
 
       <h1 class="orange--text ml-10 mt-5" >
