@@ -58,7 +58,7 @@
       </v-container> -->
       
       <h1 class="grey--text ml-7">All Pokémons</h1>
-      <HorizontalCards />
+      <HorizontalScrollAllPokemons />
     
 
       <v-container>
@@ -179,7 +179,7 @@
   import pokeApi from '../plugins/axios';
   import BgPokemon from '@/assets/img/bg-pokemon.png';
   import FloatingButtons from '../components/FloatingTypesButton.vue';
-  import HorizontalCards from '@/components/horizontal_scrolls/AllPokemons.vue';
+  import HorizontalScrollAllPokemons from '@/components/horizontal_scrolls/AllPokemons.vue';
   
   export default {
     name: 'PokemonsList',
@@ -201,7 +201,7 @@
     
     components: {
       FloatingButtons,
-      HorizontalCards
+      HorizontalScrollAllPokemons
     },
 
     methods: {

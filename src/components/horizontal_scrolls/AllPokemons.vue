@@ -2,26 +2,24 @@
   <v-container>
     <div class="horizontal-scroll scroll-container-for-horizontal-div">
       <div>
-
-    <!-- Skeleton loader -->
-    <div v-if="allPokemons.length === 0">
-      <v-card 
-      class="card ma-3 rounded-xl"
-      :style="{
-        width: '200px',
-        height: '250px',  
-        }" 
-         v-for="n in 8" :key="n">
-         <div class="d-flex justify-center align-center flex-column">
-            <v-skeleton-loader type="image" aspect-ratio="0.9" height="170" class="mt-4 rounded-lg" style="width: 80%"></v-skeleton-loader>
-          <v-card-actions class="d-flex justify-center">
-            <v-skeleton-loader type="button" class="w-100 mt-1"></v-skeleton-loader>
-          </v-card-actions> 
-         </div>         
-      </v-card>           
-    </div>
-
-
+        <!-- Skeleton loader -->
+        <div v-if="allPokemons.length === 0">
+          <v-card 
+          class="card ma-3 rounded-xl"
+          :style="{
+            width: '200px',
+            height: '250px',  
+            }" 
+            v-for="n in 8" :key="n">
+            <div class="d-flex justify-center align-center flex-column">
+                <v-skeleton-loader type="image" aspect-ratio="0.9" height="170" class="mt-4 rounded-lg" style="width: 80%"></v-skeleton-loader>
+              <v-card-actions class="d-flex justify-center">
+                <v-skeleton-loader type="button" class="w-100 mt-1"></v-skeleton-loader>
+              </v-card-actions> 
+            </div>         
+          </v-card>           
+        </div>
+        <!-- Data rendered -->
         <v-card
         v-for="(pokemon) in allPokemons"
           :key="pokemon.name"
@@ -90,7 +88,7 @@ methods: {
   async getPokemonData() {
       try {
         // 640 we encounter a flying pokemon (white color)
-        const response = await pokeApi.get(`/pokemon/?offset=200&limit=100`);
+        const response = await pokeApi.get(`/pokemon/?offset=300&limit=100`);
         const pokemons = response.data.results;
 
         const pokemonData = await Promise.all(
