@@ -15,6 +15,25 @@
               :dark="pokemonType === 'flying' ? false : true"
             >           
             <div
+                v-for="(item, index) in backgroundTypeList"
+                :key="index"
+                :style="{
+                  backgroundImage: 'url(' + getElementTypeLogo(item.name) + ')',   
+                  width: item.width,
+                  height: item.height,         
+                  margin: item.margin,      
+                }"
+                style="
+                  border-radius: 0px;                                                    
+                  opacity: 0.1;
+                  position: absolute;
+                  background-size: contain;
+                  background-position: center;
+                  "
+              >
+            </div>
+
+            <!-- <div
               :style="{
                 backgroundImage: 'url(' + getElementTypeLogo(pokemonType) + ')',                  
               }"
@@ -25,7 +44,8 @@
                 opacity: 0.1;
                 position: absolute;
                 background-size: cover;
-                background-position: center;                
+                background-position: center;    
+                margin: 0px 0px 0px 0px;          
                 "
               >
             </div>           
@@ -41,8 +61,7 @@
                 position: absolute;
                 background-size: contain;
                 background-position: center;
-                margin-left: 1050px;
-                margin-top: 90px;
+                margin: 90px 0px 0px 1050px;
                 "
               >
             </div>           
@@ -58,8 +77,7 @@
                 position: absolute;
                 background-size: contain;
                 background-position: center;
-                margin-right: 1000px;
-                margin-top: 80px;
+                margin: 80px 1000px 0px 0px;
                 "
               >
             </div>           
@@ -75,8 +93,7 @@
                 position: absolute;
                 background-size: contain;
                 background-position: center;
-                margin-right: 900px;
-                margin-top: -120px;
+                margin: -120px 900px 0px 0px;
                 "
               >
             </div>           
@@ -92,8 +109,7 @@
                 position: absolute;
                 background-size: contain;
                 background-position: center;
-                margin-left: 950px;
-                margin-top: -80px;
+                margin: -80px 0px 0px 950px;
                 "
               >
             </div>           
@@ -110,8 +126,7 @@
                 position: absolute;
                 background-size: contain;
                 background-position: center;
-                margin-right: 600px;
-                margin-top: 110px;
+                margin: 110px 600px 0px 0px;
                 "
               >
             </div>
@@ -127,8 +142,7 @@
                 position: absolute;
                 background-size: contain;
                 background-position: center;
-                margin-left: 700px;
-                margin-top: 80px;
+                margin: 80px 0px 0px 700px;
                 "
               >
             </div>
@@ -145,8 +159,7 @@
                 position: absolute;
                 background-size: contain;
                 background-position: center;
-                margin-right: 450px;
-                margin-top: -20px;
+                margin: -20px 450px 0px 0px;
                 "
               >
             </div>
@@ -162,8 +175,7 @@
                 position: absolute;
                 background-size: contain;
                 background-position: center;
-                margin-left: 530px;
-                margin-top: -70px;
+                margin: -70px 0px 0px 530px;
                 "
               >
             </div>
@@ -180,8 +192,7 @@
                 position: absolute;
                 background-size: contain;
                 background-position: center;
-                margin-right: 1090px;
-                margin-top: 60px;
+                margin: 60px 1090px 0px 0px;
                 "
               >
             </div>            
@@ -197,8 +208,7 @@
                 position: absolute;
                 background-size: contain;
                 background-position: center;
-                margin-left: 435px;
-                margin-top: 100px;
+                margin: 100px 0px 0px 435px;
                 "
               >
             </div>          
@@ -214,8 +224,7 @@
                 position: absolute;
                 background-size: contain;
                 background-position: center;
-                margin-right: 650px;
-                margin-top: 40px;
+                margin: 40px 650px 0px 0px;
                 "
               >
             </div>          
@@ -231,8 +240,7 @@
                 position: absolute;
                 background-size: contain;
                 background-position: center;
-                margin-right: 780px;
-                margin-top: 90px;
+                margin: 90px 780px 0px 0px;
                 "
               >
             </div>        
@@ -248,8 +256,7 @@
                 position: absolute;
                 background-size: contain;
                 background-position: center;
-                margin-right: 355px;
-                margin-top: 150px;
+                margin: 150px 355px 0px 0px;
                 "
               >
             </div>        
@@ -265,8 +272,7 @@
                 position: absolute;
                 background-size: contain;
                 background-position: center;
-                margin-left: 870px;
-                margin-top: 100px;
+                margin: 100px 0px 0px 870px;
                 "
               >
             </div>        
@@ -282,11 +288,10 @@
                 position: absolute;
                 background-size: contain;
                 background-position: center;
-                margin-left: 595px;
-                margin-top: 100px;
+                margin: 100px 0px 0px 595px;
                 "
               >
-            </div>
+            </div> -->
 
             <div class="w-100" style="border: 1px solid transparent">
               <div class="d-flex justify-start align-end cursor-pointer ms-2 mt-3 mb-0" @click="$router.go(-1)">
@@ -305,7 +310,7 @@
                 <v-container class="d-flex flex-column justify-center align-center" style="border: 1px solid transparent" width="100%">
                   <div class="ml-0" style="border: 1px solid transparent;" >               
                     <span class="text-h4 font-weight-bold" style="text-align: center;">
-                        All Pokemons
+                        All Pokémons
                     </span> 
                   </div>         
                   <!-- Agregamos la paginación -->
@@ -384,39 +389,6 @@
                   </div>
               </v-card-text>  
 
-              <!-- <v-card-text>
-                <div class="font-weight-bold ml-8 gray--text d-flex justify-left">
-                  <h2>
-                    {{ pokemon.name[0].toUpperCase() + pokemon.name.slice(1) }}
-                  </h2>
-                </div>
-  
-                <v-timeline align-bottom dense class="mt-2" style="padding-top: 0px !important">
-                  <v-card-title class="white--text mt-0">
-                    <v-avatar 
-                      size="56" 
-                      :style="{ backgroundColor: getElementColorHex(pokemon.element) }">
-                      <img
-                        alt="user"
-                        :src="getElementTypeLogo(pokemon.element)"
-                        class="pa-2"
-                      >
-                    </v-avatar>
-                      <p class="ml-3 font-weight-bold grey--text">
-                        {{ pokemon.element[0].toUpperCase() + pokemon.element.slice(1) }} <br>
-                          <v-btn
-                          :to="{ path: '/details', query: { pokemonObject: pokemon, spritesObject: Object.values(pokemon.sprites) } }"
-                          :color="getElementColorNormal(pokemon.element)"
-                          class="mt-2"
-                          dark>
-  
-                          Details
-                        </v-btn>
-                      </p>                  
-                  </v-card-title>                
-                </v-timeline>
-              </v-card-text> -->
-  
             </v-card>
           </v-col>
         </v-row>      
@@ -435,10 +407,112 @@ export default {
       page: 1, // Página inicial
       pokemonsLimit: 500, // 200 pokemons / 1292 en total
       pokemonsPerPage: 100, // 50 pokemons por página    
+      backgroundTypeList: [
+        // {
+        //   name: 'normal',
+        //   width: '350px',
+        //   height: '200px',
+        //   margin: '0px 0px 0px 0px',
+        // },
+        {
+          name: 'dragon',
+          width: '350px',
+          height: '170px',
+          margin: '90px 0px 0px 1050px',
+        },
+        {
+          name: 'ground',
+          width: '350px',
+          height: '200px',
+          margin: '80px 1000px 0px 0px',
+        },
+        {
+          name: 'dark',
+          width: '350px',
+          height: '190px',
+          margin: '-120px 900px 0px 0px',
+        },
+        {
+          name: 'rock',
+          width: '250px',
+          height: '190px',
+          margin: '-80px 0px 0px 950px',
+        },
+        {
+          name: 'grass',
+          width: '350px',
+          height: '150px',
+          margin: '110px 600px 0px 0px',
+        },
+        {
+          name: 'fire',
+          width: '350px',
+          height: '200px',
+          margin: '80px 0px 0px 700px',
+        },
+        {
+          name: 'electric',
+          width: '250px',
+          height: '150px',
+          margin: '-20px 450px 0px 0px',          
+        },
+        {
+          name: 'poison',
+          width: '350px',
+          height: '150px',
+          margin: '-70px 0px 0px 530px',
+        },
+        {
+          name: 'water',
+          width: '350px',
+          height: '50px',
+          margin: '60px 1090px 0px 0px',
+        },
+        {
+          name: 'psychic',
+          width: '350px',
+          height: '90px',
+          margin: '100px 0px 0px 435px',
+        },
+        {
+          name: 'steel',
+          width: '350px',
+          height: '70px',
+          margin: '40px 650px 0px 0px',
+        },
+        {
+          name: 'bug',
+          width: '350px',
+          height: '50px',
+          margin: '90px 780px 0px 0px',          
+        },
+        {
+          name: 'fighting',
+          width: '350px',
+          height: '40px',
+          margin: '150px 355px 0px 0px',
+        },
+        {
+          name: 'ghost',
+          width: '350px',
+          height: '45px',
+          margin: '100px 0px 0px 870px',
+        },
+        {
+          name: 'fairy',
+          width: '350px',
+          height: '40px',
+          margin: '100px 0px 0px 595px',
+        },
+      ]
     };
   },
   async created() {
     this.getPokemonData();
+
+    // this.areaDeCirculo();
+    // this.numeroParOImpar();
+    // this.calcularSumaDeArray();
   },  
   methods: {
     async getPokemonData() {
@@ -446,8 +520,6 @@ export default {
         // 640 we encounter a flying pokemon (white color)
         const response = await pokeApi.get(`/pokemon/?offset=0&limit=${this.pokemonsLimit}`);
         const pokemons = response.data.results;
-
-        console.log(pokemons, 'POK');
 
         const pokemonData = await Promise.all(
           pokemons.map(async (pokemon) => {
@@ -483,7 +555,52 @@ export default {
       } catch (error) {
         console.error(error);
       }
-    },  
+    }, 
+    
+    areaDeCirculo(){
+        // Formula para calcular el área de un círculo: A = π * r2
+
+        // Radio del círculo
+        let radio = 5;
+
+        // Valor de PI
+        let PI = 3.1416;
+
+        // Área del círculo
+        var area = PI * (radio * radio);
+
+        // Impresión del área del círculo
+        console.log("El área del círculo es: " + area);
+    },
+
+    numeroParOImpar(){
+        // Número a evaluar (Ejemplo: 11 Numeo impar, 10 Número par)
+        var numero = 11;
+
+        // Evaluación del número basandose en el residuo de la división entre 2
+        if(numero % 2 == 0){
+            console.log("El número " + numero + " es par");
+        }else{
+            console.log("El número " + numero + " es impar");
+        }
+    },
+
+    calcularSumaDeArray(){
+        // Array de números
+        let numeros = [10, 20, 30, 40, 50];
+
+        // Variable para almacenar la suma de los números
+        let suma = 0;
+
+        // Ciclo para recorrer el array de números
+        for(let i = 0; i < numeros.length; i++){
+            // Sumar los números usando la variable suma y el arreglo de números
+            suma += numeros[i];
+        }
+
+        // Imprimir la suma de los números
+        console.log("La suma de los números es: " + suma);
+    }    
   },
   computed: {
     totalPages() {
