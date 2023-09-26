@@ -148,6 +148,7 @@ Vue.prototype.getElementColorHex = (element) => {
       return '#FF9800';
   }
 };
+
 Vue.prototype.getRandomPokemonType = () => {
   const elementTypes = [
     'normal',
@@ -174,4 +175,53 @@ Vue.prototype.getRandomPokemonType = () => {
   return elementTypes[randomType];
 } 
 
+Vue.prototype.getRandomPokemonColorNormal = () => {
+  const colors = [
+    'teal lighten-2',
+    'red darken-1',
+    'light-blue lighten-2',
+    'green accent-4',
+    'orange',
+    'deep-purple accent-2',
+    'yellow darken-2',
+    'brown darken-2',
+    'pink lighten-2',
+    'deep-orange lighten-2',
+    'grey darken-1',
+    'pink darken-1',
+    'purple lighten-1',
+    'cyan lighten-3',
+    'indigo darken-1',
+    'grey darken-3',
+    'blue-grey darken-1'
+  ];
+
+  const randomColor = Math.floor(Math.random() * colors.length);
+  return colors[randomColor];
+}  
+
+Vue.prototype.getRandomPokemonColorHex = () => {
+  const colors = [
+    '#4DB6AC',
+    '#E53935',
+    '#4FC3F7',
+    '#00C853',
+    '#FF9800',
+    '#7C4DFF',
+    '#FBC02D',
+    '#5D4037',
+    '#F06292',
+    '#FF8A65',
+    '#757575',
+    '#D81B60',
+    '#AB47BC',
+    '#80DEEA',
+    '#3949AB',
+    '#424242',
+    '#546E7A'
+  ];
+
+  const randomColor = Math.floor(Math.random() * colors.length);
+  return colors[randomColor];
+}
 export default new Vue();

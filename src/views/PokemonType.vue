@@ -14,7 +14,7 @@
                 height="200px"
                 :style="{
                   background: tab === 0 || tab === 1 ? getElementColorHex(pokemonType) 
-                  : 'linear-gradient(to right, ' + getElementColorHex(pokemonType) + ', ' + getElementColorHex(getRandomPokemonType()) + ')'
+                  : 'linear-gradient(to right, ' + getElementColorHex(pokemonType) + ', ' + getRandomPokemonColorHex() + ')'
                   }"
                 :dark="pokemonType === 'flying' ? false : true"
               >           

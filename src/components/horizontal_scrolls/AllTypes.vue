@@ -2,7 +2,7 @@
     <v-container>
       <div class="d-flex justify-space-between align-center">
         <h1 class="orange--text ml-4" >
-        <v-icon color="orange" size="40">mdi-checkbox-multiple-blank</v-icon>
+        <v-icon color="orange" size="35">mdi-checkbox-multiple-blank</v-icon>
         All Types</h1>
 
         <v-hover v-slot="{ hover }" class="d-flex justify-center align-center">

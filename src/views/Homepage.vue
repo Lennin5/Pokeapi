@@ -1,23 +1,16 @@
 <template>
-    <div style="margin-top: 40px">
-      <!-- Floating type pokemons button -->
-      <FloatingButtons 
-        :pokemonType="'normal'"
-      />
-      
+    <div class="mt-10 mt-lg-0">
       <!--Horizontal scroll of all pokemons component-->
       <HorizontalScrollAllPokemons />
 
       <!--Horizontal scroll of all types component-->
-      <HorizontalScrollAllTypes />
-  
+      <HorizontalScrollAllTypes />  
     </div>
   </template>
   
   <script>
   import pokeApi from '../plugins/axios';
   import BgPokemon from '@/assets/img/bg-pokemon.png';
-  import FloatingButtons from '../components/FloatingTypesButton.vue';
   import HorizontalScrollAllPokemons from '@/components/horizontal_scrolls/AllPokemons.vue';
   import HorizontalScrollAllTypes from '@/components/horizontal_scrolls/AllTypes.vue';
   
@@ -36,7 +29,6 @@
     },
     
     components: {
-      FloatingButtons,
       HorizontalScrollAllPokemons,
       HorizontalScrollAllTypes,
     },

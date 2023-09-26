@@ -10,7 +10,7 @@
               width="fullscreen"
               height="200px"
               :style="{
-                background: 'linear-gradient(to right, ' + getElementColorHex(getRandomPokemonType()) + ', ' + getElementColorHex(getRandomPokemonType()) + ')'
+                background: 'linear-gradient(to right, ' + getRandomPokemonColorHex() + ', ' + getRandomPokemonColorHex() + ')'
                 }"
               :dark="pokemonType === 'flying' ? false : true"
             >           
@@ -287,18 +287,6 @@
                 "
               >
             </div>
-            <!-- <div class="d-flex justify-start align-end mb-0 cursor-pointer" style="margin-top: -150px; margin-left: 10px; z-index: 10" @click="$router.go(-1)">
-              <div>
-                <v-icon                  
-                :style="{color: pokemonType === 'flying' ? '#0000008a' : '#ffffff8a'}"
-                >mdi-chevron-left</v-icon>                      
-              </div>
-              <div>
-                <span class="text-subtitle-2"
-                :style="{color: pokemonType === 'flying' ? '#0000008a' : '#ffffff8a'}"
-                >Back</span>
-              </div>
-            </div>                  -->
 
             <div class="w-100" style="border: 1px solid transparent">
               <div class="d-flex justify-start align-end cursor-pointer ms-2 mt-3 mb-0" @click="$router.go(-1)">
@@ -327,7 +315,7 @@
                       v-model="page"
                       :length="totalPages"
                       circle
-                      color="orange"
+                      :color="getRandomPokemonColorNormal()"
                     >
                     </v-pagination>
                   </div>                     
