@@ -96,7 +96,6 @@
           this.allTypes = response.data.results;
           // sort randomly
             this.allTypes.sort(() => Math.random() - 0.5);
-          console.log(this.allTypes, 'allTypes');
         } catch (error) {
           console.error(error);
         }

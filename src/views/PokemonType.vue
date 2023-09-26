@@ -74,10 +74,10 @@
                       <v-tab @click="setAllPokemons()">
                         <v-icon class="mr-2">mdi-pokeball</v-icon>
                         <span v-if="pokemonsAll.length === 0">
-                          Total Pokemons ...
+                          All ...
                         </span>
                         <span v-else>
-                          Total Pokemons {{  pokemonsAll.length }}
+                          All {{  pokemonsAll.length }}
                         </span>
                       </v-tab>
                       <v-tab @click="setPurePokemons()">

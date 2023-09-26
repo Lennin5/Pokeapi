@@ -1,7 +1,6 @@
 <template>
-  <div style="margin-top: 40px">
-    <h1 style="text-align: center;" class="grey--text">Pokémon Types</h1>
-    <br>
+  <div class="mt-10 mt-lg-0">
+    <!-- <h1 style="text-align: center;" class="grey--text">Pokémon Types</h1> -->
       <v-container>
         <v-row>
             <!-- render image for each pokemon type -->

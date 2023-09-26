@@ -6,13 +6,12 @@
       <v-row justify="center" class="mt-0">
         <v-col cols="12">
           <v-card
-              class="mx-auto rounded-xl d-flex align-start justify-center"
-              width="fullscreen"
-              height="200px"
-              :style="{
-                background: 'linear-gradient(to right, ' + getRandomPokemonColorHex() + ', ' + getRandomPokemonColorHex() + ')'
-                }"
-              :dark="pokemonType === 'flying' ? false : true"
+            class="mx-auto rounded-xl d-flex align-start justify-center"
+            width="fullscreen"
+            height="200px"
+            :style="{
+              background: 'linear-gradient(to right, ' + getRandomPokemonColorHex() + ', ' + getRandomPokemonColorHex() + ')'
+              }"
             >           
             <div
                 v-for="(item, index) in backgroundTypeList"
@@ -33,283 +32,25 @@
               >
             </div>
 
-            <!-- <div
-              :style="{
-                backgroundImage: 'url(' + getElementTypeLogo(pokemonType) + ')',                  
-              }"
-              style="
-                width: 350px; 
-                height: 200px; 
-                border-radius: 0px;                                    
-                opacity: 0.1;
-                position: absolute;
-                background-size: cover;
-                background-position: center;    
-                margin: 0px 0px 0px 0px;          
-                "
-              >
-            </div>           
-            <div
-              :style="{
-                backgroundImage: 'url(' + getElementTypeLogo('dragon') + ')',                  
-              }"
-              style="
-                width: 350px; 
-                height: 170px; 
-                border-radius: 0px;                                    
-                opacity: 0.1;
-                position: absolute;
-                background-size: contain;
-                background-position: center;
-                margin: 90px 0px 0px 1050px;
-                "
-              >
-            </div>           
-            <div
-              :style="{
-                backgroundImage: 'url(' + getElementTypeLogo('ground') + ')',                  
-              }"
-              style="
-                width: 350px; 
-                height: 200px; 
-                border-radius: 0px;                                    
-                opacity: 0.1;
-                position: absolute;
-                background-size: contain;
-                background-position: center;
-                margin: 80px 1000px 0px 0px;
-                "
-              >
-            </div>           
-            <div
-              :style="{
-                backgroundImage: 'url(' + getElementTypeLogo('dark') + ')',                  
-              }"
-              style="
-                width: 350px; 
-                height: 190px; 
-                border-radius: 0px;                                    
-                opacity: 0.1;
-                position: absolute;
-                background-size: contain;
-                background-position: center;
-                margin: -120px 900px 0px 0px;
-                "
-              >
-            </div>           
-            <div
-              :style="{
-                backgroundImage: 'url(' + getElementTypeLogo('rock') + ')',                  
-              }"
-              style="
-                width: 250px; 
-                height: 190px; 
-                border-radius: 0px;                                    
-                opacity: 0.1;
-                position: absolute;
-                background-size: contain;
-                background-position: center;
-                margin: -80px 0px 0px 950px;
-                "
-              >
-            </div>           
-
-            <div
-              :style="{
-                backgroundImage: 'url(' + getElementTypeLogo('grass') + ')',                  
-              }"
-              style="
-                width: 350px; 
-                height: 150px; 
-                border-radius: 0px;                                    
-                opacity: 0.1;
-                position: absolute;
-                background-size: contain;
-                background-position: center;
-                margin: 110px 600px 0px 0px;
-                "
-              >
-            </div>
-            <div
-              :style="{
-                backgroundImage: 'url(' + getElementTypeLogo('fire') + ')',                  
-              }"
-              style="
-                width: 350px; 
-                height: 200px; 
-                border-radius: 0px;                                    
-                opacity: 0.1;
-                position: absolute;
-                background-size: contain;
-                background-position: center;
-                margin: 80px 0px 0px 700px;
-                "
-              >
-            </div>
-
-            <div
-              :style="{
-                backgroundImage: 'url(' + getElementTypeLogo('electric') + ')',                  
-              }"
-              style="
-                width: 250px; 
-                height: 150px; 
-                border-radius: 0px;                                    
-                opacity: 0.1;
-                position: absolute;
-                background-size: contain;
-                background-position: center;
-                margin: -20px 450px 0px 0px;
-                "
-              >
-            </div>
-            <div
-              :style="{
-                backgroundImage: 'url(' + getElementTypeLogo('poison') + ')',                  
-              }"
-              style="
-                width: 350px; 
-                height: 150px; 
-                border-radius: 0px;                                    
-                opacity: 0.1;
-                position: absolute;
-                background-size: contain;
-                background-position: center;
-                margin: -70px 0px 0px 530px;
-                "
-              >
-            </div>
-            
-            <div
-              :style="{
-                backgroundImage: 'url(' + getElementTypeLogo('water') + ')',                  
-              }"
-              style="
-                width: 350px; 
-                height: 50px; 
-                border-radius: 0px;                                    
-                opacity: 0.1;
-                position: absolute;
-                background-size: contain;
-                background-position: center;
-                margin: 60px 1090px 0px 0px;
-                "
-              >
-            </div>            
-            <div
-              :style="{
-                backgroundImage: 'url(' + getElementTypeLogo('psychic') + ')',                  
-              }"
-              style="
-                width: 350px; 
-                height: 90px; 
-                border-radius: 0px;                                    
-                opacity: 0.1;
-                position: absolute;
-                background-size: contain;
-                background-position: center;
-                margin: 100px 0px 0px 435px;
-                "
-              >
-            </div>          
-            <div
-              :style="{
-                backgroundImage: 'url(' + getElementTypeLogo('steel') + ')',                  
-              }"
-              style="
-                width: 350px; 
-                height: 70px; 
-                border-radius: 0px;                                    
-                opacity: 0.1;
-                position: absolute;
-                background-size: contain;
-                background-position: center;
-                margin: 40px 650px 0px 0px;
-                "
-              >
-            </div>          
-            <div
-              :style="{
-                backgroundImage: 'url(' + getElementTypeLogo('bug') + ')',                  
-              }"
-              style="
-                width: 350px; 
-                height: 50px; 
-                border-radius: 0px;                                    
-                opacity: 0.1;
-                position: absolute;
-                background-size: contain;
-                background-position: center;
-                margin: 90px 780px 0px 0px;
-                "
-              >
-            </div>        
-            <div
-              :style="{
-                backgroundImage: 'url(' + getElementTypeLogo('fighting') + ')',                  
-              }"
-              style="
-                width: 350px; 
-                height: 40px; 
-                border-radius: 0px;                                    
-                opacity: 0.1;
-                position: absolute;
-                background-size: contain;
-                background-position: center;
-                margin: 150px 355px 0px 0px;
-                "
-              >
-            </div>        
-            <div
-              :style="{
-                backgroundImage: 'url(' + getElementTypeLogo('ghost') + ')',                  
-              }"
-              style="
-                width: 350px; 
-                height: 45px; 
-                border-radius: 0px;                                    
-                opacity: 0.1;
-                position: absolute;
-                background-size: contain;
-                background-position: center;
-                margin: 100px 0px 0px 870px;
-                "
-              >
-            </div>        
-            <div
-              :style="{
-                backgroundImage: 'url(' + getElementTypeLogo('fairy') + ')',                  
-              }"
-              style="
-                width: 350px; 
-                height: 40px; 
-                border-radius: 0px;                                    
-                opacity: 0.1;
-                position: absolute;
-                background-size: contain;
-                background-position: center;
-                margin: 100px 0px 0px 595px;
-                "
-              >
-            </div> -->
-
             <div class="w-100" style="border: 1px solid transparent">
-              <div class="d-flex justify-start align-end cursor-pointer ms-2 mt-3 mb-0" @click="$router.go(-1)">
+              <div class="d-flex justify-start align-end ms-2 mt-3 white--text" @click="$router.go(-1)">
                 <div>
-                  <v-icon                  
-                  :style="{color: pokemonType === 'flying' ? '#0000008a' : '#ffffff8a'}"
+                  <v-icon       
+                  style="z-index: 999"
+                  class="white--text cursor-pointer"  
                   >mdi-chevron-left</v-icon>                      
                 </div>
                 <div>
-                  <span class="text-subtitle-2"
-                  :style="{color: pokemonType === 'flying' ? '#0000008a' : '#ffffff8a'}"
-                  >Back</span>
+                  <div 
+                  style="z-index: 999"
+                  class="text-subtitle-2 cursor-pointer"
+                  >Back</div>
                 </div>
               </div>  
               <div class="d-flex justify-center align-start w-100">
                 <v-container class="d-flex flex-column justify-center align-center" style="border: 1px solid transparent" width="100%">
                   <div class="ml-0" style="border: 1px solid transparent;" >               
-                    <span class="text-h4 font-weight-bold" style="text-align: center;">
+                    <span class="text-h4 font-weight-bold text-center white--text">
                         All Pokémons
                     </span> 
                   </div>         
@@ -408,12 +149,12 @@ export default {
       pokemonsLimit: 500, // 200 pokemons / 1292 en total
       pokemonsPerPage: 100, // 50 pokemons por página    
       backgroundTypeList: [
-        // {
-        //   name: 'normal',
-        //   width: '350px',
-        //   height: '200px',
-        //   margin: '0px 0px 0px 0px',
-        // },
+        {
+          name: 'normal',
+          width: '450px',
+          height: '350px',
+          margin: '-70px 0px 0px 0px',
+        },
         {
           name: 'dragon',
           width: '350px',
