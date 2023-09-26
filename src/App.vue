@@ -68,7 +68,7 @@
         <v-list-item
           v-for="(item, index) in menuItems"
           :key="index"
-          @click="menuItemClicked(item)"
+          @click="menuItemClicked(item.path)"
         >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
@@ -105,17 +105,17 @@ export default {
     drawer: true, // Controla el estado de la barra lateral (colapsada o expandida)
     mini: false, // Controla el estado mini del menú (solo iconos)
     menuItems: [ // Define los elementos del menú
-      { text: 'Homepage', icon: 'mdi-home' },
-      { text: 'All Pokemons', icon: 'mdi-cards' },
-      { text: 'All Types', icon: 'mdi-checkbox-multiple-blank' },
-      { text: 'About', icon: 'mdi-information' },
+      { text: 'Homepage', icon: 'mdi-home', path: '/' },
+      { text: 'All Pokemons', icon: 'mdi-cards', path: '/all-pokemons' },
+      { text: 'All Types', icon: 'mdi-checkbox-multiple-blank', path: '/type' },
+      { text: 'About', icon: 'mdi-information', path: '/about' },
     ],
   }),
 
   methods: {
-    menuItemClicked(item) {
+    menuItemClicked(path) {
       // Agrega lógica para manejar la selección de elementos del menú aquí
-      console.log('Elemento del menú seleccionado:', item.text);
+      window.location.href = path;
     },
 
     toggleMenu() {
