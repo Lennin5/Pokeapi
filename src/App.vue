@@ -105,8 +105,10 @@ export default {
     drawer: true, // Controla el estado de la barra lateral (colapsada o expandida)
     mini: false, // Controla el estado mini del menú (solo iconos)
     menuItems: [ // Define los elementos del menú
-      { text: 'Opción 1', icon: 'mdi-home' },
-      { text: 'Opción 3', icon: 'mdi-account' },
+      { text: 'Homepage', icon: 'mdi-home' },
+      { text: 'All Pokemons', icon: 'mdi-cards' },
+      { text: 'All Types', icon: 'mdi-checkbox-multiple-blank' },
+      { text: 'About', icon: 'mdi-information' },
     ],
   }),
 

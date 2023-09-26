@@ -15,11 +15,11 @@
         </v-icon>          
         <v-hover v-slot="{ hover }" class="d-flex justify-center align-center">
         <span class="me-15 cursor-pointer" @click="$router.push('/all-pokemons')"
-        :class="hover ? 'orange--text text-decoration-underline' : 'deep-orange--text accent-4--text'">
+        :class="hover ? 'deep-orange--text accent-4--text text-decoration-underline' : 'orange--text '">
           View all
           <v-icon 
           class="ms-1"
-          :color="hover ? 'orange' : 'deep-orange accent-2'"
+          :color="hover ? 'deep-orange accent-2' : 'orange'"
           size="15">mdi-arrow-right</v-icon>
         </span>
         </v-hover>            
