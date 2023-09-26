@@ -6,7 +6,7 @@
         All Types</h1>
 
         <v-hover v-slot="{ hover }" class="d-flex justify-center align-center">
-          <span class="me-15 cursor-pointer" @click="$router.push('/type')"
+          <span class="me-5 cursor-pointer" @click="$router.push('/type')"
           :class="hover ? 'deep-orange--text accent-4--text text-decoration-underline' : 'orange--text'">
             View all
             <v-icon 
