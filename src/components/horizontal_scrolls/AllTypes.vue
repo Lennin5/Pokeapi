@@ -1,5 +1,21 @@
 <template>
     <v-container>
+      <div class="d-flex justify-space-between align-center">
+        <h1 class="orange--text ml-4" >
+        <v-icon color="orange" size="40">mdi-checkbox-multiple-blank</v-icon>
+        All Types</h1>
+
+        <v-hover v-slot="{ hover }" class="d-flex justify-center align-center">
+          <span class="me-15 cursor-pointer" @click="$router.push('/type')"
+          :class="hover ? 'orange--text text-decoration-underline' : 'deep-orange--text accent-4--text'">
+            View all
+            <v-icon 
+            class="ms-1"
+            :color="hover ? 'orange' : 'deep-orange accent-2'"
+            size="15">mdi-arrow-right</v-icon>
+          </span>
+        </v-hover>            
+      </div>      
       <div class="horizontal-scroll scroll-container-for-horizontal-div">
         <div>
           <!-- Skeleton loader -->

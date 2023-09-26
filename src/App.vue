@@ -9,10 +9,12 @@
       <v-app-bar-nav-icon @click="drawer = !drawer" />
       <v-toolbar-title class="d-flex justify-center w-100" style="margin-right: 50px;">
         <img 
-        style="object-fit: contain;"
-        class="pa-4"
-        :src="mini ? LogoPokemonsMobile : LogoPokemons"
-        alt="Logo" height="100" width="100%" />        
+          @click="$router.push('/')"
+          class="cursor-pointer pa-4"
+          style="object-fit: contain;"
+          :src="mini ? LogoPokemonsMobile : LogoPokemons"
+          alt="Logo" height="100" width="100%" 
+        />        
       </v-toolbar-title>
       <v-spacer />
     </v-app-bar>
@@ -49,6 +51,8 @@
         <v-list-item-content>
           <v-list-item-title class="text-h6 d-flex justify-center">
             <img 
+              @click="$router.push('/')"
+              class="cursor-pointer"
               alt="Logo"
               style="object-fit: contain;"
               :src="mini ? LogoPokemonsMobile : LogoPokemons"

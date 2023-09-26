@@ -8,6 +8,7 @@ import Homepage from './views/Homepage';
 import PokemonDetails from './views/PokemonDetails';
 import PokemonTypes from './views/PokemonTypes';
 import PokemonType from './views/PokemonType';
+import AllPokemonsView from './views/AllPokemonsView';
 
 Vue.use(VueRouter);
 
@@ -15,7 +16,8 @@ const routes = [
   { path: '/', component: Homepage },
   { path: '/details', component: PokemonDetails },
   { path: '/type', component: PokemonTypes },
-  { path: '/type/:type', component: PokemonType }
+  { path: '/type/:type', component: PokemonType },
+  { path: '/all-pokemons', component: AllPokemonsView}
 ];
 
 const router = new VueRouter({
