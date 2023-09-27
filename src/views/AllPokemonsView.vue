@@ -73,66 +73,99 @@
       </v-row>  
       <!-- <h1 style="text-align: center;" class="grey--text">All Pokémons</h1> -->            
       <br>
-        <v-row>
+      <div>
+        <!-- Skeleton loader -->
+        <v-row v-if="paginatedPokemons.length === 0">
           <v-col
-            v-for="pokemon in paginatedPokemons"
+            v-for="n in 16" :key="n"
+            cols="12"
+            xs="12"
+            sm="4"
+            md="3"
+            lg="2"
+            xl="2"
+            class="d-flex justify-center"
+          >
+            <v-card 
+            width="100%"
+            class="card rounded-xl"
+            :style="{
+              height: '255px',  
+              }" 
+              >
+              <div class="d-flex justify-center align-center flex-column">
+                  <v-skeleton-loader type="image" aspect-ratio="0.9" height="170" class="mt-4 rounded-lg" style="width: 80%"></v-skeleton-loader>
+                <v-card-actions class="d-flex justify-center">
+                  <v-skeleton-loader type="button" class="w-100 mt-1"></v-skeleton-loader>
+                </v-card-actions> 
+              </div>         
+            </v-card>           
+          </v-col>
+        </v-row>
+        <!-- All pokemons rendered -->
+        <v-row>          
+          <v-col
+            v-for="(pokemon) in paginatedPokemons"
             :key="pokemon.name"
             cols="12"
             xs="12"
-            sm="6"
-            md="4"
-            lg="3"
-            xl="3"
+            sm="4"
+            md="3"
+            lg="2"
+            xl="2"
             class="d-flex justify-center"
           >
-            <v-card width="400" style="border-radius: 20px !important;">
-              <div class="d-flex justify-center">
-                <v-img :src="pokemon.sprites[index]" max-height="300px" max-width="150" class="">
-                </v-img>
+            <!-- Data rendered -->
+            <v-card
+              width="100%"
+              class="card rounded-xl">
+              <div class="d-flex justify-center align-center" 
+              :style="{
+                backgroundColor: getElementColorHex(pokemon.element),
+                width: '100%',
+                height: '170px',              
+              }"
+              @mouseover="setElementOpacity(pokemon.name, 0.3)"
+              @mouseout="setElementOpacity(pokemon.name, 0.1)">
+              <div
+              :id="'pokemon_card_' + pokemon.name"
+                :style="{
+                  width: '130px',
+                  height: '130px',
+                  backgroundImage: 'url(' + getElementTypeLogo(pokemon.element) + ')',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'center',
+                  backgroundSize: 'cover',
+                  position: 'absolute',
+                  opacity: '0.1',
+                  marginTop: '40px',
+                }" />
+              <div class="">
+                <v-img :src="pokemon.sprites[index]" max-height="300px" max-width="150" class="" :id="'pokemon_image_'+pokemon.name"></v-img>
+                <div class="font-weight-bold d-flex justify-center"
+                :class="pokemon.element === 'flying' ? 'gray--text' : 'white--text'">
+                  <h2>
+                    {{ pokemon.name[0].toUpperCase() + pokemon.name.slice(1) }}
+                  </h2>                
+                </div>
               </div>
-
-              <v-card-text>
-                  <div class="font-weight-bold ml-0 gray--text d-flex justify-center">
-                  <h2>                  
-                      {{ pokemon.name[0].toUpperCase() + pokemon.name.slice(1) }}
-                  </h2>
+              </div>
+                <v-card-text :style="{backgroundColor: getElementColorHex(pokemon.element)}">
+                  <div class="d-flex justify-center pb-2">
+                    <v-btn
+                      :to="{ path: '/details', query: { pokemonObject: pokemon, spritesObject: Object.values(pokemon.sprites) } }"
+                      :color="getElementColorNormal(pokemon.element)"
+                      class="mt-2 rounded-lg"
+                      :dark="pokemon.element === 'flying' ? false : true"
+                      :light="pokemon.element === 'flying' ? true : false">
+                          Details
+                    </v-btn>                
                   </div>
-                  <div class="font-weight-bold mt-2 grey--text d-flex justify-center">
-                  <h4>                  
-                      {{ pokemon.element[0].toUpperCase() + pokemon.element.slice(1) }}
-                  </h4>
-                  </div>              
-                  <div class="d-flex justify-center mb-3">
-                  <div
-                      class="container-element"
-                      :style="{                
-                      backgroundColor: getElementColorHex(pokemon.element),
-                      boxShadow: pokemon.element === 'flying' ? '0px 0px 2px 0px #343838' : 'none',
-                      }"
-                  >
-                      <div
-                      class="element-icon"
-                      :style="{
-                          backgroundImage: 'url(' + getElementTypeLogo(pokemon.element) + ')',
-                      }"
-                      />
-                  </div>
-                  </div>
-                  <div class="d-flex justify-center pb-4">
-                  <v-btn
-                  :to="{ path: '/details', query: { pokemonObject: pokemon, spritesObject: Object.values(pokemon.sprites) } }"
-                  :color="getElementColorNormal(pokemon.element)"
-                  class="mt-2"
-                  :dark="pokemon.element === 'flying' ? false : true"
-                  :lihght="pokemon.element === 'flying' ? true : false">
-                      View Details
-                          </v-btn>                
-                  </div>
-              </v-card-text>  
-
-            </v-card>
+                </v-card-text>  
+            </v-card>  
           </v-col>
-        </v-row>      
+        </v-row>
+      </div>      
       </v-container>    
   </div>
 </template>
@@ -250,10 +283,6 @@ export default {
   },
   async created() {
     this.getPokemonData();
-
-    // this.areaDeCirculo();
-    // this.numeroParOImpar();
-    // this.calcularSumaDeArray();
   },  
   methods: {
     async getPokemonData() {
@@ -293,55 +322,25 @@ export default {
         );
 
         this.pokemons = pokemonData;
+        // sort data randomly
+        // this.pokemons.sort(() => Math.random() - 0.5);
       } catch (error) {
         console.error(error);
       }
     }, 
     
-    areaDeCirculo(){
-        // Formula para calcular el área de un círculo: A = π * r2
+    setElementOpacity(pokemonName, opacity) {
+      const pokemonCard = document.getElementById(`pokemon_card_${pokemonName}`);
+      const pokemonImage = document.getElementById(`pokemon_image_${pokemonName}`);
+      if (pokemonCard && pokemonImage) {
+        pokemonCard.style.opacity = opacity;
+        pokemonCard.style.transition = 'all 0.3s ease-in-out';
 
-        // Radio del círculo
-        let radio = 5;
-
-        // Valor de PI
-        let PI = 3.1416;
-
-        // Área del círculo
-        var area = PI * (radio * radio);
-
-        // Impresión del área del círculo
-        console.log("El área del círculo es: " + area);
-    },
-
-    numeroParOImpar(){
-        // Número a evaluar (Ejemplo: 11 Numeo impar, 10 Número par)
-        var numero = 11;
-
-        // Evaluación del número basandose en el residuo de la división entre 2
-        if(numero % 2 == 0){
-            console.log("El número " + numero + " es par");
-        }else{
-            console.log("El número " + numero + " es impar");
-        }
-    },
-
-    calcularSumaDeArray(){
-        // Array de números
-        let numeros = [10, 20, 30, 40, 50];
-
-        // Variable para almacenar la suma de los números
-        let suma = 0;
-
-        // Ciclo para recorrer el array de números
-        for(let i = 0; i < numeros.length; i++){
-            // Sumar los números usando la variable suma y el arreglo de números
-            suma += numeros[i];
-        }
-
-        // Imprimir la suma de los números
-        console.log("La suma de los números es: " + suma);
-    }    
+        pokemonCard.style.opacity = opacity;
+        pokemonImage.style.transform = opacity === 0.3 ? 'scale(1.4)' : 'scale(1.1)';
+        pokemonImage.style.transition = 'all 0.3s ease-in-out';
+      }
+    },     
   },
   computed: {
     totalPages() {
