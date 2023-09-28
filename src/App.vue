@@ -86,7 +86,7 @@
     <!-- Contenido principal -->
     <v-main style="background-color: #f2f2f2;">
       <!-- Contenido principal de la aplicación -->
-      <router-view></router-view>
+      <router-view :mini="mini"></router-view>
     </v-main>
   </v-app>
 </template>

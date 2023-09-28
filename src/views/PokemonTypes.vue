@@ -29,9 +29,9 @@
                             height: 150px; 
                             margin-top: 100px; 
                             margin-bottom: 5px; 
-                            margin-left: 90px;
                             opacity: 0.1;
-                            position: absolute;">
+                            position: absolute;"
+                            :style="{marginLeft: mini ? '70px' : '50px'}">
                         <v-avatar 
                         size="56" 
                         style="border-radius: 0px;"
@@ -106,6 +106,10 @@
   import pokeApi from '../plugins/axios';
   export default {
       name: 'PokemonTypes',
+
+      props: {
+          mini: Boolean,
+      },
 
       data() {
           return {
