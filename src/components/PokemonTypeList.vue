@@ -57,35 +57,35 @@
             <div
                 :id="'pokemon_card_' + pokemon.name"
                 :style="{
-                    width: '150px',
-                    height: '150px',
+                    width: pokemon.element !== pokemonType ? '240px' : '170px',
+                    height: pokemon.element !== pokemonType ? '240px' : '170px',
                     backgroundImage: 'url(' + getElementTypeLogo(pokemonType) + ')',
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',
                     backgroundSize: 'cover',
                     position: 'absolute',
                     opacity: '0.1',
-                    marginTop: '40px',
-                    marginLeft: pokemon.element !== pokemonType ? '-250px' : '0', /* Mostrar lado izquierdo */
-                    clipPath: pokemon.element !== pokemonType && 'polygon(100% 0, 100% 100%, 45% 100%, 45% 0)', /* Mostrar lado derecho */                    
+                    marginTop: pokemon.element !== pokemonType ? '50px' : '130px',
+                    marginLeft: pokemon.element !== pokemonType ? '-265px' : '0', /* Mostrar lado izquierdo */
+                    clipPath: pokemon.element !== pokemonType && 'polygon(100% 0, 100% 100%, 50% 100%, 50% 0)', /* Mostrar lado derecho */                    
                 }"
             />          
             <div
                 v-if="pokemon.element !== pokemonType"
                 :id="'pokemon_card_' + pokemon.name"
                 :style="{
-                    width: '150px',
-                    height: '150px',
+                    width: '240px',
+                    height: '240px',
                     backgroundImage: 'url(' + getElementTypeLogo(pokemon.element) + ')',
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',
                     backgroundSize: 'cover',
                     position: 'absolute',
                     opacity: '0.1',
-                    marginTop: '40px',
-                    marginRight: pokemon.element !== pokemonType ? '-70px' : '-10',
+                    marginTop: '260px',
+                    marginRight: pokemon.element !== pokemonType ? '-125px' : '-10',
                     right: '0',
-                    clipPath: 'polygon(0 0, 55% 0, 55% 100%, 0% 100%)', /* Cambiado el clipPath */
+                    clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0% 100%)', /* Cambiado el clipPath */
                 }"
             />            
           <div class="">
@@ -107,7 +107,8 @@
             <div class="d-flex justify-center" style="background-color: transparent;">
                 <div
                     class="container-element elevation-2"
-                    :style="{                
+                    :style="{            
+                    zIndex: '99',    
                     backgroundColor: getElementColorHex(pokemonType),
                     boxShadow: pokemonType === 'flying' ? '0px 0px 2px 0px #343838' : 'none',
                     // border: '1px solid #dbdbdb',
@@ -123,7 +124,8 @@
                 <div
                     v-if="pokemon.element !== pokemonType"
                     class="container-element elevation-2 ms-1"
-                    :style="{                  
+                    :style="{       
+                    zIndex: '99',            
                     backgroundColor: getElementColorHex(pokemon.element),
                     boxShadow: pokemon.element === 'flying' ? '0px 0px 2px 0px #343838' : 'none',
                     // border: '1px solid #dbdbdb',
