@@ -69,13 +69,15 @@
           v-for="(item, index) in menuItems"
           :key="index"
           @click="menuItemClicked(item.path)"
+          class="pt-2 pb-2"
         >
           <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
+            <v-icon :size="item.icon === 'mdi-checkbox-multiple-blank' ? '20' : '25'"
+            >{{ item.icon }}</v-icon>
           </v-list-item-icon>
 
           <v-list-item-content>
-            <v-list-item-title>{{ item.text }}</v-list-item-title>
+            <div class="subtitle-2 font-weight-medium">{{ item.text }}</div>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -105,10 +107,11 @@ export default {
     drawer: true, // Controla el estado de la barra lateral (colapsada o expandida)
     mini: false, // Controla el estado mini del menú (solo iconos)
     menuItems: [ // Define los elementos del menú
-      { text: 'Homepage', icon: 'mdi-home', path: '/' },
+      { text: 'Homepage', icon: 'mdi-home-variant', path: '/' },
       { text: 'All Pokemons', icon: 'mdi-cards', path: '/all-pokemons' },
       { text: 'All Types', icon: 'mdi-checkbox-multiple-blank', path: '/type' },
-      { text: 'API', icon: 'mdi-link-variant', path: 'https://pokeapi.co/' },
+      { text: 'API', icon: 'mdi-open-in-new', path: 'https://pokeapi.co/' },
+      { text: 'lenninlemus.com', icon: 'mdi-coffee', path: 'https://lenninlemus.com'}
     ],
   }),
 
