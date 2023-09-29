@@ -1,7 +1,7 @@
 <template>
     <v-row>      
     <v-col
-        v-for="(pokemon, index) in pokemonsList"
+        v-for="(pokemon) in pokemonsList"
         :key="pokemon.name"
         cols="12"
         xs="12"
@@ -11,7 +11,113 @@
         xl="3"
         class="d-flex justify-center"
     >
-        <v-card width="400" style="border-radius: 20px !important;"
+        <!-- Data rendered -->
+        <v-card
+          width="100%"
+          class="card rounded-xl">
+          <div class="d-flex justify-center align-center" 
+          :style="{
+            background: pokemon.element !== pokemonType ?
+            'linear-gradient(to right, ' + getElementColorHex(pokemonType) + ', ' + getElementColorHex(pokemon.element) + ')'
+            : getElementColorHex(pokemon.element),
+            width: '100%',
+            height: '170px',              
+          }"
+          @mouseover="setElementOpacity(pokemon.name, 0.3)"
+          @mouseout="setElementOpacity(pokemon.name, 0.1)">
+          <div
+          :id="'pokemon_card_' + pokemon.name"
+            :style="{
+              width: '150px',
+              height: '150px',
+              backgroundImage: 'url(' + getElementTypeLogo(pokemonType) + ')',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center',
+              backgroundSize: 'cover',
+              position: 'absolute',
+              opacity: '0.1',
+              marginTop: '40px',
+              marginLeft: pokemon.element !== pokemonType ? '-250px' : '-10',
+            }" />
+          <div
+          v-if="pokemon.element !== pokemonType"
+          :id="'pokemon_card_' + pokemon.name"
+            :style="{
+              width: '150px',
+              height: '150px',
+              backgroundImage: 'url(' + getElementTypeLogo(pokemon.element) + ')',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center',
+              backgroundSize: 'cover',
+              position: 'absolute',
+              opacity: '0.1',
+              marginTop: '40px',
+              right: '0',
+            }" />
+
+          <div class="">
+            <v-img :src="pokemon.sprites[0]" max-height="300px" max-width="150" class="" :id="'pokemon_image_'+pokemon.name"></v-img>
+            <div class="font-weight-bold d-flex justify-center"
+            :class="pokemon.element === 'flying' ? 'gray--text' : 'white--text'">
+              <h2>
+                {{ pokemon.name[0].toUpperCase() + pokemon.name.slice(1) }}
+              </h2>                
+            </div>
+          </div>
+          </div>        
+            <v-card-text 
+                :style="{
+                    background: pokemon.element !== pokemonType ?
+                    'linear-gradient(to right, ' + getElementColorHex(pokemonType) + ', ' + getElementColorHex(pokemon.element) + ')'
+                    : getElementColorHex(pokemon.element)}">
+
+            <div class="d-flex justify-center" style="background-color: transparent;">
+                <div
+                    class="container-element"
+                    :style="{                
+                    backgroundColor: getElementColorHex(pokemonType),
+                    boxShadow: pokemonType === 'flying' ? '0px 0px 2px 0px #343838' : 'none',
+                    }"
+                >
+                    <div
+                    class="element-icon"
+                    :style="{
+                        backgroundImage: 'url(' + getElementTypeLogo(pokemonType) + ')',
+                    }"
+                    />
+                </div>
+                <div
+                    v-if="pokemon.element !== pokemonType"
+                    class="container-element ms-1"
+                    :style="{                  
+                    backgroundColor: getElementColorHex(pokemon.element),
+                    boxShadow: pokemon.element === 'flying' ? '0px 0px 2px 0px #343838' : 'none',
+                    }"
+                >
+                    <div
+                    class="element-icon"
+                    :style="{
+                        backgroundImage: 'url(' + getElementTypeLogo(pokemon.element) + ')',
+                    }"
+                    />
+                </div>
+            </div>     
+                         
+              <div class="d-flex justify-center pb-2">
+                <v-btn
+                  :to="{ path: '/details', query: { pokemonObject: pokemon, spritesObject: Object.values(pokemon.sprites) } }"
+                  :style="{background: pokemon.element !== pokemonType ?
+                    'linear-gradient(to right, ' + getElementColorHex(pokemonType) + ', ' + getElementColorHex(pokemon.element) + ')'
+                    : getElementColorHex(pokemon.element)}"
+                  class="mt-2 rounded-lg"
+                  :dark="pokemon.element === 'flying' ? false : true"
+                  :light="pokemon.element === 'flying' ? true : false">
+                      View Details
+                </v-btn>                
+              </div>
+            </v-card-text>  
+        </v-card>      
+        <!-- <v-card width="400" style="border-radius: 20px !important;"
         >
         <div class="d-flex justify-center">
             <v-img :src="pokemon.spriteURL || pokemon.sprites[index]
@@ -74,7 +180,7 @@
             </div>
         </v-card-text>
 
-        </v-card>
+        </v-card> -->
     </v-col>
     </v-row>      
 </template>
