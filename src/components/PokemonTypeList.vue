@@ -66,8 +66,8 @@
                     position: 'absolute',
                     opacity: '0.1',
                     marginTop: '40px',
-                    marginLeft: pokemon.element !== pokemonType ? '-235px' : '0', /* Mostrar lado izquierdo */
-                    clipPath: pokemon.element !== pokemonType && 'polygon(100% 0, 100% 100%, 40% 100%, 40% 0)', /* Mostrar lado derecho */                    
+                    marginLeft: pokemon.element !== pokemonType ? '-250px' : '0', /* Mostrar lado izquierdo */
+                    clipPath: pokemon.element !== pokemonType && 'polygon(100% 0, 100% 100%, 45% 100%, 45% 0)', /* Mostrar lado derecho */                    
                 }"
             />          
             <div
@@ -83,9 +83,9 @@
                     position: 'absolute',
                     opacity: '0.1',
                     marginTop: '40px',
-                    marginRight: pokemon.element !== pokemonType ? '-60px' : '-10',
+                    marginRight: pokemon.element !== pokemonType ? '-70px' : '-10',
                     right: '0',
-                    clipPath: 'polygon(0 0, 60% 0, 60% 100%, 0% 100%)', /* Cambiado el clipPath */
+                    clipPath: 'polygon(0 0, 55% 0, 55% 100%, 0% 100%)', /* Cambiado el clipPath */
                 }"
             />            
           <div class="">
