@@ -1,9 +1,51 @@
 <template>
   <div class="mt-10 mt-lg-0">
-    <!-- <h1 style="text-align: center;" class="grey--text">Pokémon Types</h1> -->
       <v-container>
-        <v-row>
-            <!-- render image for each pokemon type -->
+        <!-- Skeleton loader -->
+        <v-row v-if="pokemonTypes.length === 0">
+            <v-col
+                cols="12"
+                sm="6"
+                md="4"
+                lg="3"
+                xl="2"
+                class="" v-for="n in 20" :key="n">                
+                <v-card 
+                class="mx-auto rounded-xl"
+                :style="{
+                    width: '400px',
+                    height: '212px',  
+                    }" 
+                    >
+                    <div class="d-flex justify-start align-center container pt-5 ms-3">
+                        <v-skeleton-loader
+                        type="avatar"
+                        ></v-skeleton-loader>
+                        <v-skeleton-loader
+                        type="text@1" class="ms-2" style="width: 30%;"
+                        ></v-skeleton-loader>
+                    </div>
+                    <div class="d-flex justify-center align-center container pt-4">
+                        <v-skeleton-loader
+                        type="card" class="" style="width: 150px; height: 30px;"
+                        ></v-skeleton-loader>
+                    </div>
+                    <div class="d-flex justify-space-around pt-6 pb-0">
+                        <v-skeleton-loader
+                        type="button"
+                        ></v-skeleton-loader>    
+                        <v-skeleton-loader
+                        type="button"
+                        ></v-skeleton-loader>    
+                        <v-skeleton-loader
+                        type="button"
+                        ></v-skeleton-loader>                        
+                    </div>
+                </v-card>           
+            </v-col>            
+        </v-row>
+        <!-- Render image for each pokemon type -->                  
+        <v-row>            
             <v-col
                 v-for="(pokemonType, index) in pokemonTypes"
                 :key="index"
@@ -31,7 +73,7 @@
                             margin-bottom: 5px; 
                             opacity: 0.1;
                             position: absolute;"
-                            :style="{marginLeft: mini ? '70px' : '50px'}">
+                            :style="{marginLeft: '70px'}">
                         <v-avatar 
                         size="56" 
                         style="border-radius: 0px;"
@@ -118,7 +160,9 @@
       },
   
       async created() {
+        setTimeout(() => {
           this.getPokemonTypes();
+        }, 1500);
       },
   
       methods: {
@@ -164,5 +208,5 @@
   </script>
   
   <style>
-  
+ 
   </style>

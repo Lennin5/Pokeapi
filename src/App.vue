@@ -108,7 +108,7 @@ export default {
       { text: 'Homepage', icon: 'mdi-home', path: '/' },
       { text: 'All Pokemons', icon: 'mdi-cards', path: '/all-pokemons' },
       { text: 'All Types', icon: 'mdi-checkbox-multiple-blank', path: '/type' },
-      { text: 'About', icon: 'mdi-information', path: '/about' },
+      { text: 'API', icon: 'mdi-link-variant', path: 'https://pokeapi.co/' },
     ],
   }),
 

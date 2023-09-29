@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="mt-10 mt-lg-0">
     <v-container>
 
       <!-- Header of all pokemons getRandomPokemonType() -->
-      <v-row justify="center" class="mt-0">
+      <v-row justify="center">
         <v-col cols="12">
           <v-card
             class="mx-auto rounded-xl d-flex align-start justify-center"
@@ -77,7 +77,7 @@
         <!-- Skeleton loader -->
         <v-row v-if="paginatedPokemons.length === 0">
           <v-col
-            v-for="n in 16" :key="n"
+            v-for="n in 18" :key="n"
             cols="12"
             xs="12"
             sm="4"
