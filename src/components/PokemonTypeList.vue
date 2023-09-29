@@ -25,7 +25,7 @@
           }"
           @mouseover="setElementOpacity(pokemon.name, 0.3)"
           @mouseout="setElementOpacity(pokemon.name, 0.1)">
-          <div
+          <!-- <div
           :id="'pokemon_card_' + pokemon.name"
             :style="{
               width: '150px',
@@ -53,7 +53,41 @@
               opacity: '0.1',
               marginTop: '40px',
               right: '0',
-            }" />
+            }" /> -->
+            <div
+    :id="'pokemon_card_' + pokemon.name"
+    :style="{
+      width: '150px',
+      height: '150px',
+      backgroundImage: 'url(' + getElementTypeLogo(pokemonType) + ')',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      position: 'absolute',
+      opacity: '0.1',
+      marginTop: '40px',
+      marginLeft: pokemon.element !== pokemonType ? '-265px' : '0', /* Mostrar lado izquierdo */
+      clipPath: pokemon.element !== pokemonType && 'polygon(100% 0, 100% 100%, 50% 100%, 50% 0)', /* Mostrar lado derecho */
+    }"
+  ></div>            
+  <div
+    v-if="pokemon.element !== pokemonType"
+    :id="'pokemon_card_' + pokemon.name"
+    :style="{
+      width: '150px',
+      height: '150px',
+      backgroundImage: 'url(' + getElementTypeLogo(pokemon.element) + ')',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      position: 'absolute',
+      opacity: '0.1',
+      marginTop: '40px',
+      marginRight: pokemon.element !== pokemonType ? '-60px' : '-10',
+      right: '0',
+      clipPath: 'polygon(0 0, 60% 0, 60% 100%, 0% 100%)', /* Cambiado el clipPath */
+    }"
+  />            
 
           <div class="">
             <v-img :src="pokemon.sprites[0]" max-height="300px" max-width="150" class="" :id="'pokemon_image_'+pokemon.name"></v-img>
