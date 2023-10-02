@@ -140,22 +140,6 @@ export default {
             type: String,
             required: true,
         },
-    },
-    methods: {
-        setElementOpacity(pokemonName, opacity) {
-            const pokemonCards = document.getElementsByClassName(`pokemon_card_${pokemonName}`);
-            const pokemonImages = document.getElementsByClassName(`pokemon_image_${pokemonName}`);
-            
-            Array.from(pokemonCards).forEach((pokemonCard) => {
-                pokemonCard.style.opacity = opacity;
-                pokemonCard.style.transition = 'all 0.3s ease-in-out';
-
-                Array.from(pokemonImages).forEach((pokemonImage) => {
-                    pokemonImage.style.transform = opacity === 0.3 ? 'scale(1.4)' : 'scale(1.1)';
-                    pokemonImage.style.transition = 'all 0.3s ease-in-out';
-                });
-            });
-        }       
     }
 }
 </script>

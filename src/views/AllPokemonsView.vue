@@ -128,7 +128,7 @@
               @mouseover="setElementOpacity(pokemon.name, 0.3)"
               @mouseout="setElementOpacity(pokemon.name, 0.1)">
               <div
-              :id="'pokemon_card_' + pokemon.name"
+              :class="'pokemon_card_' + pokemon.name"
                 :style="{
                   width: '130px',
                   height: '130px',
@@ -141,7 +141,7 @@
                   marginTop: '40px',
                 }" />
               <div class="">
-                <v-img :src="pokemon.sprites[index]" max-height="300px" max-width="150" class="" :id="'pokemon_image_'+pokemon.name"></v-img>
+                <v-img :src="pokemon.sprites[index]" max-height="300px" max-width="150" class="" :class="'pokemon_image_'+pokemon.name"></v-img>
                 <div class="font-weight-bold d-flex justify-center"
                 :class="pokemon.element === 'flying' ? 'gray--text' : 'white--text'">
                   <h2>
@@ -326,19 +326,6 @@ export default {
         // this.pokemons.sort(() => Math.random() - 0.5);
       } catch (error) {
         console.error(error);
-      }
-    }, 
-    
-    setElementOpacity(pokemonName, opacity) {
-      const pokemonCard = document.getElementById(`pokemon_card_${pokemonName}`);
-      const pokemonImage = document.getElementById(`pokemon_image_${pokemonName}`);
-      if (pokemonCard && pokemonImage) {
-        pokemonCard.style.opacity = opacity;
-        pokemonCard.style.transition = 'all 0.3s ease-in-out';
-
-        pokemonCard.style.opacity = opacity;
-        pokemonImage.style.transform = opacity === 0.3 ? 'scale(1.4)' : 'scale(1.1)';
-        pokemonImage.style.transition = 'all 0.3s ease-in-out';
       }
     },     
   },

@@ -39,8 +39,8 @@
             width="200"
             class="card ma-3 rounded-xl"
             @click="goToPokemonType(type.name)"
-            @mouseover="setElementOpacity(type.name, 0.3)"
-            @mouseout="setElementOpacity(type.name, 0.1)">
+            @mouseover="setElementTypeOpacity(type.name, 0.3)"
+            @mouseout="setElementTypeOpacity(type.name, 0.1)">
             <div class="d-flex justify-center align-center" 
             :style="{              
               backgroundColor: getElementColorHex(type.name),
@@ -103,7 +103,7 @@
       goToPokemonType(pokemonType) {
         window.location.href = `/type/${pokemonType}`;
       },  
-      setElementOpacity(pokemonType, opacity) {
+      setElementTypeOpacity(pokemonType, opacity) {
         const typeCard = document.getElementById(`type_card_${pokemonType}`);
         if (typeCard) {
             typeCard.style.opacity = opacity;

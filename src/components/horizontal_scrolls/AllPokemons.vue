@@ -59,7 +59,7 @@
           @mouseover="setElementOpacity(pokemon.name, 0.3)"
           @mouseout="setElementOpacity(pokemon.name, 0.1)">
           <div
-          :id="'pokemon_card_' + pokemon.name"
+          :class="'pokemon_card_' + pokemon.name"
             :style="{
               width: '150px',
               height: '150px',
@@ -72,7 +72,7 @@
               marginTop: '40px',
             }" />
           <div class="">
-            <v-img :src="pokemon.sprites[0]" max-height="300px" max-width="150" class="" :id="'pokemon_image_'+pokemon.name"></v-img>
+            <v-img :src="pokemon.sprites[0]" max-height="300px" max-width="150" class="" :class="'pokemon_image_'+pokemon.name"></v-img>
             <div class="font-weight-bold d-flex justify-center"
             :class="pokemon.element === 'flying' ? 'gray--text' : 'white--text'">
               <h2>
@@ -103,85 +103,73 @@
 <script>
 import pokeApi from '../../plugins/axios';
 export default {
-data() {
-  return {
-    allPokemons: [],
-    filter: 'all',
-  };
-},
-created() {
-  this.getPokemonData(this.filter);
-},
-methods: {
-  async getPokemonData(filter) {
-      try {
-        this.allPokemons = [];
-        // 640 we encounter a flying pokemon (white color)
-        const response = await pokeApi.get(`/pokemon/?offset=500&limit=100`);
-        const pokemons = response.data.results;
+  data() {
+    return {
+      allPokemons: [],
+      filter: 'all',
+    };
+  },
+  created() {
+    this.getPokemonData(this.filter);
+  },
+  methods: {
+    async getPokemonData(filter) {
+        try {
+          this.allPokemons = [];
+          // 640 we encounter a flying pokemon (white color)
+          const response = await pokeApi.get(`/pokemon/?offset=500&limit=100`);
+          const pokemons = response.data.results;
 
-        const pokemonData = await Promise.all(
-          pokemons.map(async (pokemon) => {
-            const pokemonResponse = await pokeApi.get(`/pokemon/${pokemon.name}`);
-            const spriteURL = pokemonResponse.data.sprites.front_default;
-            const element = pokemonResponse.data.types[0].type.name;
-            const abilities = pokemonResponse.data.abilities;
+          const pokemonData = await Promise.all(
+            pokemons.map(async (pokemon) => {
+              const pokemonResponse = await pokeApi.get(`/pokemon/${pokemon.name}`);
+              const spriteURL = pokemonResponse.data.sprites.front_default;
+              const element = pokemonResponse.data.types[0].type.name;
+              const abilities = pokemonResponse.data.abilities;
 
-            const id = pokemonResponse.data.id;
-            const level = pokemonResponse.data.base_experience;
-            const height = pokemonResponse.data.height;
-            
-            const sprites = [
-              pokemonResponse.data.sprites.front_default,
-              pokemonResponse.data.sprites.back_default,
-              pokemonResponse.data.sprites.front_shiny,
-              pokemonResponse.data.sprites.back_shiny,
-            ];
-            return {
-              name: pokemon.name,
-              spriteURL: spriteURL,
-              element: element,
-              sprites: sprites,
-              abilities: abilities,
-              id: id,
-              level: level,
-              height: height,
-            };
-          })
-        );
+              const id = pokemonResponse.data.id;
+              const level = pokemonResponse.data.base_experience;
+              const height = pokemonResponse.data.height;
+              
+              const sprites = [
+                pokemonResponse.data.sprites.front_default,
+                pokemonResponse.data.sprites.back_default,
+                pokemonResponse.data.sprites.front_shiny,
+                pokemonResponse.data.sprites.back_shiny,
+              ];
+              return {
+                name: pokemon.name,
+                spriteURL: spriteURL,
+                element: element,
+                sprites: sprites,
+                abilities: abilities,
+                id: id,
+                level: level,
+                height: height,
+              };
+            })
+          );
 
-        this.allPokemons = pokemonData;
-        // sort by random
-        this.allPokemons.sort(() => Math.random() - 0.5);
-        // filter by element
-        this.filter = filter;
-        if(this.filter !== 'all') {          
-          this.allPokemons = this.allPokemons.filter(pokemon => pokemon.element === filter);
-          // If random filter gets empty, show all pokemons
-          if(this.allPokemons.length === 0) {
-            this.allPokemons = pokemonData;
-            this.filter = 'all';
+          this.allPokemons = pokemonData;
+          // sort by random
+          this.allPokemons.sort(() => Math.random() - 0.5);
+          // filter by element
+          this.filter = filter;
+          if(this.filter !== 'all') {          
+            this.allPokemons = this.allPokemons.filter(pokemon => pokemon.element === filter);
+            // If random filter gets empty, show all pokemons
+            if(this.allPokemons.length === 0) {
+              this.allPokemons = pokemonData;
+              this.filter = 'all';
+            }
           }
+          // this.allPokemons = this.allPokemons.filter(pokemon => pokemon.element === 'fire');
+          // console.log(this.allPokemons, 'allPokemons');
+        } catch (error) {
+          console.error(error);
         }
-        // this.allPokemons = this.allPokemons.filter(pokemon => pokemon.element === 'fire');
-        // console.log(this.allPokemons, 'allPokemons');
-      } catch (error) {
-        console.error(error);
-      }
-  }, 
-  setElementOpacity(pokemonName, opacity) {
-    const pokemonCard = document.getElementById(`pokemon_card_${pokemonName}`);
-    const pokemonImage = document.getElementById(`pokemon_image_${pokemonName}`);
-    if (pokemonCard && pokemonImage) {
-      pokemonCard.style.opacity = opacity;
-      pokemonCard.style.transition = 'all 0.3s ease-in-out';
-
-      pokemonCard.style.opacity = opacity;
-      pokemonImage.style.transform = opacity === 0.3 ? 'scale(1.4)' : 'scale(1.1)';
-      pokemonImage.style.transition = 'all 0.3s ease-in-out';
-    }
-  },  
-}
+    },   
+  }
 };
 </script>
 
