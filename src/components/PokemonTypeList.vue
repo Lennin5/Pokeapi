@@ -25,37 +25,8 @@
           }"
           @mouseover="setElementOpacity(pokemon.name, 0.3)"
           @mouseout="setElementOpacity(pokemon.name, 0.1)">
-          <!-- <div
-          :id="'pokemon_card_' + pokemon.name"
-            :style="{
-              width: '150px',
-              height: '150px',
-              backgroundImage: 'url(' + getElementTypeLogo(pokemonType) + ')',
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center',
-              backgroundSize: 'cover',
-              position: 'absolute',
-              opacity: '0.1',
-              marginTop: '40px',
-              marginLeft: pokemon.element !== pokemonType ? '-250px' : '-10',
-            }" />
-          <div
-          v-if="pokemon.element !== pokemonType"
-          :id="'pokemon_card_' + pokemon.name"
-            :style="{
-              width: '150px',
-              height: '150px',
-              backgroundImage: 'url(' + getElementTypeLogo(pokemon.element) + ')',
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center',
-              backgroundSize: 'cover',
-              position: 'absolute',
-              opacity: '0.1',
-              marginTop: '40px',
-              right: '0',
-            }" /> -->
             <div
-                :id="'pokemon_card_' + pokemon.name"
+                :class="'pokemon_card_' + pokemon.name"
                 :style="{
                     width: pokemon.element !== pokemonType ? '240px' : '170px',
                     height: pokemon.element !== pokemonType ? '240px' : '170px',
@@ -72,7 +43,7 @@
             />          
             <div
                 v-if="pokemon.element !== pokemonType"
-                :id="'pokemon_card_' + pokemon.name"
+                :class="'pokemon_card_' + pokemon.name"
                 :style="{
                     width: '240px',
                     height: '240px',
@@ -89,7 +60,7 @@
                 }"
             />            
           <div class="">
-            <v-img :src="pokemon.sprites[0]" max-height="300px" max-width="150" class="" :id="'pokemon_image_'+pokemon.name"></v-img>
+            <v-img :src="pokemon.sprites[0]" max-height="300px" max-width="150" class="" :class="'pokemon_image_'+pokemon.name"></v-img>
             <div class="font-weight-bold d-flex justify-center"
             :class="pokemon.element === 'flying' ? 'gray--text' : 'white--text'">
               <h2>
@@ -154,70 +125,6 @@
               </div>
             </v-card-text>  
         </v-card>      
-        <!-- <v-card width="400" style="border-radius: 20px !important;"
-        >
-        <div class="d-flex justify-center">
-            <v-img :src="pokemon.spriteURL || pokemon.sprites[index]
-            " max-height="300px" max-width="150" class="">
-            </v-img>
-        </div>
-        <v-card-text>
-            <div class="font-weight-bold ml-0 gray--text d-flex justify-center">
-            <h2>                  
-                {{ pokemon.name[0].toUpperCase() + pokemon.name.slice(1) }}
-            </h2>
-            </div>
-            <div class="font-weight-bold mt-2 gray--text d-flex justify-center" >
-            <h4>                  
-                {{ pokemonType[0].toUpperCase() + pokemonType.slice(1) }}
-                    {{ pokemonType !== pokemon.element ? ' / ' + pokemon.element[0].toUpperCase() + pokemon.element.slice(1) : '' }}
-            </h4>
-            </div>              
-            <div class="d-flex justify-center mb-3">
-            <div
-                class="container-element"
-                :style="{                
-                backgroundColor: getElementColorHex(pokemonType),
-                boxShadow: pokemonType === 'flying' ? '0px 0px 2px 0px #343838' : 'none',
-                }"
-            >
-                <div
-                class="element-icon"
-                :style="{
-                    backgroundImage: 'url(' + getElementTypeLogo(pokemonType) + ')',
-                }"
-                />
-            </div>
-            <div
-                v-if="pokemon.element !== pokemonType"
-                class="container-element ms-1"
-                :style="{                  
-                backgroundColor: getElementColorHex(pokemon.element),
-                boxShadow: pokemon.element === 'flying' ? '0px 0px 2px 0px #343838' : 'none',
-                }"
-            >
-                <div
-                class="element-icon"
-                :style="{
-                    backgroundImage: 'url(' + getElementTypeLogo(pokemon.element) + ')',
-                }"
-                />
-            </div>
-            </div>
-            <div class="d-flex justify-center pb-4">
-            <v-btn
-            :to="{ path: '/details', query: { pokemonObject: pokemon, spritesObject: Object.values(pokemon.sprites) } }"
-            :color="getElementColorNormal(pokemonType)"
-            :style="{background: pokemon.element !== pokemonType ? 'linear-gradient(to right, ' + getElementColorHex(pokemonType) + ', ' + getElementColorHex(pokemon.element) + ')' : 'none' }"
-            class="mt-2"
-            :dark="pokemonType === 'flying' ? false : true"
-            :lihght="pokemonType === 'flying' ? true : false">
-                View Details
-                    </v-btn>                
-            </div>
-        </v-card-text>
-
-        </v-card> -->
     </v-col>
     </v-row>      
 </template>
@@ -234,6 +141,22 @@ export default {
             required: true,
         },
     },
+    methods: {
+        setElementOpacity(pokemonName, opacity) {
+            const pokemonCards = document.getElementsByClassName(`pokemon_card_${pokemonName}`);
+            const pokemonImages = document.getElementsByClassName(`pokemon_image_${pokemonName}`);
+            
+            Array.from(pokemonCards).forEach((pokemonCard) => {
+                pokemonCard.style.opacity = opacity;
+                pokemonCard.style.transition = 'all 0.3s ease-in-out';
+
+                Array.from(pokemonImages).forEach((pokemonImage) => {
+                    pokemonImage.style.transform = opacity === 0.3 ? 'scale(1.4)' : 'scale(1.1)';
+                    pokemonImage.style.transition = 'all 0.3s ease-in-out';
+                });
+            });
+        }       
+    }
 }
 </script>
 
