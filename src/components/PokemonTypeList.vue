@@ -74,7 +74,12 @@
                     background: pokemon.element !== pokemonType ?
                     'linear-gradient(to right, ' + getElementColorHex(pokemonType) + ', ' + getElementColorHex(pokemon.element) + ')'
                     : getElementColorHex(pokemon.element)}">
-
+            <div class="font-weight-bold mt-0 d-flex justify-center" style="color: #ffffff88">
+                <h4>                  
+                    {{ pokemonType[0].toUpperCase() + pokemonType.slice(1) }}
+                        {{ pokemonType !== pokemon.element ? ' / ' + pokemon.element[0].toUpperCase() + pokemon.element.slice(1) : '' }}
+                </h4>
+            </div> 
             <div class="d-flex justify-center" style="background-color: transparent;">
                 <div
                     class="container-element elevation-2"
@@ -117,7 +122,7 @@
                   :style="{background: pokemon.element !== pokemonType ?
                     'linear-gradient(to right, ' + getElementColorHex(pokemonType) + ', ' + getElementColorHex(pokemon.element) + ')'
                     : getElementColorHex(pokemon.element)}"
-                  class="mt-2 rounded-lg"
+                  class="mt-5 mb-5 rounded-lg"
                   :dark="pokemon.element === 'flying' ? false : true"
                   :light="pokemon.element === 'flying' ? true : false">
                       View Details

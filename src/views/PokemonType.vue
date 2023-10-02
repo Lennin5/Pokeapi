@@ -120,23 +120,30 @@
       <v-container>
       <!-- Skeleton loader -->
       <v-row v-if="pokemonsList.length === 0">
-        <v-col cols="3" v-for="n in 8" :key="n" >
-          <v-card style="border-radius: 20px;">
+        <v-col 
+        v-for="n in 4" 
+        :key="n" 
+        cols="12"
+        xs="12"
+        sm="6"
+        md="4"
+        lg="3"
+        xl="3"
+        class="d-flex justify-center"
+        >
+          <v-card class="rounded-xl" width="100%" style="height: 355px;">
             <div class="d-flex justify-center">
-              <v-skeleton-loader type="image" aspect-ratio="0.5" class="mb-3 mt-4" style="width: 80%; border-radius: 20px"></v-skeleton-loader>
+              <v-skeleton-loader type="image" aspect-ratio="0.5" class="mb-8 mt-4 rounded-xl" style="width: 80%; height: 140px"></v-skeleton-loader>
             </div>    
             <div>
               <v-col class="d-flex justify-center" style="margin: 0px; padding: 0px;">
-                <v-skeleton-loader type="text" style="width: 50%"></v-skeleton-loader>
-              </v-col>
-              <v-col class="d-flex justify-center" style="margin: 0px; padding: 0px;">
-                <v-skeleton-loader type="text" style="width: 40%"></v-skeleton-loader>
+                <v-skeleton-loader type="text" style="width: 20%"></v-skeleton-loader>
               </v-col>
             </div>
-            <v-skeleton-loader type="avatar" class="mb-3 mt-1 d-flex justify-center"></v-skeleton-loader>
-            <v-card-actions class="d-flex justify-center pb-4">
-              <v-skeleton-loader type="button" class="w-100"></v-skeleton-loader>
-            </v-card-actions>
+            <v-skeleton-loader type="avatar" class="mb-5 mt-1 d-flex justify-center"></v-skeleton-loader>
+            <div class="d-flex justify-center">
+              <v-skeleton-loader type="image" aspect-ratio="0.5" class="mb-3 mt-0" style="width: 50%; height: 35px; border-radius: 10px"></v-skeleton-loader>
+            </div>   
           </v-card>           
         </v-col>
       </v-row>
