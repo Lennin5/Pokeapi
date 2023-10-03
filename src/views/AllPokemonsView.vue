@@ -8,7 +8,7 @@
           <v-card
             class="mx-auto rounded-xl d-flex align-start justify-center"
             width="fullscreen"
-            height="200px"
+            height="230px"
             :style="{
               background: 'linear-gradient(to right, ' + getRandomPokemonColorHex() + ', ' + getRandomPokemonColorHex() + ')'
               }"
@@ -66,7 +66,23 @@
                     </v-pagination>
                   </div>                     
                 </v-container>
-              </div>                
+              </div>          
+              <div class="mt-0">
+                <v-row justify="end">
+                  <v-col cols="3" class="me-5">
+                    <v-text-field
+                      v-model="search_word"
+                      background-color="orange"
+                      class="rounded-lg"
+                      dense
+                      dark
+                      color="white"
+                      label="Search pokémon"
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </div>                    
             </div>
             </v-card>
         </v-col>    
@@ -179,8 +195,9 @@ export default {
       pokemons: [],
       index: 0,
       page: 1, // Página inicial
-      pokemonsLimit: 500, // 200 pokemons / 1292 en total
+      pokemonsLimit: 1292, // 200 pokemons / 1292 en total
       pokemonsPerPage: 100, // 50 pokemons por página    
+      search_word: null,
       backgroundTypeList: [
         {
           name: 'normal',
@@ -331,16 +348,25 @@ export default {
   },
   computed: {
     totalPages() {
-      // 100 is the number of pokemons per page
-      return Math.ceil(this.pokemons.length / this.pokemonsPerPage);
+      if(this.search_word){
+        // Return 1 page if search_word is not null
+        return 1;
+      }else{
+        // 100 is the number of pokemons per page
+        return Math.ceil(this.pokemons.length / this.pokemonsPerPage);
+      }
     },
 
     paginatedPokemons() {
       const startIndex = (this.page - 1) * this.pokemonsPerPage;
-      const endIndex = startIndex + this.pokemonsPerPage;
-      return this.pokemons.slice(startIndex, endIndex);
-    }
-  }  
+      const endIndex = startIndex + this.pokemonsPerPage;        
+      if(this.search_word){      
+        return this.pokemons.filter(pokemon => pokemon.name.includes(this.search_word)).slice(startIndex, endIndex);
+      }else{
+        return this.pokemons.slice(startIndex, endIndex);
+      }
+    },
+  },
 }
 </script>
 
