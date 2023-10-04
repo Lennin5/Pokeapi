@@ -10,8 +10,7 @@
             width="fullscreen"
             height="230px"
             :style="{
-              background: 'linear-gradient(to right, ' + getRandomPokemonColorHex() + ', ' + getRandomPokemonColorHex() + ')'
-              }"
+              background: 'linear-gradient(to right, ' + firstRandomColorHex + ', ' + secondRandomColorHex + ')'}"
             >           
             <div
                 v-for="(item, index) in backgroundTypeList"
@@ -61,25 +60,28 @@
                       v-model="page"
                       :length="totalPages"
                       circle
-                      :color="getRandomPokemonColorNormal()"
+                      color="orange"
                     >
                     </v-pagination>
                   </div>                     
                 </v-container>
               </div>          
               <div class="mt-0">
-                <v-row justify="end">
-                  <v-col cols="3" class="me-5">
+                <v-row justify="center">
+                  <v-col cols="3" class="me-0">
                     <v-text-field
                       v-model="search_word"
-                      background-color="orange"
+                      background-color="transparent"
+                      :style="{background: 'linear-gradient(to right, ' + firstRandomColorHex + '8f, ' + secondRandomColorHex +'8f)'}"
                       class="rounded-lg"
                       dense
                       dark
                       color="white"
                       label="Search pokémon"
                       outlined
-                    ></v-text-field>
+                      hide-details
+                      
+                      ></v-text-field>
                   </v-col>
                 </v-row>
               </div>                    
@@ -195,7 +197,7 @@ export default {
       pokemons: [],
       index: 0,
       page: 1, // Página inicial
-      pokemonsLimit: 1292, // 200 pokemons / 1292 en total
+      pokemonsLimit: 1000, // 200 pokemons / 1292 en total
       pokemonsPerPage: 100, // 50 pokemons por página    
       search_word: null,
       backgroundTypeList: [
@@ -295,7 +297,9 @@ export default {
           height: '40px',
           margin: '100px 0px 0px 595px',
         },
-      ]
+      ],
+      firstRandomColorHex: this.getRandomPokemonColorHex(),
+      secondRandomColorHex: this.getRandomPokemonColorHex(),
     };
   },
   async created() {
