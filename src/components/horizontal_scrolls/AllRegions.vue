@@ -2,7 +2,7 @@
     <v-container>
       <div class="d-flex justify-space-between align-center">
         <h1 class="orange--text ml-4" >
-        <v-icon color="orange" size="35">mdi-image-filter-hdr</v-icon>
+        <v-icon color="orange" size="40">mdi-image-filter-hdr</v-icon>
         All Regions</h1>
 
         <v-hover v-slot="{ hover }" class="d-flex justify-center align-center">
@@ -34,10 +34,11 @@
           </div>
           <!-- Data rendered -->
           <v-card
-          v-for="(region) in allRegions"
+          v-for="(region, index) in allRegions"
             :key="region.name"
             width="200"
             class="card ma-3 rounded-xl"
+            @click="goToPokemonRegion(index + 1)"
             >
             <div class="d-flex justify-center align-center" 
             :style="{              
@@ -90,13 +91,14 @@
           // 640 we encounter a flying pokemon (white color)
           const response = await pokeApi.get('/region');
           this.allRegions = response.data.results;
+          console.log(response);
         } catch (error) {
           console.error(error);
         }
       }, 
-      // goToPokemonType(pokemonType) {
-      //   window.location.href = `/type/${pokemonType}`;
-      // },  
+      goToPokemonRegion(regionId) {
+        window.location.href = `/region/${regionId}`;
+      },  
     }
   };
   </script>
