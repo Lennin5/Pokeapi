@@ -47,7 +47,7 @@
     </v-list-item>
 
       <!-- Logo o título -->
-      <v-list-item>
+      <v-list-item :style="{padding: mini ? '7px' : '0px'}">
         <v-list-item-content>
           <v-list-item-title class="text-h6 d-flex justify-center">
             <img 
@@ -57,7 +57,7 @@
               style="object-fit: contain;"
               :src="mini ? LogoPokemonsMobile : LogoPokemons"
               width="100%"
-              :height="mini ? 'auto' : '100' " />
+              :height="mini ? 'auto' : '120' " />
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
