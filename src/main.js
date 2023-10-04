@@ -9,6 +9,7 @@ import PokemonDetails from './views/PokemonDetails';
 import PokemonTypes from './views/PokemonTypes';
 import PokemonType from './views/PokemonType';
 import AllPokemonsView from './views/AllPokemonsView';
+import PokemonLocationView from './views/PokemonLocationView';
 
 Vue.use(VueRouter);
 
@@ -17,7 +18,8 @@ const routes = [
   { path: '/details', component: PokemonDetails },
   { path: '/type', component: PokemonTypes },
   { path: '/type/:type', component: PokemonType },
-  { path: '/all-pokemons', component: AllPokemonsView}
+  { path: '/all-pokemons', component: AllPokemonsView},
+  { path: '/location', component: PokemonLocationView}
 ];
 
 const router = new VueRouter({

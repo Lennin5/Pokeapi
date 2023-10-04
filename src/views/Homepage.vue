@@ -5,6 +5,9 @@
 
       <!--Horizontal scroll of all types component-->
       <HorizontalScrollAllTypes />  
+
+      <!--Horizontal scroll of all regions component-->
+      <HorizontalScrollAllRegions />
     </div>
   </template>
   
@@ -13,6 +16,7 @@
   import BgPokemon from '@/assets/img/bg-pokemon.png';
   import HorizontalScrollAllPokemons from '@/components/horizontal_scrolls/AllPokemons.vue';
   import HorizontalScrollAllTypes from '@/components/horizontal_scrolls/AllTypes.vue';
+  import HorizontalScrollAllRegions from '@/components/horizontal_scrolls/AllRegions.vue';
   
   export default {
     name: 'PokemonsList',
@@ -31,6 +35,7 @@
     components: {
       HorizontalScrollAllPokemons,
       HorizontalScrollAllTypes,
+      HorizontalScrollAllRegions,
     },
 
     methods: {
