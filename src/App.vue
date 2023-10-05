@@ -104,7 +104,7 @@ export default {
   data: () => ({
     LogoPokemons: LogoPokemons,
     LogoPokemonsMobile: LogoPokemonsMobile,
-    drawer: true, // Controla el estado de la barra lateral (colapsada o expandida)
+    drawer: false, // Controla el estado de la barra lateral (colapsada o expandida)
     mini: false, // Controla el estado mini del menú (solo iconos)
     menuItems: [ // Define los elementos del menú
       { text: 'Homepage', icon: 'mdi-home-variant', path: '/' },

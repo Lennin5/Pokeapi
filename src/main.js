@@ -11,6 +11,7 @@ import PokemonType from './views/PokemonType';
 import AllPokemonsView from './views/AllPokemonsView';
 import PokemonLocationView from './views/PokemonLocationView';
 import PokemonRegionView from './views/PokemonRegionView';
+import CoffeeTestsView from './views/CoffeeTestsView';
 
 Vue.use(VueRouter);
 
@@ -21,7 +22,8 @@ const routes = [
   { path: '/type/:type', component: PokemonType },
   { path: '/all-pokemons', component: AllPokemonsView},
   { path: '/location', component: PokemonLocationView},
-  { path: '/region/:region', component: PokemonRegionView}
+  { path: '/region/:region', component: PokemonRegionView},
+  { path: '/coffee', component: CoffeeTestsView}
 ];
 
 const router = new VueRouter({
