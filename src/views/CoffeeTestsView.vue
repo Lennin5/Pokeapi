@@ -14,7 +14,7 @@
         <v-carousel-item
           v-for="(item, i) in items"
           :key="i"
-          transition="slide-from-top"
+          transition="slide-fade"
         >
           <!-- Imagen actual -->
           <img :src="item.src" class="current-image" alt="Current Image" />
@@ -53,12 +53,11 @@
   </script>
   
   <style scoped>
-  /* keyframe para que la imagen actual se deslice hacia abajo en -110% pero que luego se vuelva a 100%: */
-  
-  .slide-from-top-enter-active {
-    transition: transform 0.5s, opacity 0.5s;
+  /* Estilo para la transición "slide-fade" que combina slide-from-top y fade: */
+  .slide-fade-enter-active {
+    transition: transform 0.5s, opacity 0.7s;
   }
-  .slide-from-top-enter {    
+  .slide-fade-enter {    
     transform: translateY(-100%);
     opacity: 0;
   }
