@@ -9,45 +9,58 @@
         :show-arrows="false"
         delimiter-icon="mdi-minus"
         hide-delimiter-background
+        :style="{backgroundImage: 'url(' + items[0].src + ')'}"
       >
         <v-carousel-item
           v-for="(item, i) in items"
           :key="i"
           transition="slide-from-top"
-          :src="item.src"
         >
+          <!-- Imagen actual -->
+          <img :src="item.src" class="current-image" alt="Current Image" />
+          <!-- Imagen que aparecerá con transición -->
+          <img :src="nextItem(i).src" class="next-image" alt="Next Image" />
         </v-carousel-item>
       </v-carousel>    
     </div>
   </template>
   
-  
-
-<script>
-export default {
+  <script>
+  export default {
     data() {
-        return {
-            items: [
-            {
-                src: 'https://wallpapers.com/images/hd/blue-aesthetic-moon-df8850p673zj275y.jpg',
-            },
-            {
-                src: 'https://wallpapercave.com/wp/wp2818490.jpg',
-            },
-            {
-                src: 'https://wallpaperaccess.com/full/343619.jpg',
-            },
-            ],
-        }
+      return {
+        items: [
+          {
+            src: 'https://wallpapers.com/images/hd/blue-aesthetic-moon-df8850p673zj275y.jpg',
+          },
+          {
+            src: 'https://wallpapercave.com/wp/wp2818490.jpg',
+          },
+          {
+            src: 'https://wallpaperaccess.com/full/343619.jpg',
+          },
+        ],
+      }
     },
-}
-</script>
-
-<style>
-.slide-from-top-enter-active{
-  transition: transform 0.5s;
-}
-.slide-from-top-enter /* .slide-from-top-leave-active en <2.1.8 */ {
-  transform: translateY(-100%);
-}
-</style>
+    methods: {
+      nextItem(index) {
+        // Devuelve la siguiente imagen en el carrusel
+        const nextIndex = (index + 1) % this.items.length;
+        return this.items[nextIndex];
+      },
+    },
+  }
+  </script>
+  
+  <style scoped>
+  /* keyframe para que la imagen actual se deslice hacia abajo en -110% pero que luego se vuelva a 100%: */
+  
+  .slide-from-top-enter-active {
+    transition: transform 0.5s, opacity 0.5s;
+  }
+  .slide-from-top-enter {    
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  </style>
+  
