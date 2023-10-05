@@ -76,7 +76,12 @@
               }" />
 
             <div>    
-            <div class="d-flex justify-start mt-0" style="border: 1px solid transparent; margin-left: -40px; margin-bottom: 40px">
+            <div class="d-flex justify-start mt-0" 
+            style="border: 1px solid transparent;"
+            :style="{
+                    marginLeft: pokemon.name === 'deoxys-normal' || pokemon.name === 'giratina-altered' || pokemon.name === 'shaymin-land' ? '-5px' : '-40px',
+                    marginBottom: pokemon.name === 'deoxys-normal' || pokemon.name === 'giratina-altered' || pokemon.name === 'shaymin-land' ? '-15px' : '40px'
+                }">
                 <v-icon
                 :style="{
                     color: `rgba(
