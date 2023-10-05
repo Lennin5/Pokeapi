@@ -2,7 +2,7 @@
     <v-container>
       <div class="d-flex justify-space-between align-center">
         <h1 class="orange--text ml-4" >
-        <v-icon color="orange" size="40">mdi-star-shooting</v-icon>
+        <v-icon color="orange" size="40">mdi-star-outline</v-icon>
         Legendary</h1>
   
         <v-hover v-slot="{ hover }" class="d-flex justify-center align-center">
@@ -41,14 +41,24 @@
             :key="pokemon.name"
             width="200"
             class="card ma-3 rounded-xl">
-            <div class="d-flex justify-center align-center pt-5" 
+            <div class="d-flex justify-center align-center pt-0" 
             :style="{
-              backgroundColor: getElementColorHex(pokemon.element),
+            background: `linear-gradient(to right, 
+            rgba(
+                ${Math.max(0, parseInt(getElementColorHex(pokemon.element).slice(1, 3), 16) - 40)}, 
+                ${Math.max(0, parseInt(getElementColorHex(pokemon.element).slice(3, 5), 16) - 40)}, 
+                ${Math.max(0, parseInt(getElementColorHex(pokemon.element).slice(5, 7), 16) + 10 )}), 
+
+            rgba(${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(1, 3), 16) + 10)}, 
+                ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(3, 5), 16) + 10)}, 
+                ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(5, 7), 16) + 30 )}))`,
+
               width: '100%',
-              height: '170px',              
+              height: '250px',              
             }"
             @mouseover="setElementOpacity(pokemon.name, 0.3)"
-            @mouseout="setElementOpacity(pokemon.name, 0.1)">
+            @mouseout="setElementOpacity(pokemon.name, 0.2)"
+            >
                             
             <div
             :class="'pokemon_card_' + pokemon.name"
@@ -58,22 +68,27 @@
                 backgroundImage: 'url(' + getElementTypeLogo(pokemon.element) + ')',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
-                backgroundSize: 'cover',
+                backgroundSize: 'contain',
                 position: 'absolute',
-                opacity: '0.1',
-                marginTop: '40px',
+                opacity: '0.2',
+                marginTop: '-30px',
+
               }" />
 
             <div>    
-                <div class="d-flex justify-start mt-5" style="border: 1px solid transparent; margin-left: -40px">
+            <div class="d-flex justify-start mt-0" style="border: 1px solid transparent; margin-left: -40px; margin-bottom: 40px">
                 <v-icon
-                :color="`rgba(${Math.max(0, parseInt(getElementColorHex(pokemon.element).slice(1, 3), 16) - 50)}, ${Math.max(0, parseInt(getElementColorHex(pokemon.element).slice(3, 5), 16) - 50)}, ${Math.max(0, parseInt(getElementColorHex(pokemon.element).slice(5, 7), 16) - 50)}, 0.8)`"
+                :style="{
+                    color: `rgba(
+                        ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(1, 3), 16) + 30)}, 
+                        ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(3, 5), 16) + 30)}, 
+                        ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(5, 7), 16) + 30)})`
+                }"
                 class="me-0"
                 size="30"
-                >mdi-star</v-icon>   
-                </div>
-
-              <v-img :src="pokemon.sprites[spriteIndex]" max-height="300px" max-width="150" class="" :class="'pokemon_image_'+pokemon.name"></v-img>
+                >mdi-star</v-icon>
+            </div>
+              <v-img :src="pokemon.sprites[spriteIndex]" max-height="300px" max-width="150" class="mt-0" :class="'pokemon_image_'+pokemon.name"></v-img>
               <div class="font-weight-bold d-flex justify-center align-center mt-5"
               :class="pokemon.element === 'flying' ? 'gray--text' : 'white--text'">
 
@@ -84,7 +99,7 @@
               </div>
             </div>
             </div>
-              <v-card-text :style="{backgroundColor: getElementColorHex(pokemon.element)}">
+              <!-- <v-card-text :style="{backgroundColor: getElementColorHex(pokemon.element)}">
                 <div class="d-flex justify-center " style="opacity: 0;">
                   <v-btn
                     :to="{ path: '/details', query: { pokemonObject: pokemon, spritesObject: Object.values(pokemon.sprites) } }"
@@ -95,7 +110,7 @@
                         View Details
                   </v-btn>                
                 </div>
-              </v-card-text>  
+              </v-card-text>   -->
           </v-card>  
   
         </div>
@@ -159,6 +174,7 @@
   .horizontal-scroll {
   width: 100%;
   overflow-x: auto; /* Habilita la barra de desplazamiento horizontal */
+  overflow-y: hidden;
   border: 1px solid transparent;
   white-space: nowrap; /* Evita que el contenido se divida en varias líneas */
   }
