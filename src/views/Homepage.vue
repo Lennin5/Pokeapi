@@ -8,6 +8,9 @@
 
       <!--Horizontal scroll of all regions component-->
       <HorizontalScrollAllRegions />
+
+      <!--Horizontal scroll of legendary pokemons component-->
+      <HorizontalScrollLegendaryPokemons />
     </div>
   </template>
   
@@ -17,6 +20,7 @@
   import HorizontalScrollAllPokemons from '@/components/horizontal_scrolls/AllPokemons.vue';
   import HorizontalScrollAllTypes from '@/components/horizontal_scrolls/AllTypes.vue';
   import HorizontalScrollAllRegions from '@/components/horizontal_scrolls/AllRegions.vue';
+  import HorizontalScrollLegendaryPokemons from '@/components/horizontal_scrolls/LegendaryPokemons.vue';
   
   export default {
     name: 'PokemonsList',
@@ -36,6 +40,7 @@
       HorizontalScrollAllPokemons,
       HorizontalScrollAllTypes,
       HorizontalScrollAllRegions,
+      HorizontalScrollLegendaryPokemons,
     },
 
     methods: {
