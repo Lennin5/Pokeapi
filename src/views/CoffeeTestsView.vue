@@ -49,16 +49,18 @@
     },
     methods: {
       nextItem(index) {   
-        // setTimeout(() => {
         // Devuelve la siguiente imagen en el carrusel
         const nextIndex = (index + 1) % this.items.length;                
         return this.items[nextIndex];              
-        // }, 100);    
       },
       updateCurrentImage(newIndex) {
         console.log(newIndex);
         // Actualiza el valor de currentImage cuando cambia la imagen en el carrusel
-        this.currentImage = newIndex -1;
+        if(newIndex == 2){
+          this.currentImage = 0;
+        }else{
+          this.currentImage = newIndex - 1;
+        }        
       }
     },
   }
