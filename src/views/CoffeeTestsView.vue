@@ -9,17 +9,18 @@
         :show-arrows="false"
         delimiter-icon="mdi-minus"
         hide-delimiter-background
-        :style="{backgroundImage: 'url(' + items[0].src + ')'}"
+        :style="{background: 'url(' + items[currentImage].image + ')'}"      
+        @change="updateCurrentImage"  
       >
         <v-carousel-item
           v-for="(item, i) in items"
           :key="i"
-          transition="slide-fade"
+          transition="slide-fade"          
         >
           <!-- Imagen actual -->
-          <img :src="item.src" class="current-image" alt="Current Image" />
+          <img :src="item?.image" class="current-image" alt="Current Image" />
           <!-- Imagen que aparecerá con transición -->
-          <img :src="nextItem(i).src" class="next-image" alt="Next Image" />
+          <img :src="nextItem(i).image" class="next-image" alt="Next Image" />
         </v-carousel-item>
       </v-carousel>    
     </div>
@@ -29,25 +30,36 @@
   export default {
     data() {
       return {
+        currentImage: 0,
         items: [
           {
-            src: 'https://wallpapers.com/images/hd/blue-aesthetic-moon-df8850p673zj275y.jpg',
+            image: 'https://wallpapers.com/images/hd/blue-aesthetic-moon-df8850p673zj275y.jpg',
           },
           {
-            src: 'https://wallpapercave.com/wp/wp2818490.jpg',
+            image: 'https://wallpapercave.com/wp/wp2818490.jpg',
           },
           {
-            src: 'https://wallpaperaccess.com/full/343619.jpg',
+            image: 'https://wallpaperaccess.com/full/343619.jpg',
           },
-        ],
+        ]
       }
     },
+    created(){
+        this.currentImage = 0;
+    },
     methods: {
-      nextItem(index) {
+      nextItem(index) {   
+        // setTimeout(() => {
         // Devuelve la siguiente imagen en el carrusel
-        const nextIndex = (index + 1) % this.items.length;
-        return this.items[nextIndex];
+        const nextIndex = (index + 1) % this.items.length;                
+        return this.items[nextIndex];              
+        // }, 100);    
       },
+      updateCurrentImage(newIndex) {
+        console.log(newIndex);
+        // Actualiza el valor de currentImage cuando cambia la imagen en el carrusel
+        this.currentImage = newIndex -1;
+      }
     },
   }
   </script>
