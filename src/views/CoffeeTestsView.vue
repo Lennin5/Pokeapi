@@ -13,29 +13,36 @@
         v-for="(item, index) in items"
         :key="index"
       >
-        <img :src="item.image" alt="Imagen" key="item.image" class="animate__animated animate__fadeIn">          
+        <img :src="item.image" alt="Imagen" key="item.image" class="w-100 animate__animated animate__fadeIn" >          
       </v-carousel-item>
     </v-carousel>
   </div>
 </template>
 
 <script>
+  import ImageA from '../assets/img/ImageA.png'
+  import ImageB from '../assets/img/ImageB.png'
+  import ImageC from '../assets/img/ImageC.png'
 export default {
   data() {
     return {
+      ImageA: ImageA,
+      ImageB: ImageB,
+      ImageC: ImageC,      
       items: [
         {
-          image: 'https://wallpapers.com/images/hd/blue-aesthetic-moon-df8850p673zj275y.jpg',
+          image: ImageA,
         },
         {
-          image: 'https://wallpapercave.com/wp/wp2818490.jpg',
+          image: ImageB,
         },
         {
-          image: 'https://wallpaperaccess.com/full/343619.jpg',
+          image: ImageC,
         },
       ],
     };
   },
+
 };
 </script>
 
