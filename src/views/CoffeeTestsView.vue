@@ -6,20 +6,27 @@
         <div class="min-circle">
         </div>
     </div>   
+
     <div class="main-container">
       <img :src="Header" class="mt-5" alt="Imagen" key="Header" style="width: 50%" >
 
-      <v-row justify="start" class="ms-16">
-        <v-icon size="50" @click="carousel=0" :color="carousel === 0 ? 'red' : 'grey'" >
-          mdi-minus
-        </v-icon>
-        <v-icon size="50" @click="carousel=1" :color="carousel === 1 ? 'red' : 'grey'" >
-          mdi-minus
-        </v-icon>
-        <v-icon size="50" @click="carousel=2" :color="carousel === 2 ? 'red' : 'grey'" >
-          mdi-minus
-        </v-icon>
-      </v-row>   
+  <v-row justify="start" class="ms-10">
+    <v-btn @click="carousel=0" retain-focus-on-click depressed plain min-width="50" width="60" :ripple="false">
+      <v-icon size="50" :color="carousel === 0 ? 'red' : 'black'">
+        mdi-minus
+      </v-icon>
+    </v-btn>
+    <v-btn @click="carousel=1" retain-focus-on-click depressed plain min-width="50" width="60" :ripple="false">
+      <v-icon size="50" :color="carousel === 1 ? 'red' : 'black'">
+        mdi-minus
+      </v-icon>
+    </v-btn>
+    <v-btn @click="carousel=2" retain-focus-on-click depressed plain min-width="50" width="60" :ripple="false">
+      <v-icon size="50" :color="carousel === 2 ? 'red' : 'black'">
+        mdi-minus
+      </v-icon>
+    </v-btn>
+  </v-row> 
     </div>     
     <v-carousel
       cycle
@@ -79,9 +86,7 @@ export default {
     startDiagonalAnimation() {
       this.animationClass = 'animate-diagonal';
       document.getElementById('max-circle').style.opacity = 0;
-      document.getElementById('max-circle').style.transition = 'opacity 0.5s ease-in-out';
-
-      
+      document.getElementById('max-circle').style.transition = 'opacity 0.5s ease-in-out';    
     }    
   },  
 
@@ -104,24 +109,24 @@ export default {
 /* Estilos para el max-circle exterior */
 .max-circle {
   z-index: 1;
-    position: absolute;
-    width: 2550px;
-    height: 2550px;
-    background-color: #f6f6f6;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: -1500px;
-    margin-top: -200px
+  position: absolute;
+  width: 2550px;
+  height: 2550px;
+  background-color: #f6f6f6;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: -1500px;
+  margin-top: -200px
 }
 
 /* Estilos para el círculo interior */
 .min-circle {
-    width: 60%;
-    height: 60%;
-    background-color: #e1e0e0;
-    border-radius: 100%;
+  width: 60%;
+  height: 60%;
+  background-color: #e1e0e0;
+  border-radius: 100%;
 }
 
 .next-content-to-carousel{
@@ -150,22 +155,18 @@ export default {
 @keyframes diagonalMove {
   0% {
     transform: translate(500, 100);
-    /* opacity: 1; */
   }
   100% {
     transform: translate(900px, 250px); /* Ajusta las coordenadas según tus necesidades */
-    /* opacity: 0; */
   }
 }
 
 @keyframes revertDiagonalMove {
   0% {
     transform: translate(900px, 250px); /* Ajusta las coordenadas según tus necesidades */
-    /* opacity: 0; */
   }
   100% {
     transform: translate(500, 100);
-    /* opacity: 1; */
   }
 }
 </style>
