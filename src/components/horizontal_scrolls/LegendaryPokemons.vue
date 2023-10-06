@@ -2,7 +2,7 @@
     <v-container>
       <div class="d-flex justify-space-between align-center">
         <h1 class="orange--text ml-4" >
-        <v-icon color="orange" size="40">mdi-star-outline</v-icon>
+        <v-icon color="orange" size="40">mdi-star</v-icon>
         Legendary</h1>
   
         <v-hover v-slot="{ hover }" class="d-flex justify-center align-center">
@@ -146,7 +146,7 @@
       async getPokemonData() {
         this.legendaryPokemons = [];
           try {
-            const legendaryPokemonIds = [144, 145, 146, 150, 151, 243, 244, 245, 249, 250, 251, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 483, 484, 487, 488, 489, 490, 491, 492, 493];
+            const legendaryPokemonIds = [144, 145, 146, 150, 212, 492, 493, 620, 715, 151, 243, 244, 245, 249, 250, 251, 377, 378, 380, 379, 381, 382, 383, 384, 385, 386, 483, 484, 487, 488, 490, 491, 489];
 
             for (const id of legendaryPokemonIds) {
               const { data, status } = await pokeApi.get(`/pokemon/${id}`);
