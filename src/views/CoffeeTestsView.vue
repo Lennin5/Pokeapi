@@ -1,8 +1,8 @@
 <template>
-  <div style="border: 1px solid red">
-    <!-- <h1 class="animate__animated animate__bounce">An animated element</h1> -->
-    <div class="contenedor">
-        <div class="circulo">
+  <div style="border: 1px solid red;">
+    <!-- <h1 class="animate__animated animate__bounce">An animated element</h1> animate__animated animate__fadeOut animate__animated animate__fadeOutBottomRight -->
+    <div class="max-circle">
+        <div class="min-circle">
             <!-- Contenido dentro del círculo si es necesario -->
         </div>
     </div>    
@@ -56,14 +56,14 @@ export default {
 </script>
 
 <style scoped>
-/* Estilos para el contenedor exterior */
-.contenedor {
+/* Estilos para el max-circle exterior */
+.max-circle {
   z-index: 1;
     position: absolute;
-    width: 1200px; /* Ancho del contenedor */
-    height: 1200px; /* Altura del contenedor */
-    background-color: #fff; /* Color de fondo rojo */
-    border-radius: 50%; /* Hace que el contenedor exterior sea un círculo */
+    width: 1200px;
+    height: 1200px;
+    background-color: #fff;
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -71,11 +71,11 @@ export default {
 }
 
 /* Estilos para el círculo interior */
-.circulo {
-    width: 50%; /* Ancho del círculo interior en relación al contenedor */
-    height: 50%; /* Altura del círculo interior en relación al contenedor */
-    background-color: rgb(145, 145, 145); /* Color de fondo azul */
-    border-radius: 50%; /* Hace que el círculo interior sea un círculo */
+.min-circle {
+    width: 50%;
+    height: 50%;
+    background-color: rgb(145, 145, 145);
+    border-radius: 50%;
 }
 
 .next-content-to-carousel{
