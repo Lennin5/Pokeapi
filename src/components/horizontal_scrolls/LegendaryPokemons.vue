@@ -149,21 +149,26 @@
             const legendaryPokemonIds = [144, 145, 146, 150, 212, 492, 493, 620, 715, 151, 243, 244, 245, 249, 250, 251, 377, 378, 380, 379, 381, 382, 383, 384, 385, 386, 483, 484, 487, 488, 490, 491, 489];
 
             for (const id of legendaryPokemonIds) {
-              const { data, status } = await pokeApi.get(`/pokemon/${id}`);
-              if(status==200){
-                const pokemon = data;
-                const name = pokemon.name;
-                const sprites = [
-                    pokemon.sprites.front_default,
-                    pokemon.sprites.back_default,
-                    pokemon.sprites.front_shiny,
-                    pokemon.sprites.back_shiny,
-                ];
-                const element = pokemon.types[0].type.name;
+              try {
+                const { data, status } = await pokeApi.get(`/pokemon/${id}`);
+                if(status==200){
+                  const pokemon = data;
+                  const name = pokemon.name;
+                  const sprites = [
+                      pokemon.sprites.front_default,
+                      pokemon.sprites.back_default,
+                      pokemon.sprites.front_shiny,
+                      pokemon.sprites.back_shiny,
+                  ];
+                  const element = pokemon.types[0].type.name;
 
-                const legendaryPokemon = { id, name, sprites, element };
-                this.legendaryPokemons.push(legendaryPokemon);
+                  const legendaryPokemon = { id, name, sprites, element };
+                  this.legendaryPokemons.push(legendaryPokemon);
+                }                
+              } catch (error) {
+                console.warn(error);
               }
+
             }
             
             console.log(this.legendaryPokemons, 'legendaryPokemons');
