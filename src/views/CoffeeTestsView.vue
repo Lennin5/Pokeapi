@@ -22,6 +22,9 @@
         <img :src="item.image" alt="Imagen" key="item.image" class="w-100 animate__animated animate__fadeIn" >          
       </v-carousel-item>
     </v-carousel>
+    <div class="text-center next-content-to-carousel" style="border: 1px solid blue">
+      <span>Contenido siguiente...</span>
+    </div>
   </div>
 </template>
 
@@ -73,5 +76,13 @@ export default {
     height: 50%; /* Altura del círculo interior en relación al contenedor */
     background-color: rgb(145, 145, 145); /* Color de fondo azul */
     border-radius: 50%; /* Hace que el círculo interior sea un círculo */
+}
+
+.next-content-to-carousel{
+  position: relative;
+  z-index: 2;
+  background-color: #fff;
+  width: 100%;
+  height: 500px;
 }
 </style>
