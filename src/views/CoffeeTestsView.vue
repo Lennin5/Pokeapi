@@ -2,31 +2,28 @@
   <div>
     <!-- <h1 class="animate__animated animate__bounce">An animated element</h1> animate__animated animate__fadeOut animate__animated animate__fadeOutBottomRight -->
 
-    <div class="max-circle 
-    animate__animated animate__backOutRight
-    animate__animated animate__backOutDown
-    ">
+    <div class="max-circle" id="max-circle" :class="animationClass">
         <div class="min-circle">
         </div>
     </div>   
     <div class="main-container">
-      <img :src="Header" alt="Imagen" key="Header" style="width: 50%; border: 1px solid greenyellow" >
+      <img :src="Header" class="mt-5" alt="Imagen" key="Header" style="width: 50%" >
 
       <v-row justify="start" class="ms-16">
-        <v-icon size="50" @click="carousel=0">
+        <v-icon size="50" @click="carousel=0" :color="carousel === 0 ? 'red' : 'grey'" >
           mdi-minus
         </v-icon>
-        <v-icon size="50" @click="carousel=1">
+        <v-icon size="50" @click="carousel=1" :color="carousel === 1 ? 'red' : 'grey'" >
           mdi-minus
         </v-icon>
-        <v-icon size="50" @click="carousel=2">
+        <v-icon size="50" @click="carousel=2" :color="carousel === 2 ? 'red' : 'grey'" >
           mdi-minus
         </v-icon>
       </v-row>   
     </div>     
     <v-carousel
       cycle
-      height="550"
+      height="590"
       vertical
       :show-arrows="false"
       delimiter-icon="mdi-minus"
@@ -41,7 +38,7 @@
         <img :src="item.image" alt="Imagen" key="item.image" class="w-100 animate__animated animate__fadeIn" >          
       </v-carousel-item>
     </v-carousel>
-    <div class="text-center next-content-to-carousel" style="border: 1px solid blue">
+    <div class="text-center next-content-to-carousel" style="">
       <span>Contenido siguiente...</span>  
     </div>
   </div>
@@ -71,6 +68,7 @@ export default {
         },
       ],
       carousel: 0,
+      animationClass: '',
     };
   },
 
@@ -78,7 +76,27 @@ export default {
     goToSlide(index) {
       this.$refs.carousel.goTo(index);
     },
+    startDiagonalAnimation() {
+      this.animationClass = 'animate-diagonal';
+      document.getElementById('max-circle').style.opacity = 0;
+      document.getElementById('max-circle').style.transition = 'opacity 0.5s ease-in-out';
+
+      
+    }    
   },  
+
+  watch: {
+    carousel(val) {
+      if (val === 1) {
+        this.startDiagonalAnimation();
+      }
+      else if (val === 0 || val === 2) {
+        this.animationClass = 'revert-diagonal';
+        document.getElementById('max-circle').style.opacity = 1;
+        document.getElementById('max-circle').style.transition = 'opacity 0.5s ease-in-out';
+      }
+    }
+  }
 };
 </script>
 
@@ -119,6 +137,35 @@ export default {
   z-index: 3;
   width: 100%;
   height: auto;
-  border: 1px solid red;
+}
+
+.animate-diagonal {
+  animation: diagonalMove 0.5s ease-in-out;
+}
+
+.revert-diagonal {
+  animation: revertDiagonalMove 0.5s ease-in-out;
+}
+
+@keyframes diagonalMove {
+  0% {
+    transform: translate(500, 100);
+    /* opacity: 1; */
+  }
+  100% {
+    transform: translate(900px, 250px); /* Ajusta las coordenadas según tus necesidades */
+    /* opacity: 0; */
+  }
+}
+
+@keyframes revertDiagonalMove {
+  0% {
+    transform: translate(900px, 250px); /* Ajusta las coordenadas según tus necesidades */
+    /* opacity: 0; */
+  }
+  100% {
+    transform: translate(500, 100);
+    /* opacity: 1; */
+  }
 }
 </style>
