@@ -2,8 +2,9 @@
     <v-container>
       <div class="d-flex justify-space-between align-center">
         <h1 class="orange--text ml-4" >
-        <v-icon color="orange" size="40">mdi-star-outline</v-icon>
-        Legendary</h1>
+          <v-icon color="orange" size="40">mdi-star</v-icon>
+          Legendary
+        </h1>
   
         <v-hover v-slot="{ hover }" class="d-flex justify-center align-center">
           <span class="me-5 cursor-pointer" @click="$router.push('/type')"
@@ -93,7 +94,7 @@
                 size="30"
                 >mdi-star</v-icon>
             </div>
-              <v-img :src="pokemon.sprites[spriteIndex]" max-height="300px" max-width="150" class="mt-0" :class="'pokemon_image_'+pokemon.name"></v-img>
+              <v-img :src="pokemon.sprites[spriteIndex || 0]" max-height="300px" max-width="150" class="mt-0" :class="'pokemon_image_'+pokemon.name"></v-img>
               <div class="font-weight-bold d-flex justify-center align-center mt-5"
               :class="pokemon.element === 'flying' ? 'gray--text' : 'white--text'">
 
@@ -104,18 +105,6 @@
               </div>
             </div>
             </div>
-              <!-- <v-card-text :style="{backgroundColor: getElementColorHex(pokemon.element)}">
-                <div class="d-flex justify-center " style="opacity: 0;">
-                  <v-btn
-                    :to="{ path: '/details', query: { pokemonObject: pokemon, spritesObject: Object.values(pokemon.sprites) } }"
-                    :color="getElementColorNormal(pokemon.element)"
-                    class="rounded-lg"
-                    :dark="pokemon.element === 'flying' ? false : true"
-                    :light="pokemon.element === 'flying' ? true : false">
-                        View Details
-                  </v-btn>                
-                </div>
-              </v-card-text>   -->
           </v-card>  
   
         </div>
@@ -146,29 +135,32 @@
       async getPokemonData() {
         this.legendaryPokemons = [];
           try {
-            const legendaryPokemonIds = [144, 145, 146, 150, 151, 243, 244, 245, 249, 250, 251, 377, 378, 379, 380, 381, 382, 383, 384, 385, 386, 483, 484, 487, 488, 489, 490, 491, 492, 493];
+            const legendaryPokemonIds = [144, 145, 146, 212, 150, 492, 493, 620, 715, 151, 243, 244, 245, 249, 250, 251, 377, 378, 380, 379, 381, 382, 383, 384, 385, 386, 483, 484, 487, 488, 490, 491, 489];
 
             for (const id of legendaryPokemonIds) {
-              const { data, status } = await pokeApi.get(`/pokemon/${id}`);
-              if(status==200){
-                const pokemon = data;
-                const name = pokemon.name;
-                const sprites = [
-                    pokemon.sprites.front_default,
-                    pokemon.sprites.back_default,
-                    pokemon.sprites.front_shiny,
-                    pokemon.sprites.back_shiny,
-                ];
-                const element = pokemon.types[0].type.name;
+              try {
+                const { data, status } = await pokeApi.get(`/pokemon/${id}`);
+                if(status==200){
+                  const pokemon = data;
+                  const name = pokemon.name;
+                  const sprites = [
+                      pokemon.sprites.front_default,
+                      pokemon.sprites.back_default,
+                      pokemon.sprites.front_shiny,
+                      pokemon.sprites.back_shiny,
+                  ];
+                  const element = pokemon.types[0].type.name;
 
-                const legendaryPokemon = { id, name, sprites, element };
-                this.legendaryPokemons.push(legendaryPokemon);
+                  const legendaryPokemon = { id, name, sprites, element };
+                  this.legendaryPokemons.push(legendaryPokemon);
+                }
+              } catch (warning) {
+                console.warn(warning, "X");
               }
-            }
-            
-            console.log(this.legendaryPokemons, 'legendaryPokemons');
+
+            }            
           } catch (error) {
-            console.error(error);
+            console.error("Issues when trying to get legendary pokemons: ", error);
           }
       },   
     }
