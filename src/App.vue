@@ -110,6 +110,7 @@ export default {
       { text: 'Homepage', icon: 'mdi-home-variant', path: '/' },
       { text: 'All Pokemons', icon: 'mdi-cards', path: '/all-pokemons' },
       { text: 'All Types', icon: 'mdi-checkbox-multiple-blank', path: '/type' },
+      { text: 'Legendary Pokemons', icon: 'mdi-star', path: '/legendary-pokemons'},
       { text: 'API', icon: 'mdi-open-in-new', path: 'https://pokeapi.co/' },
       { text: 'lenninlemus.com', icon: 'mdi-coffee', path: 'https://lenninlemus.com'}
     ],

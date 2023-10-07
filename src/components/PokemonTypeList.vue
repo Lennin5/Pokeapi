@@ -64,7 +64,7 @@
             <div class="font-weight-bold d-flex justify-center"
             :class="pokemon.element === 'flying' ? 'gray--text' : 'white--text'">
               <h2>
-                {{ pokemon.name[0].toUpperCase() + pokemon.name.slice(1) }}
+                {{ pokemon.name[0].toUpperCase() + pokemon.name.slice(1) + pokemon.id }}
               </h2>                
             </div>
           </div>

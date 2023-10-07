@@ -1,13 +1,13 @@
 <template>
     <div class="mt-10 mt-lg-0">
       <!--Horizontal scroll of all pokemons component-->
-      <HorizontalScrollAllPokemons />
-
-      <!--Horizontal scroll of legendary pokemons component-->
-      <HorizontalScrollLegendaryPokemons />        
+      <HorizontalScrollAllPokemons />    
 
       <!--Horizontal scroll of all types component-->
-      <HorizontalScrollAllTypes />      
+      <HorizontalScrollAllTypes />   
+      
+      <!--Horizontal scroll of legendary pokemons component-->
+      <HorizontalScrollLegendaryPokemons />          
 
       <!--Horizontal scroll of all regions component-->
       <HorizontalScrollAllRegions />
