@@ -155,7 +155,7 @@
                   this.legendaryPokemons.push(legendaryPokemon);
                 }
               } catch (warning) {
-                console.warn(warning, "X");
+                console.warn(warning);
               }
 
             }            
