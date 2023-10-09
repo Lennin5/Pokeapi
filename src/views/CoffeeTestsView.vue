@@ -8,38 +8,35 @@
     </div>   
 
     <div class="main-container">
-      <img :src="Header" class="mt-5" alt="Imagen" key="Header" style="width: 50%" >
+      <img :src="Header" class="mt-5" alt="Header Sample" key="Header" style="width: 50%" >
 
-  <v-row justify="start" class="ms-10">
-    <v-btn @click="carousel=0" retain-focus-on-click depressed plain min-width="50" width="60" :ripple="false">
-      <v-icon size="50" :color="carousel === 0 ? 'red' : 'black'">
-        mdi-minus
-      </v-icon>
-    </v-btn>
-    <v-btn @click="carousel=1" retain-focus-on-click depressed plain min-width="50" width="60" :ripple="false">
-      <v-icon size="50" :color="carousel === 1 ? 'red' : 'black'">
-        mdi-minus
-      </v-icon>
-    </v-btn>
-    <v-btn @click="carousel=2" retain-focus-on-click depressed plain min-width="50" width="60" :ripple="false">
-      <v-icon size="50" :color="carousel === 2 ? 'red' : 'black'">
-        mdi-minus
-      </v-icon>
-    </v-btn>
-  </v-row> 
+      <v-row justify="start" class="ms-15">
+        <div v-for="(carousel_image, index) in carouselImages" 
+          :key="carousel_image"
+          @click="carousel = index"
+          class="pa-1">
+            <v-icon            
+              size="50"
+              :color="index === carousel ? 'red' : 'black'"   
+              class="cursor-pointer"
+            >
+            mdi-minus 
+            </v-icon>
+        </div>
+      </v-row> 
     </div>     
     <v-carousel
       cycle
-      height="590"
+      height="600"
       vertical
       :show-arrows="false"
       delimiter-icon="mdi-minus"
-      hide-delimiter-background
       hide-delimiters
+      hide-delimiter-background
       v-model="carousel"
     >  
       <v-carousel-item
-        v-for="(item, index) in items"
+        v-for="(item, index) in carouselImages"
         :key="index"
       >        
         <img :src="item.image" alt="Imagen" key="item.image" class="w-100 animate__animated animate__fadeIn" >          
@@ -63,7 +60,7 @@ export default {
       ImageB: ImageB,
       ImageC: ImageC,
       Header,
-      items: [
+      carouselImages: [
         {
           image: ImageA,
         },
