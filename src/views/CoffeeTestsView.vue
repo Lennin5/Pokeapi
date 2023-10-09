@@ -1,7 +1,5 @@
 <template>
   <div>
-    <!-- <h1 class="animate__animated animate__bounce">An animated element</h1> animate__animated animate__fadeOut animate__animated animate__fadeOutBottomRight -->
-
     <div class="circle" id="circle" :class="animationClass">
         <div class="min-circle">
         </div>
@@ -77,11 +75,8 @@ export default {
   },
 
   methods: {
-    goToSlide(index) {
-      this.$refs.carousel.goTo(index);
-    },
     circleDiagonalAnimation(type) {
-      this.animationClass = type === 'execute' ? 'animate-diagonal' : 'revert-diagonal';
+      this.animationClass = type === 'execute' ? 'diagonal-animation' : 'revert-diagonal-animation';
       document.getElementById('circle').style.opacity = type === 'execute' ? 0 : 1;
       document.getElementById('circle').style.transition = 'opacity 0.5s ease-in-out';  
     }
@@ -134,11 +129,11 @@ export default {
 }
 
 /* Estilos para la animación del círculo */
-.animate-diagonal {
+.diagonal-animation {
   animation: diagonalMove 0.5s ease-in-out;
 }
 
-.revert-diagonal {
+.revert-diagonal-animation {
   animation: revertDiagonalMove 0.5s ease-in-out;
 }
 
