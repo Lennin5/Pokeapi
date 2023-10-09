@@ -2,7 +2,7 @@
   <div>
     <!-- <h1 class="animate__animated animate__bounce">An animated element</h1> animate__animated animate__fadeOut animate__animated animate__fadeOutBottomRight -->
 
-    <div class="max-circle" id="max-circle" :class="animationClass">
+    <div class="circle" id="circle" :class="animationClass">
         <div class="min-circle">
         </div>
     </div>   
@@ -80,22 +80,20 @@ export default {
     goToSlide(index) {
       this.$refs.carousel.goTo(index);
     },
-    startDiagonalAnimation() {
-      this.animationClass = 'animate-diagonal';
-      document.getElementById('max-circle').style.opacity = 0;
-      document.getElementById('max-circle').style.transition = 'opacity 0.5s ease-in-out';    
-    }    
-  },  
+    circleDiagonalAnimation(type) {
+      this.animationClass = type === 'execute' ? 'animate-diagonal' : 'revert-diagonal';
+      document.getElementById('circle').style.opacity = type === 'execute' ? 0 : 1;
+      document.getElementById('circle').style.transition = 'opacity 0.5s ease-in-out';  
+    }
+  },
 
   watch: {
     carousel(val) {
       if (val === 1) {
-        this.startDiagonalAnimation();
+        this.circleDiagonalAnimation('execute');
       }
       else if (val === 0 || val === 2) {
-        this.animationClass = 'revert-diagonal';
-        document.getElementById('max-circle').style.opacity = 1;
-        document.getElementById('max-circle').style.transition = 'opacity 0.5s ease-in-out';
+        this.circleDiagonalAnimation('revert');
       }
     }
   }
@@ -103,8 +101,9 @@ export default {
 </script>
 
 <style scoped>
-/* Estilos para el max-circle exterior */
-.max-circle {
+
+/* Estilos para el circle exterior */
+.circle {
   z-index: 1;
   position: absolute;
   width: 2550px;
@@ -126,14 +125,7 @@ export default {
   border-radius: 100%;
 }
 
-.next-content-to-carousel{
-  position: relative;
-  z-index: 2;
-  background-color: #f8e1ca;
-  width: 100%;
-  height: 500px;
-}
-
+/* Estilos para el contenido principal (donde se encuentran los limitadores del carrusel) */
 .main-container{
   position: absolute;
   z-index: 3;
@@ -141,6 +133,7 @@ export default {
   height: auto;
 }
 
+/* Estilos para la animación del círculo */
 .animate-diagonal {
   animation: diagonalMove 0.5s ease-in-out;
 }
@@ -154,16 +147,25 @@ export default {
     transform: translate(500, 100);
   }
   100% {
-    transform: translate(900px, 250px); /* Ajusta las coordenadas según tus necesidades */
+    transform: translate(900px, 250px);
   }
 }
 
 @keyframes revertDiagonalMove {
   0% {
-    transform: translate(900px, 250px); /* Ajusta las coordenadas según tus necesidades */
+    transform: translate(900px, 250px);
   }
   100% {
     transform: translate(500, 100);
   }
+}
+
+/* Estilos para el contenido que se muestra después del carrusel */
+.next-content-to-carousel{
+  position: relative;
+  z-index: 2;
+  background-color: #f8e1ca;
+  width: 100%;
+  height: 500px;
 }
 </style>
