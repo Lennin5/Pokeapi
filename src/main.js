@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import './assets/scss/main.scss'
 import App from './App.vue';
-import store from "./assets/store";
+import { createPinia } from 'pinia';
 import VueRouter from 'vue-router';
 import vuetify from './plugins/vuetify';
 import GlobalMethods from './utils/customMethods';
@@ -13,7 +13,10 @@ import AllPokemonsView from './views/AllPokemonsView';
 import PokemonLocationView from './views/PokemonLocationView';
 import PokemonRegionView from './views/PokemonRegionView';
 
+const pinia = createPinia(); // Crea una instancia de la tienda global Pinia
+
 Vue.use(VueRouter);
+Vue.use(pinia);
 
 const routes = [
   { path: '/', component: Homepage },
@@ -32,8 +35,8 @@ const router = new VueRouter({
 
 new Vue({
   router,
-  store,
   vuetify,
+  pinia,
   GlobalMethods,
   render: h => h(App)
 }).$mount('#app');
