@@ -206,6 +206,7 @@
     import pokeApi from '../plugins/axios';
     import FloatingButtons from '../components/FloatingTypesButton.vue';
     import PokemonTypeList from '../components/PokemonTypeList.vue';
+    import { useRootStore } from "@/assets/store/index";
   
   export default {
     data() {
@@ -217,12 +218,16 @@
         pokemonsAll: [],
         pokemonsPure: [],
         pokemonsNotPure: [],
+        rootStore: useRootStore(),
       };
     },
     created(){
       // top to scroll
       window.scrollTo(0, 0);
     },
+    beforeMount(){
+      this.rootStore.updateNavigationDrawerColor(this.$root.getElementColorNormal(this.pokemonType));
+    },    
     mounted() {
       this.fetchPokemonsByType();      
     },

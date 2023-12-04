@@ -3,7 +3,8 @@
     <v-app-bar
       fixed
       :color="navigationDrawerColor"
-      dark
+      :dark="navigationDrawerColor !== 'white'"
+      :light="navigationDrawerColor === 'white'"   
       class="d-md-block d-lg-none"
     >
       <v-app-bar-nav-icon @click="drawer = !drawer" />
@@ -25,7 +26,8 @@
     <v-navigation-drawer
       app
       :color="navigationDrawerColor"
-      dark
+      :dark="navigationDrawerColor !== 'white'"
+      :light="navigationDrawerColor === 'white'"   
       v-model="drawer"
       :mini-variant.sync="mini"
       class="d-block"
@@ -70,6 +72,8 @@
           :key="index"
           @click="menuItemClicked(item.path)"
           class="pt-2 pb-2"
+          :dark="navigationDrawerColor !== 'white'"
+          :light="navigationDrawerColor === 'white'"          
         >
           <v-list-item-icon>
             <v-icon :size="item.icon === 'mdi-checkbox-multiple-blank' ? '20' : '25'"
@@ -116,7 +120,7 @@ export default {
       { text: 'lenninlemus.com', icon: 'mdi-coffee', path: 'https://lenninlemus.com'}
     ],
     rootStore: useRootStore(),
-    navigationDrawerColor: 'orange',
+    /* navigationDrawerColor: 'orange', */
   }),
 
   methods: {
@@ -130,10 +134,11 @@ export default {
     },
   },
   
-  beforeMount() {
-    // Agrega lógica de inicialización aquí
-    console.log('Navigation Drawer Color:', this.rootStore.getNavigationDrawerColor);
-    this.navigationDrawerColor = this.rootStore.getNavigationDrawerColor;
+  computed: {
+    // Agrega lógica para manejar el color de la barra lateral aquí
+    navigationDrawerColor() {
+      return this.rootStore.getNavigationDrawerColor;
+    }    
   },
 };
 </script>
