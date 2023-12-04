@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import './assets/scss/main.scss'
 import App from './App.vue';
+import store from "./assets/store";
 import VueRouter from 'vue-router';
 import vuetify from './plugins/vuetify';
 import GlobalMethods from './utils/customMethods';
@@ -31,6 +32,7 @@ const router = new VueRouter({
 
 new Vue({
   router,
+  store,
   vuetify,
   GlobalMethods,
   render: h => h(App)
