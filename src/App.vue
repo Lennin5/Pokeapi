@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar
       fixed
-      color="orange"
+      :color="navigationDrawerColor"
       dark
       class="d-md-block d-lg-none"
     >
@@ -24,7 +24,7 @@
 
     <v-navigation-drawer
       app
-      color="orange"
+      :color="navigationDrawerColor"
       dark
       v-model="drawer"
       :mini-variant.sync="mini"
@@ -97,6 +97,7 @@
 // images
 import LogoPokemons from '@/assets/img/logo-pokemon.png';
 import LogoPokemonsMobile from '@/assets/img/logo-pokemon-mobile.png';
+import { useRootStore } from "@/assets/store/index";
 
 export default {
   name: 'App',
@@ -114,6 +115,8 @@ export default {
       { text: 'API', icon: 'mdi-open-in-new', path: 'https://pokeapi.co/' },
       { text: 'lenninlemus.com', icon: 'mdi-coffee', path: 'https://lenninlemus.com'}
     ],
+    rootStore: useRootStore(),
+    navigationDrawerColor: 'orange',
   }),
 
   methods: {
@@ -125,6 +128,12 @@ export default {
     toggleMenu() {
       this.mini = !this.mini; // Alterna entre el estado mini y expandido del menú
     },
+  },
+  
+  beforeMount() {
+    // Agrega lógica de inicialización aquí
+    console.log('Navigation Drawer Color:', this.rootStore.getNavigationDrawerColor);
+    this.navigationDrawerColor = this.rootStore.getNavigationDrawerColor;
   },
 };
 </script>
