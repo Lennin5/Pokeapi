@@ -12,6 +12,7 @@ import PokemonType from './views/PokemonType';
 import AllPokemonsView from './views/AllPokemonsView';
 import PokemonLocationView from './views/PokemonLocationView';
 import PokemonRegionView from './views/PokemonRegionView';
+import LegendaryPokemonsView from './views/LegendaryPokemonsView';
 
 const pinia = createPinia(); // Crea una instancia de la tienda global Pinia
 
@@ -25,7 +26,8 @@ const routes = [
   { path: '/type/:type', component: PokemonType },
   { path: '/all-pokemons', component: AllPokemonsView},
   { path: '/location', component: PokemonLocationView},
-  { path: '/region/:region', component: PokemonRegionView}
+  { path: '/region/:region', component: PokemonRegionView},
+  { path: '/legendary-pokemons', component: LegendaryPokemonsView}
 ];
 
 const router = new VueRouter({
