@@ -23,7 +23,7 @@
                 ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(5, 7), 16) + 30 )}))`,
 
               width: '100%',
-              height: '200px',              
+              height: 'auto',              
             }">
                 <div
                 :class="'pokemon_card_' + pokemon.name"
@@ -35,8 +35,8 @@
                     backgroundPosition: 'center',
                     backgroundSize: 'contain',
                     position: 'absolute',
-                    opacity: '0.2',
-                    right: '-30px',                    
+                    opacity: '0.1',
+                    right: '-5px',                    
                 }" />            
             <v-icon
             :style="{
@@ -51,17 +51,13 @@
             >mdi-star</v-icon>      
 
             <v-row class="ma-5">
-                <v-col cols="12" lg="5" class="l-r">
+                <v-col cols="12" lg="3" class="d-flex justify-center l-r">
                     <div 
                         :style="{
-                            border: '6px solid ' + 
-                            `rgba(
-                                ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(1, 3), 16) + 30)}, 
-                                ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(3, 5), 16) + 30)}, 
-                                ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(5, 7), 16) + 30)})`                            
+                            border: '7px solid ' + getBorderColor(pokemon.element),                           
                         }"
                         style="
-                            padding: 20px;                            
+                            padding: 0px;                            
                             border-radius: 50%;
                             width: 150px;
                             height: 150px;
@@ -69,8 +65,26 @@
                         <v-img :src="pokemon.sprites[spriteIndex || 0]" max-height="300px" max-width="150" class="mt-0" :class="'pokemon_image_'+pokemon.name"></v-img>
                     </div>                    
                 </v-col>                
-                <v-col cols="12" lg="7" class="l-b">
-                    <p>B</p>
+                <v-col cols="12" lg="9" class="l-b">
+                    <div class="d-flex justify-start align-center l-r" 
+                        style="opacity: 0.8;"
+                        :class="pokemon.element === 'flying' ? 'gray--text' : 'white--text'">
+                        <div>
+                            <div
+                            class="element-icon"
+                            :style="{
+                                width: '50px',
+                                height: '50px',
+                                backgroundImage: 'url(' + getElementTypeLogo(pokemon.element) + ')',
+                            }"
+                            />                           
+                        </div>  
+                        <div>
+                            <h2 class="ms-2">
+                                {{ pokemon.name[0].toUpperCase() + pokemon.name.slice(1) }}
+                            </h2>                                 
+                        </div>                                              
+                    </div>                
                 </v-col>
             </v-row>
         </v-card>          
@@ -100,6 +114,15 @@ export default {
     }, 1500);
   },
   methods: {
+    getBorderColor(type){
+        if(type === 'flying')
+            return '#0000008a';
+        else
+            return `rgba(
+                ${Math.min(255, parseInt(this.getElementColorHex(type).slice(1, 3), 16) + 30)}, 
+                ${Math.min(255, parseInt(this.getElementColorHex(type).slice(3, 5), 16) + 30)}, 
+                ${Math.min(255, parseInt(this.getElementColorHex(type).slice(5, 7), 16) + 30)})` 
+    },    
     async getPokemonData() {
       this.legendaryPokemons = [];
         try {
