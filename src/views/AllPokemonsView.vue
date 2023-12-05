@@ -60,7 +60,7 @@
                       v-model="page"
                       :length="totalPages"
                       circle
-                      color="orange"
+                      :color="secondRandomColorHex"
                     >
                     </v-pagination>
                   </div>                     
@@ -190,6 +190,7 @@
 
 <script>
   import pokeApi from '../plugins/axios';
+  import { useRootStore } from "@/assets/store/index";
 export default {
   data() {
     return {
@@ -300,7 +301,11 @@ export default {
       ],
       firstRandomColorHex: this.getRandomPokemonColorHex(),
       secondRandomColorHex: this.getRandomPokemonColorHex(),
+      rootStore: useRootStore(),
     };
+  },
+  beforeMount(){
+    this.rootStore.updateNavigationDrawerColor(this.firstRandomColorHex);
   },
   async created() {
     this.getPokemonData();
