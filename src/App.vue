@@ -28,6 +28,7 @@
       :color="navigationDrawerColor"
       :dark="navigationDrawerColor !== 'white'"
       :light="navigationDrawerColor === 'white'"   
+      style="transition: 0.3s ease-in-out;"
       v-model="drawer"
       :mini-variant.sync="mini"
       class="d-block"

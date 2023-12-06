@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="mt-10 mt-lg-0">
     <v-row>          
         <v-col
             v-for="(pokemon, index) in legendaryPokemons"
@@ -11,6 +11,8 @@
         <v-card
             width="100%"
             class="rounded-xl"
+            @mouseover="updateNavigationDrawerColorDinamically(pokemon.element), setElementOpacity(pokemon.name, 0.3)"
+            @mouseout="setElementOpacity(pokemon.name, 0.2)"
             :style="{
             background: `linear-gradient(to right, 
             rgba(
@@ -96,11 +98,13 @@
 
 <script>
 import pokeApi from '@/plugins/axios';
+import { useRootStore } from "@/assets/store/index";
 export default {
   data() {
     return {
       legendaryPokemons: [],
       spriteIndex: 0,
+      rootStore: useRootStore(),
     };
   },
   created() {
@@ -114,6 +118,18 @@ export default {
     }, 1500);
   },
   methods: {
+    updateNavigationDrawerColorDinamically(pokemonElement){        
+        if(pokemonElement === 'flying'){
+            this.rootStore.updateNavigationDrawerColor('white');
+        }else{
+            var color_rgb = `rgba(
+                    ${Math.max(0, parseInt(this.getElementColorHex(pokemonElement).slice(1, 3), 16) - 40)}, 
+                    ${Math.max(0, parseInt(this.getElementColorHex(pokemonElement).slice(3, 5), 16) - 40)}, 
+                    ${Math.max(0, parseInt(this.getElementColorHex(pokemonElement).slice(5, 7), 16) + 10 )})`
+
+            this.rootStore.updateNavigationDrawerColor(color_rgb);
+        }            
+    },
     getBorderColor(type){
         if(type === 'flying')
             return '#0000008a';
@@ -145,7 +161,7 @@ export default {
                 pokemon.element = element;
                 pokemon.sprites = sprites;
                 this.legendaryPokemons.push(pokemon);
-                console.log(pokemon, 'TEST');
+                // console.log(pokemon, 'TEST');
               }
             } catch (warning) {
               console.warn(warning);
