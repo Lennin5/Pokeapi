@@ -1,5 +1,9 @@
 <template>
   <v-container class="mt-10 mt-lg-0">
+    <!-- Floating type pokemons button -->
+    <FloatingTypesButton 
+      :pokemonType="pokemonType"
+    />    
     <v-row>          
         <v-col
             v-for="(pokemon, index) in legendaryPokemons"
@@ -143,6 +147,7 @@
 
 <script>
 import pokeApi from '@/plugins/axios';
+import FloatingTypesButton from "@/components/FloatingTypesButton.vue";
 import { useRootStore } from "@/assets/store/index";
 export default {
   data() {
@@ -151,6 +156,9 @@ export default {
       spriteIndex: 0,
       rootStore: useRootStore(),
     };
+  },
+  components: {
+    FloatingTypesButton,
   },
   created() {
     this.getPokemonData();
@@ -201,7 +209,7 @@ export default {
     async getPokemonData() {
       this.legendaryPokemons = [];
         try {
-          const legendaryPokemonIds = [144, 145, 146, 212, 150, 492, 493, 620, 821, 151, 243, 244, 245, 249, 250, 251, 377, 378, 380, 379, 381, 382, 383, 384, 385, 386, 483, 484, 487, 488, 490, 491, 489];
+          const legendaryPokemonIds = [144, 145, 146, 212, 150, 492, 493, 620, 821, 151, 243, 244, 245, 249, 250, 251, 377, 378, 380, 379, 381, 382, 383, 384, 385, 386, 483, 484, 487, 488, 490, 682, 491, 489];
 
           for (const id of legendaryPokemonIds) {
             try {
