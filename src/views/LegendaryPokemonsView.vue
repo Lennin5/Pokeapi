@@ -5,6 +5,9 @@
             v-for="(pokemon, index) in legendaryPokemons"
             :key="index"
             cols="12"
+            sm="6"
+            md="4"
+            lg="12"
             class="d-flex justify-center"
         >
         <!-- Data rendered -->
@@ -27,36 +30,54 @@
               width: '100%',
               height: 'auto',              
             }">
-                <div
-                :class="'pokemon_card_' + pokemon.name"
-                :style="{
-                    width: '350px',
-                    height: '350px',
-                    backgroundImage: 'url(' + getElementTypeLogo(pokemon.element) + ')',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
-                    backgroundSize: 'contain',
-                    position: 'absolute',
-                    opacity: '0.1',
-                    right: '-5px',                    
-                }" />            
-            <v-icon
+              <div
+              :class="'pokemon_card_' + pokemon.name"
+              :style="{
+                  width: '350px',
+                  height: '350px',
+                  backgroundImage: 'url(' + getElementTypeLogo(pokemon.element) + ')',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'center',
+                  backgroundSize: 'contain',
+                  position: 'absolute',
+                  opacity: '0.1',
+                  right: '-5px',                    
+              }" />  
+            <div class="d-flex justify-start align-center mt-3"
             :style="{
+              position: 'absolute',
+            }">
+              <v-icon
+                class="ms-3"
+                size="30"
+                :style="{
                 color: `rgba(
                     ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(1, 3), 16) + 30)}, 
                     ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(3, 5), 16) + 30)}, 
                     ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(5, 7), 16) + 30)})`,
-                position: 'absolute',
-            }"
-            class="ms-3 mt-3"
-            size="30"
-            >mdi-star</v-icon>      
+                }"
+              >mdi-star</v-icon>     
+              <h1   
+                class="ms-1"               
+                :style="{    
+                  marginTop: '2px',             
+                  fontSize: '20px',
+                  fontWeight: 'bold',                    
+                  textTransform: 'uppercase',
+                  color: `rgba(
+                  ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(1, 3), 16) + 30)}, 
+                  ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(3, 5), 16) + 30)}, 
+                  ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(5, 7), 16) + 30)})`                   ,
+                }">
+                {{ pokemon.element }}
+              </h1>   
+            </div>             
 
-            <v-row class="ma-5">
-                <v-col cols="12" lg="3" class="d-flex justify-center l-r">
+            <v-row class="ma-5 pt-5">
+                <v-col cols="12" lg="3" class="d-flex justify-center">
                     <div 
                         :style="{
-                            border: '7px solid ' + getBorderColor(pokemon.element),                           
+                            border: '0px solid ' + getBorderColor(pokemon.element),                           
                         }"
                         style="
                             padding: 0px;                            
@@ -67,8 +88,8 @@
                         <v-img :src="pokemon.sprites[spriteIndex || 0]" max-height="300px" max-width="150" class="mt-0" :class="'pokemon_image_'+pokemon.name"></v-img>
                     </div>                    
                 </v-col>                
-                <v-col cols="12" lg="9" class="l-b">
-                    <div class="d-flex justify-start align-center l-r" 
+                <v-col cols="12" lg="9" class="l-">
+                    <div class="d-flex justify-start align-center l-" 
                         style="opacity: 0.8;"
                         :class="pokemon.element === 'flying' ? 'gray--text' : 'white--text'">
                         <div>
@@ -86,7 +107,27 @@
                                 {{ pokemon.name[0].toUpperCase() + pokemon.name.slice(1) }}
                             </h2>                                 
                         </div>                                              
-                    </div>                
+                    </div>   
+                    <!-- <div class="d-flex justify-start align-center l-b">
+                      <v-list
+                        dense
+                        nav
+                      >
+                        <v-list-item
+                          v-for="item in items"
+                          :key="item.title"
+                          link
+                        >
+                          <v-list-item-icon>
+                            <v-icon>{{ item.icon }}</v-icon>
+                          </v-list-item-icon>
+
+                          <v-list-item-content>
+                            <v-list-item-title>{{ item.title }}</v-list-item-title>
+                          </v-list-item-content>
+                        </v-list-item>
+                      </v-list>                      
+                    </div>              -->
                 </v-col>
             </v-row>
         </v-card>          
@@ -160,14 +201,13 @@ export default {
 
                 pokemon.element = element;
                 pokemon.sprites = sprites;
-                this.legendaryPokemons.push(pokemon);
-                // console.log(pokemon, 'TEST');
+                this.legendaryPokemons.push(pokemon);                
               }
             } catch (warning) {
               console.warn(warning);
-            }
-
-          }            
+            }            
+          }  
+          console.log(this.legendaryPokemons[0], 'POKEMON');          
         } catch (error) {
           console.error("Issues when trying to get legendary pokemons: ", error);
         }
