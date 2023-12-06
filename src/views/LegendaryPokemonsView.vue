@@ -41,8 +41,12 @@
                   backgroundSize: 'contain',
                   position: 'absolute',
                   opacity: '0.1',
-                  right: '-5px',                    
-              }" />  
+                  right: '-5px',
+
+                  top: getClassesToLogo('top'),
+                  left: getClassesToLogo('left'),
+                  transform: getClassesToLogo('transform'),
+                }" />  
             <div class="d-flex justify-start align-center mt-3"
             :style="{
               position: 'absolute',
@@ -158,7 +162,21 @@ export default {
         this.spriteIndex++;
     }, 1500);
   },
+  computed: {
+    isMdAndDown() {
+      return this.$vuetify.breakpoint.mdAndDown;
+    },
+  },
   methods: {
+    getClassesToLogo(position){
+      if(position === 'top'){        
+        return this.isMdAndDown ? '50%' : ''
+      }else if(position === 'left'){
+        return this.isMdAndDown ? '50%' : ''
+      }else if(position === 'transform'){
+        return this.isMdAndDown ? 'translate(-50%, -50%)' : ''
+      }
+    },    
     updateNavigationDrawerColorDinamically(pokemonElement){        
         if(pokemonElement === 'flying'){
             this.rootStore.updateNavigationDrawerColor('white');
