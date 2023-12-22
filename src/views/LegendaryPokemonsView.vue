@@ -2,7 +2,7 @@
   <v-container class="mt-10 mt-lg-0">
     <!-- Floating type pokemons button -->
     <FloatingTypesButton 
-      :pokemonType="pokemonType"
+      pokemonType="normal"
     />    
     <v-row>          
         <v-col
@@ -75,7 +75,7 @@
                   color: `rgba(
                   ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(1, 3), 16) + 30)}, 
                   ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(3, 5), 16) + 30)}, 
-                  ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(5, 7), 16) + 30)})`                   ,
+                  ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(5, 7), 16) + 30)})`,
                 }">
                 {{ pokemon.element }}
               </h1>   
@@ -96,7 +96,7 @@
                         <v-img :src="pokemon.sprites[spriteIndex || 0]" max-height="300px" max-width="150" class="mt-0" :class="'pokemon_image_'+pokemon.name"></v-img>
                     </div>                    
                 </v-col>                
-                <v-col cols="12" lg="9" class="l-">
+                <v-col cols="12" lg="8" class="">
                     <div class="d-flex justify-start align-center l-" 
                         style="opacity: 0.8;"
                         :class="pokemon.element === 'flying' ? 'gray--text' : 'white--text'">
@@ -116,26 +116,80 @@
                             </h2>                                 
                         </div>                                              
                     </div>   
-                    <!-- <div class="d-flex justify-start align-center l-b">
-                      <v-list
-                        dense
-                        nav
-                      >
-                        <v-list-item
-                          v-for="item in items"
-                          :key="item.title"
-                          link
+                    <v-row justify="center" class="mt-3">
+                      <v-col cols="12" lg="3" class="pa-1 pa-lg-0">
+                        <v-chip
+                          class="d-flex justify-center"
+                          :color="pokemon.element === 'flying' ? 'grey darken-3' : 'white'"
+                          outlined
+                          style="width: 95%; backdrop-filter: blur(30px);">
+                          <v-icon left>
+                            mdi-weight
+                          </v-icon>
+                          <b>Weight 
+                            &nbsp;
+                          </b> {{ pokemon.weight }} kg
+                        </v-chip>
+                      </v-col>
+                      <v-col cols="12" lg="3" class="pa-1 pa-lg-0">
+                        <v-chip
+                          class="d-flex justify-center"
+                          :color="pokemon.element === 'flying' ? 'grey darken-3' : 'white'"
+                          outlined
+                          style="width: 95%; backdrop-filter: blur(30px);"
                         >
-                          <v-list-item-icon>
-                            <v-icon>{{ item.icon }}</v-icon>
-                          </v-list-item-icon>
-
-                          <v-list-item-content>
-                            <v-list-item-title>{{ item.title }}</v-list-item-title>
-                          </v-list-item-content>
-                        </v-list-item>
-                      </v-list>                      
-                    </div>              -->
+                          <v-icon left>
+                            mdi-creation
+                          </v-icon>                           
+                            {{ pokemon.moves.length }}
+                            &nbsp;
+                          <b>
+                            Moves
+                          </b>
+                        </v-chip>  
+                      </v-col>                       
+                      <v-col cols="12" lg="3" class="pa-1 pa-lg-0">
+                        <v-chip
+                          class="d-flex justify-center"
+                          :color="pokemon.element === 'flying' ? 'grey darken-3' : 'white'"
+                          outlined
+                          style="width: 95%; backdrop-filter: blur(30px);"
+                        >
+                          <v-icon left>
+                            mdi-head-cog
+                          </v-icon>
+                          <b>Experience 
+                            &nbsp;
+                          </b> {{ pokemon.base_experience }}
+                        </v-chip>   
+                      </v-col>
+                      <v-col cols="12" lg="3" class="pa-1 pa-lg-0">
+                        <v-chip
+                          class="d-flex justify-center"
+                          :color="pokemon.element === 'flying' ? 'grey darken-3' : 'white'"                    
+                          outlined
+                          style="backdrop-filter: blur(30px);"
+                          :style="{
+                            width: isMdAndDown ? '95%' : '100%',
+                          }"
+                        >
+                          <v-icon left>
+                            mdi-ev-plug-type1
+                          </v-icon>
+                          <b>Forms 
+                            &nbsp;
+                          </b> 
+                          <span v-for="(item, index) in pokemon.types" :key="index">
+                            {{ item.type.name }}
+                            <!-- Si el item NO es el ultimo de la lista -->
+                            <span v-if="index !== pokemon.types.length - 1">
+                              -
+                            </span>                        
+                            &nbsp;
+                          </span>
+                        </v-chip> 
+                      </v-col>                                              
+                    </v-row>                                                                
                 </v-col>
             </v-row>
         </v-card>          
