@@ -16,6 +16,7 @@
   
   <script>
   import pokeApi from '../plugins/axios';
+  import { useRootStore } from "@/assets/store/index";
   import BgPokemon from '@/assets/img/bg-pokemon.png';
   import HorizontalScrollAllPokemons from '@/components/horizontal_scrolls/AllPokemons.vue';
   import HorizontalScrollAllTypes from '@/components/horizontal_scrolls/AllTypes.vue';
@@ -27,10 +28,15 @@
   
     data() {
       return {
+        rootStore: useRootStore(),
         pokemons: [],
         BgPokemon: BgPokemon,  
       };
     },
+
+    beforeMount(){
+        this.rootStore.updateNavigationDrawerColor('#FF9800');
+    },     
   
     async created() {
       this.getPokemonData();

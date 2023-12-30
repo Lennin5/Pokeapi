@@ -2,12 +2,12 @@
     <v-container>
       <div class="d-flex justify-space-between align-center">
         <h1 class="orange--text ml-4" >
-          <v-icon color="orange" size="40">mdi-star</v-icon>
+          <v-icon color="orange" size="40">mdi-star</v-icon>          
           Legendary
         </h1>
   
         <v-hover v-slot="{ hover }" class="d-flex justify-center align-center">
-          <span class="me-5 cursor-pointer" @click="$router.push('/type')"
+          <span class="me-5 cursor-pointer" @click="$router.push('/legendary-pokemons')"
           :class="hover ? 'deep-orange--text accent-4--text text-decoration-underline' : 'orange--text'">
             View all
             <v-icon 
