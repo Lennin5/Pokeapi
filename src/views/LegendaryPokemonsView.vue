@@ -287,7 +287,7 @@ export default {
               console.warn(warning);
             }            
           }  
-          console.log(this.legendaryPokemons[0], 'POKEMON');          
+          // console.log(this.legendaryPokemons[0], 'POKEMON');          
         } catch (error) {
           console.error("Issues when trying to get legendary pokemons: ", error);
         }
