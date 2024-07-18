@@ -249,6 +249,10 @@ export default {
         const response = await pokeApi.get('/type/' + this.pokemonType);
         const pokemons = response.data.pokemon;
 
+        // Remove pokemon with id 13, 38 because of problems with the image font_default
+        pokemons.splice(13, 1);
+        pokemons.splice(38, 1);
+
         const pokemonData = await Promise.all(
         pokemons.map(async (pokemon) => {
           const pokemonResponse = await pokeApi.get(`/pokemon/${pokemon.pokemon.name}`);

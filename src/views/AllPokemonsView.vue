@@ -198,8 +198,8 @@ export default {
       pokemons: [],
       index: 0,
       page: 1, // Página inicial
-      pokemonsLimit: 1000, // 200 pokemons / 1292 en total
-      pokemonsPerPage: 100, // 50 pokemons por página    
+      pokemonsLimit: 1000, // 200 pokemons / 1292 en total (- 1 pokemon, el 442 que se eliminó por problemas con la imagen font_default)
+      pokemonsPerPage: 200, // 50 pokemons por página    
       search_word: null,
       backgroundTypeList: [
         {
@@ -316,6 +316,10 @@ export default {
         // 640 we encounter a flying pokemon (white color)
         const response = await pokeApi.get(`/pokemon/?offset=0&limit=${this.pokemonsLimit}`);
         const pokemons = response.data.results;
+
+        // console.log(pokemons[442], 'pokemons');
+        // Remove pokemon with id 442 because of problems with the image font_default
+        pokemons.splice(442, 1);
 
         const pokemonData = await Promise.all(
           pokemons.map(async (pokemon) => {
