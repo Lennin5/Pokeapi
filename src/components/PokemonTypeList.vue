@@ -28,17 +28,24 @@
             <div
                 :class="'pokemon_card_' + pokemon.name"
                 :style="{
-                    width: pokemon.element !== pokemonType ? '240px' : '170px',
-                    height: pokemon.element !== pokemonType ? '240px' : '170px',
+                    width: pokemon.element !== pokemonType ? '240px' : '200px',
+                    height: pokemon.element !== pokemonType ? '240px' : '200px',
                     backgroundImage: 'url(' + getElementTypeLogo(pokemonType) + ')',
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',
                     backgroundSize: 'cover',
                     position: 'absolute',
                     opacity: '0.1',
-                    marginTop: pokemon.element !== pokemonType ? '50px' : '130px',
-                    marginLeft: pokemon.element !== pokemonType ? '-265px' : '0', /* Mostrar lado izquierdo */
+                    marginTop: pokemon.element !== pokemonType ? '0' : '130px',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    top: pokemon.element !== pokemonType ? '0' : 'inherit',
+                    left: pokemon.element !== pokemonType ? '0' : 'inherit',
                     clipPath: pokemon.element !== pokemonType && 'polygon(100% 0, 100% 100%, 50% 100%, 50% 0)', /* Mostrar lado derecho */                    
+                    transform: pokemon.element !== pokemonType && 'scaleX(1) translateX(-50%)', /* Escalar y ajustar la posición de la imagen */
                 }"
             />          
             <div
@@ -53,10 +60,10 @@
                     backgroundSize: 'cover',
                     position: 'absolute',
                     opacity: '0.1',
-                    marginTop: '260px',
-                    marginRight: pokemon.element !== pokemonType ? '-125px' : '-10',
+                    bottom: '0',            
                     right: '0',
                     clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0% 100%)', /* Cambiado el clipPath */
+                    transform: 'scaleX(1) translateX(50%)', /* Escalar y ajustar la posición de la imagen */
                 }"
             />            
           <div class="">
