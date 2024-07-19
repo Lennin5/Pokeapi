@@ -1,6 +1,3 @@
-<template>
-  <div>
-
     <!-- <div v-if="pokemonData">
       <h2>{{ pokemonData.name[0].toUpperCase() + pokemonData.name.slice(1) }}</h2>
       <div>
@@ -19,7 +16,18 @@
         <h3>Element</h3>
         <p>{{ pokemonData.element[0].toUpperCase() + pokemonData.element.slice(1) }}</p>
     </div> -->
-    <v-container>
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <v-container>
       <br>
     <v-row justify="space-around">
       <v-card width="400" class="rounded-xl">
@@ -116,30 +124,122 @@
               </div>                
               </v-timeline-item>            
             </v-timeline>          
-
-          <!-- <v-timeline
-            align-top
-            dense
-          >
-            <v-timeline-item
-              v-for="message in messages"
-              :key="message.time"
-              :color="message.color"
-              small
-            >
-              <div>
-                <div class="font-weight-normal">
-                  <strong>{{ message.from }}</strong> @{{ message.time }}
-                </div>
-                <div>{{ message.message }}</div>
-              </div>
-            </v-timeline-item>
-          </v-timeline> -->
           
         </v-card-text>
       </v-card>
     </v-row>
-  </v-container>    
+  </v-container>     -->
+
+
+<template>
+  <div v-if="pokemonData" class="w-100 h-100 ma-0 d-flex justify-center align-center" style="height: 100vh;" :style="{backgroundColor: getElementColorHex(pokemonElement)}">
+      <img :src="getElementTypeLogo(pokemonElement)" class="" 
+      style="width: 800px; height: 800px; object-fit: contain; position: absolute; opacity: 0.08; z-index: 0" />
+
+      <div style="position: absolute; opacity: 1; bottom: 30px; left: 40px" class="d-flex justify-center align-center">
+        <img :src="getElementTypeLogo(pokemonElement)" class="" 
+        style="width: 90px; height: 90px; object-fit: contain; " />  
+        <span>
+          <h1 class="white--text ms-2">{{ pokemonElement[0].toUpperCase() + pokemonElement.slice(1) }}</h1>
+        </span>
+      </div>    
+
+    <v-carousel
+      :cycle="true"
+      :continuous="true"
+      :show-arrows="false"
+      delimiter-icon="mdi-square"
+      height="100%"
+      hide-delimiter-background
+    >
+      <v-carousel-item
+        v-for="(slide, i) in slides"
+        :key="i"
+      >
+        <v-sheet
+          :color="colors[i]"
+          height="100%"
+          tile
+        >
+          <div class="d-flex fill-height justify-center align-center">
+            <div class="text-h2 white--text" v-if="slide !== 'First'">
+              {{ slide }} Slide
+            </div>
+            <v-row class="d-flex justify-center align-center pt-12" v-if="slide === 'First'">     
+              <v-col
+                cols="12"
+                xs="12"
+                sm="12"
+                md="12"
+                lg="12"
+                xl="12"          
+                class="d-flex justify-center"
+              >
+                <div class="d-flex justify-center align-center">
+                  <div class="d-flex flex-column justify-center align-center">
+                    <v-avatar size="400" class="rounded-sm">
+                      <img
+                        alt="pokemon"
+                        :src="pokemonSprites[index]"
+                        class="pa-0 l-r"
+                        style="border: 0px solid white"
+                      />                 
+                    </v-avatar> 
+                    <span class="align-center white--text font-weight-bold" style="font-size: 40px">
+                      {{ pokemonData.name[0].toUpperCase() + pokemonData.name.slice(1) }}
+                    </span>
+                  </div>
+                </div>
+              </v-col>
+            </v-row>                            
+          </div>
+        </v-sheet>
+      </v-carousel-item>
+    </v-carousel>      
+
+      <!-- <v-row class="d-flex justify-center align-center pt-12">      
+        <v-col
+          cols="12"
+          xs="12"
+          sm="12"
+          md="12"
+          lg="12"
+          xl="12"          
+          class="d-flex justify-center"
+        >
+          <div class="d-flex justify-center align-center">
+            <div class="d-flex flex-column justify-center align-center">
+              <v-avatar size="400" class="rounded-sm">
+                <img
+                  alt="pokemon"
+                  :src="pokemonSprites[index]"
+                  class="pa-0 l-r"
+                  style="border: 0px solid white"
+                />                 
+              </v-avatar> 
+              <span class="align-center white--text font-weight-bold" style="font-size: 40px">
+                {{ pokemonData.name[0].toUpperCase() + pokemonData.name.slice(1) }}
+              </span>
+            </div>
+          </div>
+        </v-col>
+      </v-row>     -->
+
+      <!-- <v-col
+          cols="12"
+          xs="12"
+          sm="12"
+          md="6"
+          lg="6"
+          xl="6"          
+      >
+      
+      <div class="l-r">
+        B
+      </div>
+      </v-col> -->
+
+  
 
   </div>
 </template>
@@ -147,16 +247,20 @@
 <script>
 
 import BgPokemon from '@/assets/img/bg-pokemon.png';
+import pokeApi from '../plugins/axios';
+import { useRootStore } from "@/assets/store/index";
 
 export default {
   name: 'PokemonDetails',
   data() {
     return {
       pokemonData: null,
+      pokemonElement: null,
       pokemonAbilities: null,
-      pokemonId: null,
+      pokemonId: this.$route.params.id,
       pokemonHeight: null,
       pokemonLevel: null,
+      pokemonSprites: [],
       BgPokemon,
       messages: [
         {
@@ -179,34 +283,53 @@ export default {
         },
       ],
       index: 0,
+      rootStore: useRootStore(),
+
+        colors: [
+          'transparent',
+          'transparent',
+          'transparent',
+          'transparent',
+          'transparent',
+        ],
+        slides: [
+          'First',
+          'Second',
+          'Third',
+          'Fourth',
+          'Fifth',
+        ],      
     };
   },
   created() {
+    // console.log(this.$route.params);
     this.getPokemonData();
-    
-    // setTimeout(() => {
 
-      setInterval(() => {
-     this.index = this.index === 3 ? 0 : this.index + 1;
-      }, 1000);
-
-    // }, 5000);
-
+    setInterval(() => {
+      this.index = this.index === 3 ? 0 : this.index + 1;
+    }, 1000);
   },
   methods: {
-    getPokemonData() {
-      // const sprites = this.$route.query.spritesObject;
-      const pokemon = this.$route.query.pokemonObject;
-      if (pokemon) {
-        this.pokemonData = pokemon;
-        this.pokemonAbilities = pokemon.abilities;
+    async getPokemonData() {
+      try {
+        const pokemonResponse = await pokeApi.get(`/pokemon/${this.pokemonId}`);
+        this.pokemonData = pokemonResponse.data;
+        this.pokemonElement = await this.pokemonData?.types[0]?.type?.name;
 
-        this.pokemonId = pokemon.id;
-        this.pokemonHeight = pokemon.height;
-        this.pokemonLevel = pokemon.level;
-        console.log(this.pokemonData);
+        
+        this.rootStore.updateNavigationDrawerColor(this.getElementColorHex(this.pokemonElement));
+        this.pokemonSprites = [
+          this.pokemonData.sprites.front_default,
+          this.pokemonData.sprites.back_default,
+          this.pokemonData.sprites.front_shiny,
+          this.pokemonData.sprites.back_shiny,
+        ];     
+
+        console.log(this.pokemonData, 'pokemonData');
+      } catch (error) {
+        console.warn(error);
       }
-      console.log(pokemon);
+      
     },
     getElementTypeLogo(element) {
       return this.$root.getElementTypeLogo(element);

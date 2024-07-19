@@ -22,6 +22,7 @@ Vue.use(pinia);
 const routes = [
   { path: '/', component: Homepage },
   { path: '/details', component: PokemonDetails },
+  { path: '/pokemon/:id', component: PokemonDetails },
   { path: '/type', component: PokemonTypes },
   { path: '/type/:type', component: PokemonType },
   { path: '/all-pokemons', component: AllPokemonsView},

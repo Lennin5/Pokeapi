@@ -84,7 +84,7 @@
             <v-card-text :style="{backgroundColor: getElementColorHex(pokemon.element)}">
               <div class="d-flex justify-center pb-2">
                 <v-btn
-                  :to="{ path: '/details', query: { pokemonObject: pokemon, spritesObject: Object.values(pokemon.sprites) } }"
+                  :to="{ path: '/pokemon/' + pokemon.id }"
                   :color="getElementColorNormal(pokemon.element)"
                   class="mt-2 rounded-lg"
                   :dark="pokemon.element === 'flying' ? false : true"

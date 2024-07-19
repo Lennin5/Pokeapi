@@ -11,6 +11,7 @@
         xl="3"
         class="d-flex justify-center"
     >
+    {{pokemon.id}}
         <!-- Data rendered -->
         <v-card
           width="100%"
@@ -125,7 +126,7 @@
             </div>     
                          
               <div class="d-flex justify-center pb-2">
-                <v-btn
+                <!-- <v-btn
                   :to="{ path: '/details', query: { pokemonObject: pokemon, spritesObject: Object.values(pokemon.sprites) } }"
                   :style="{background: pokemon.element !== pokemonType ?
                     'linear-gradient(to right, ' + getElementColorHex(pokemonType) + ', ' + getElementColorHex(pokemon.element) + ')'
@@ -134,7 +135,17 @@
                   :dark="pokemon.element === 'flying' ? false : true"
                   :light="pokemon.element === 'flying' ? true : false">
                       View Details
-                </v-btn>                
+                </v-btn>                 -->
+                <v-btn
+                  :to="{ path: '/pokemon/' + pokemon.id }"
+                  :style="{background: pokemon.element !== pokemonType ?
+                    'linear-gradient(to right, ' + getElementColorHex(pokemonType) + ', ' + getElementColorHex(pokemon.element) + ')'
+                    : getElementColorHex(pokemon.element)}"
+                  class="mt-5 mb-5 rounded-lg"
+                  :dark="pokemon.element === 'flying' ? false : true"
+                  :light="pokemon.element === 'flying' ? true : false">
+                      View Details
+                </v-btn>
               </div>
             </v-card-text>  
         </v-card>      
