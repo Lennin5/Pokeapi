@@ -12,8 +12,8 @@
         style="width: 800px; height: 800px; object-fit: contain; position: absolute; opacity: 0.08; z-index: 0" />
 
         <div class="d-flex justify-center align-center"
-          :style="{ position: 'absolute', opacity: 1, bottom: isMdAndUp ? '20px' : 'inherit', top: isMdAndUp ? 'inherit' : '90px',
-            left: 'auto', right: 'auto', 'z-index': 4 }"        >
+        :style="{ position: 'absolute', opacity: 1, bottom: isMdAndUp ? '20px' : 'auto', top: isMdAndUp ? 'auto' : '90px',
+            left: isMdAndUp ? '30px' : 'auto', right: 'auto', 'z-index': 4 }">
           <img :src="getElementTypeLogo(pokemonElement)" class="l-r" 
           
           style="width: 90px; height: 90px; object-fit: contain; " />  
@@ -81,7 +81,7 @@
       class="l-b"
     >
 
-      <div class="d-flex justify-center align-center" style="position: absolute; bottom: 0; left: 0; right: 0; padding-bottom: 20px; z-index: 3" >
+      <div class="d-flex justify-center align-center" style="position: absolute; bottom: 0; left: 0; right: 0; padding-bottom: 20px; z-index: 3">
         <div class="d-flex justify-center align-center pa-3 rounded-pill" style="z-index: 3">
           <div v-for="(slide, index) in slides" :key="index" class="d-flex justify-center align-center" style="transition: 5s">
             <v-btn
