@@ -1,5 +1,5 @@
 <template>
-  <div v-if="pokemonData" class="w-100 h-100 l-r ma-0 d-flex justify-center align-center" style="height: 100vh;" 
+  <div v-if="pokemonData" class="w-100 h-100 l- ma-0 d-flex justify-center align-center" style="height: 100vh;" 
   :style="{
     background: pokemonElement2 ? `linear-gradient(to right, ${getElementColorHex(pokemonElement)}, ${getElementColorHex(pokemonElement2)})` : getElementColorHex(pokemonElement),
     }">
@@ -8,13 +8,13 @@
     {{isMdAndUp}} -->
 
       <template v-if="typeView == 'pure' ">
-        <img :src="getElementTypeLogo(pokemonElement)" class="l-b" 
+        <img :src="getElementTypeLogo(pokemonElement)" class="l-" 
         style="width: 800px; height: 800px; object-fit: contain; position: absolute; opacity: 0.08; z-index: 0" />
 
         <div class="d-flex justify-center align-center"
         :style="{ position: 'absolute', opacity: 1, bottom: isMdAndUp ? '20px' : 'auto', top: isMdAndUp ? 'auto' : '90px',
             left: isMdAndUp ? '30px' : 'auto', right: 'auto', 'z-index': 4 }">
-          <img :src="getElementTypeLogo(pokemonElement)" class="l-r" 
+          <img :src="getElementTypeLogo(pokemonElement)" class="l-" 
           
           style="width: 90px; height: 90px; object-fit: contain; " />  
           <span>
@@ -72,13 +72,13 @@
       :cycle="true"
       :continuous="true"
       :show-arrows="false"
-      delimiter-icon="mdi-home"
+      delimiter-icon="mdi-square"
       :hide-delimiters="true"
       delimiter
       height="100%"
       hide-delimiter-background
       interval="5000"
-      class="l-b"
+      class="l-"
     >
 
       <div class="d-flex justify-center align-center" style="position: absolute; bottom: 0; left: 0; right: 0; padding-bottom: 20px; z-index: 3">
@@ -118,10 +118,10 @@
           class="d-flex justify-center align-center"
         >
 
-          <div class="d-flex fill-height justify-center align-center overflow-auto l-r" style="width: 90%; height: 50%">
+          <div class="d-flex fill-height justify-center align-center overflow-auto l-" style="width: 90%; height: 50%">
             <div class="text-h2 white--text" v-if="slide.title !== 'FFirst'" >
-              <p v-for="n in 20" :key="n">
-                {{ slide.title }} Slide   
+              <p v-for="n in 5" :key="n">
+                {{ slide.title }} Slide
               </p>                         
             </div>
             <!-- <v-row class="d-flex justify-center align-center pt-12" v-if="slide.title === 'First'">     
@@ -248,19 +248,19 @@ export default {
       typeView: 'pure',
       slides: [
         {
-          title: 'First',
+          title: 'A',
           icon: 'mdi-pokeball',
         },
         {
-          title: 'Second',
+          title: 'B',
           icon: 'mdi-home',
         },
         {
-          title: 'Third',
+          title: 'C',
           icon: 'mdi-account',
         },
         {
-          title: 'Fourth',
+          title: 'D',
           icon: 'mdi-heart',
         }
       ],      
