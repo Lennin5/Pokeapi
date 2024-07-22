@@ -1,136 +1,3 @@
-    <!-- <div v-if="pokemonData">
-      <h2>{{ pokemonData.name[0].toUpperCase() + pokemonData.name.slice(1) }}</h2>
-      <div>
-        <img v-for="(sprite, index) in pokemonData.sprites" :key="index" :src="sprite" :alt="pokemonData.name" />
-      </div>
-
-      
-        <h3>Abilities</h3>
-        <ul>
-          <li v-for="(ability, index) in pokemonData.abilities" :key="index">
-            {{ ability.ability.name }}
-          </li>
-        </ul>
-
-
-        <h3>Element</h3>
-        <p>{{ pokemonData.element[0].toUpperCase() + pokemonData.element.slice(1) }}</p>
-    </div> -->
-
-
-
-
-
-
-
-
-
-
-
-    <!-- <v-container>
-      <br>
-    <v-row justify="space-around">
-      <v-card width="400" class="rounded-xl">
-        <v-img
-          height="210px"
-          :src="BgPokemon"
-        >
-          <v-card-title class="white--text mt-2 d-flex flex-column align-center">
-            <v-avatar size="125">
-              <img
-                alt="user"
-                :src="pokemonData.sprites[index]"
-                class="l-r pa-2"
-                style="border: 5px solid white"
-              >   
-                  
-            </v-avatar>                 
-            <div class="pa-1 mt-2" style="background-color: #622301;">
-              <h2>{{ pokemonData.name[0].toUpperCase() + pokemonData.name.slice(1) }}</h2>                 
-            </div>
-            
-          </v-card-title>
-        </v-img>
-
-        <v-card-text>
-          <v-timeline align-bottom dense class="mt-2" style="padding-top: 0px !important">
-              <v-card-title class="white--text">
-                <v-avatar 
-                  size="56" 
-                  :style="{ backgroundColor: getElementColorHex(pokemonData.element) }">
-                  <img
-                    alt="user"
-                    :src="getElementTypeLogo(pokemonData.element)"
-                    class="pa-2"
-                  >
-                </v-avatar>
-                  <p class="ml-3 font-weight-bold grey--text mt-5">
-                    Type {{ pokemonData.element[0].toUpperCase() + pokemonData.element.slice(1) }} Pokemon<br>
-                  </p>                  
-              </v-card-title>    
-              <v-timeline-item 
-              :color="getElementColorNormal(pokemonData.element)" 
-              medium 
-              icon="mdi-information" 
-              :fill-dot="true">
-              <div>                
-                <div class="font-weight-normal grey--text">
-                  <strong>Basic Information</strong>
-                </div>
-                <div>
-                  <ul>
-                      <strong class="grey--text">ID:</strong> {{ pokemonId }} <br>
-                      <strong class="grey--text">Height:</strong> {{ pokemonHeight }} cm <br>
-                      <strong class="grey--text">Level:</strong> {{ pokemonLevel }} <br>
-                  </ul>
-                </div>                               
-              </div>                
-              </v-timeline-item>       
-              <v-timeline-item 
-              :color="getElementColorNormal(pokemonData.element)" 
-              medium 
-              icon="mdi-flash" 
-              :fill-dot="true">
-              <div>                
-                <div class="font-weight-normal grey--text">
-                  <strong>Abilities</strong>
-                </div>
-                <div>
-                  <ul>
-                    <li v-for="(pokemon, index) in pokemonData.abilities" :key="index">
-                      {{ pokemon.ability.name }}
-                    </li>
-                  </ul>
-                </div>                               
-              </div>                
-              </v-timeline-item>     
-              <v-timeline-item 
-              :color="getElementColorNormal(pokemonData.element)" 
-              medium 
-              icon="mdi-star" 
-              :fill-dot="true">
-              <div>                
-                <div class="font-weight-normal grey--text">
-                  <strong>Level</strong>
-                </div>
-                <div>
-                  <ul>
-                    <li>
-                      {{ pokemonLevel }}
-
-                    </li>
-                  </ul>
-                </div>                               
-              </div>                
-              </v-timeline-item>            
-            </v-timeline>          
-          
-        </v-card-text>
-      </v-card>
-    </v-row>
-  </v-container>     -->
-
-
 <template>
   <div v-if="pokemonData" class="w-100 h-100 ma-0 d-flex justify-center align-center" style="height: 100vh;" 
   :style="{
@@ -227,7 +94,7 @@
                 xl="12"          
                 class="d-flex justify-center"
               >
-                <div class="d-flex justify-center align-center" v-if="index !== null">
+                <div class="d-flex justify-center align-center">
                   <div class="d-flex flex-column justify-center align-center">
                     <v-avatar size="400" class="rounded-sm">
                       <img
@@ -369,10 +236,11 @@ export default {
     async getPokemonData() {
       try {
         const pokemonResponse = await pokeApi.get(`/pokemon/${this.pokemonId}`);
-        this.pokemonData = pokemonResponse.data;
-        this.pokemonElement = await this.pokemonData?.types[0]?.type?.name;
-
-        console.log(this.pokemonData?.types[1], 'pokemonData?.types[1]');
+        if(pokemonResponse.status === 200) {
+          this.pokemonData = pokemonResponse.data;
+          this.pokemonElement = this.pokemonData.types[0].type.name;
+        }
+              
         if(this.pokemonData?.types[1] == undefined){
           this.pokemonElement2 = null;
           this.typeView = 'pure';
@@ -389,7 +257,7 @@ export default {
           this.pokemonData.sprites.back_shiny,
         ];     
 
-        console.log(this.pokemonData, 'pokemonData');
+        // console.log(this.pokemonData, 'pokemonData');
       } catch (error) {
         console.warn(error);
       }
