@@ -132,7 +132,12 @@
 
 
 <template>
-  <div v-if="pokemonData" class="w-100 h-100 ma-0 d-flex justify-center align-center" style="height: 100vh;" :style="{backgroundColor: getElementColorHex(pokemonElement)}">
+  <div v-if="pokemonData" class="w-100 h-100 ma-0 d-flex justify-center align-center" style="height: 100vh;" 
+  :style="{
+    background: pokemonElement2 ? `linear-gradient(to right, ${getElementColorHex(pokemonElement)}, ${getElementColorHex(pokemonElement2)})` : getElementColorHex(pokemonElement),
+    }">
+
+      <template v-if="typeView == 'pure' ">
       <img :src="getElementTypeLogo(pokemonElement)" class="" 
       style="width: 800px; height: 800px; object-fit: contain; position: absolute; opacity: 0.08; z-index: 0" />
 
@@ -142,7 +147,54 @@
         <span>
           <h1 class="white--text ms-2">{{ pokemonElement[0].toUpperCase() + pokemonElement.slice(1) }}</h1>
         </span>
-      </div>    
+      </div> 
+      </template>
+      <template v-else>
+        <!-- <img :src="getElementTypeLogo(pokemonElement)" class=""         
+        style="width: 800px; height: 800px; object-fit: contain; position: absolute; opacity: 0.08; z-index: 0,
+        clip-path: polygon(100% 0, 100% 100%, 50% 100%, 50% 0), transform: scaleX(1) translateX(-50%)" /> -->
+
+        <div
+          :style="{
+              width: '800px',
+              height: '800px',
+              backgroundImage: 'url(' + getElementTypeLogo(pokemonData.types[0].type.name) + ')',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center',
+              backgroundSize: 'cover',
+              position: 'absolute',
+              opacity: '0.08',
+              marginTop: '10px',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              top: '0',
+              left: '0',
+              clipPath: 'polygon(100% 0, 100% 100%, 50% 100%, 50% 0)', /* Mostrar lado derecho */                    
+              transform: 'scaleX(1) translateX(-50%)', /* Escalar y ajustar la posición de la imagen */
+          }">
+        </div>        
+        <div
+          :style="{
+              width: '800px',
+              height: '800px',
+              backgroundImage: 'url(' + getElementTypeLogo(pokemonData.types[1].type.name) + ')',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center',
+              backgroundSize: 'cover',
+              position: 'absolute',
+              opacity: '0.08',
+              bottom: '0',            
+              right: '0',
+              clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0% 100%)', /* Cambiado el clipPath */
+              transform: 'scaleX(1) translateX(50%)', /* Escalar y ajustar la posición de la imagen */
+          }">
+        </div>
+        
+      </template>
+   
 
     <v-carousel
       :cycle="true"
@@ -175,14 +227,14 @@
                 xl="12"          
                 class="d-flex justify-center"
               >
-                <div class="d-flex justify-center align-center">
+                <div class="d-flex justify-center align-center" v-if="index !== null">
                   <div class="d-flex flex-column justify-center align-center">
                     <v-avatar size="400" class="rounded-sm">
                       <img
                         alt="pokemon"
                         :src="pokemonSprites[index]"
-                        class="pa-0 l-r"
-                        style="border: 0px solid white"
+                        class=""
+                        style="border: 0px solid white;"
                       />                 
                     </v-avatar> 
                     <span class="align-center white--text font-weight-bold" style="font-size: 40px">
@@ -256,6 +308,7 @@ export default {
     return {
       pokemonData: null,
       pokemonElement: null,
+      pokemonElement2: null,
       pokemonAbilities: null,
       pokemonId: this.$route.params.id,
       pokemonHeight: null,
@@ -284,6 +337,7 @@ export default {
       ],
       index: 0,
       rootStore: useRootStore(),
+      typeView: 'pure',
 
         colors: [
           'transparent',
@@ -308,6 +362,8 @@ export default {
     setInterval(() => {
       this.index = this.index === 3 ? 0 : this.index + 1;
     }, 1000);
+
+    console.log('currentBreakpoint: ', this.currentBreakpoint);
   },
   methods: {
     async getPokemonData() {
@@ -316,6 +372,14 @@ export default {
         this.pokemonData = pokemonResponse.data;
         this.pokemonElement = await this.pokemonData?.types[0]?.type?.name;
 
+        console.log(this.pokemonData?.types[1], 'pokemonData?.types[1]');
+        if(this.pokemonData?.types[1] == undefined){
+          this.pokemonElement2 = null;
+          this.typeView = 'pure';
+        }else{
+          this.pokemonElement2 = await this.pokemonData?.types[1]?.type?.name;
+          this.typeView = 'not-pure';          
+        }      
         
         this.rootStore.updateNavigationDrawerColor(this.getElementColorHex(this.pokemonElement));
         this.pokemonSprites = [
@@ -341,7 +405,13 @@ export default {
       return this.$root.getElementColorHex(element);      
     }       
   },
+  computed: {
+    currentBreakpoint() {
+      return this.$vuetify.breakpoint.name;    
+    },
+  },  
 };
+
 
 // sumar + 1 a la variable index cada 1 segundo, cuandi llegue a 4, reiniciar
 
