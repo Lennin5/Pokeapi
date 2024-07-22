@@ -33,20 +33,17 @@
         <!-- Renderizar los logos gradiantes de fondo -->
         <div v-for="(type, index) in pokemonData.types" :key="index"
           :style="{
-              width: '800px',
-              height: '800px',
+              width: '700px',
+              height: '700px',
               backgroundImage: 'url(' + getElementTypeLogo(type.type.name) + ')',
               backgroundRepeat: 'no-repeat',
               backgroundPosition: 'center',
               backgroundSize: 'cover',
               position: 'absolute',
               opacity: '0.08',
-              marginTop: index === 0 ? '10px' : '0',
               marginLeft: index === 0 ? 'auto' : '0',
               marginRight: index === 0 ? 'auto' : '0',
-              bottom: index === 1 ? '0' : 'auto',
               right: index === 1 ? '0' : 'auto',
-              top: index === 0 ? '0' : 'auto',
               left: index === 0 ? '0' : 'auto',
               display: 'flex',
               justifyContent: 'center',
@@ -72,23 +69,26 @@
       hide-delimiter-background
       interval="5000"
     >
+
       <div class="d-flex justify-center align-center" style="position: absolute; bottom: 0; left: 0; right: 0; margin-bottom: 45px; z-index: 1">
-        <div v-for="(slide, index) in slides" :key="index" class="d-flex justify-center align-center">
+        <div v-for="(slide, index) in slides" :key="index" class="d-flex justify-center align-center" style="transition: 5s">
           <v-btn
+            :style="{
+              background: index === carouselModel ? 'rgba(266, 266, 266, 0.3)' : 'rgba(266, 266, 266, 0.09)',
+              transition: '0.4s',
+              transform: index === carouselModel ? 'scale(1.2)' : 'scale(1)',
+            }"
             class="mx-2"
-            style="text-decoration: none !important; color: white !important;"
-            color="white"              
-            outlined
+            style="text-decoration: none !important; color: white !important; box-shadow: none"
             rounded
             @click="carouselModel = index"
           >
-            <v-icon color="white" >
+            <v-icon color="white">
               {{ slide.icon }}
             </v-icon>
-            <span v-show="index === carouselModel">
+            <span style="text-transform: none" v-show="index === carouselModel">
               {{ slide.title }}
             </span>
-            
           </v-btn>
         </div>
       </div>
@@ -254,6 +254,8 @@ export default {
     // console.log(this.$route.params);
     this.getPokemonData();
 
+    // Ejecutar codigo 5 segundos despues que carga la pagina
+    // Sumar + 1 a la variable index cada 1 segundo, cuandi llegue a 4, reiniciar    
     setInterval(() => {
       this.indexSlide = this.indexSlide === 3 ? 0 : this.indexSlide + 1;
     }, 1000);
@@ -308,10 +310,6 @@ export default {
   },  
 };
 
-
-// sumar + 1 a la variable index cada 1 segundo, cuandi llegue a 4, reiniciar
-
-// ejecutar codigo 5 segundos despues que carga la pagina
 
 
 </script>
