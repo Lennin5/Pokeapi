@@ -5,86 +5,110 @@
     }">
 
       <template v-if="typeView == 'pure' ">
-      <img :src="getElementTypeLogo(pokemonElement)" class="" 
-      style="width: 800px; height: 800px; object-fit: contain; position: absolute; opacity: 0.08; z-index: 0" />
-
-      <div style="position: absolute; opacity: 1; bottom: 30px; left: 40px" class="d-flex justify-center align-center">
         <img :src="getElementTypeLogo(pokemonElement)" class="" 
-        style="width: 90px; height: 90px; object-fit: contain; " />  
-        <span>
-          <h1 class="white--text ms-2">{{ pokemonElement[0].toUpperCase() + pokemonElement.slice(1) }}</h1>
-        </span>
-      </div> 
+        style="width: 800px; height: 800px; object-fit: contain; position: absolute; opacity: 0.08; z-index: 0" />
+
+        <div style="position: absolute; opacity: 1; bottom: 20px; left: 30px" class="d-flex justify-center align-center">
+          <img :src="getElementTypeLogo(pokemonElement)" class="" 
+          style="width: 90px; height: 90px; object-fit: contain; " />  
+          <span>
+            <h1 class="white--text ms-2">{{ pokemonElement[0].toUpperCase() + pokemonElement.slice(1) }}</h1>
+          </span>
+        </div> 
       </template>
       <template v-else>
-        <!-- <img :src="getElementTypeLogo(pokemonElement)" class=""         
-        style="width: 800px; height: 800px; object-fit: contain; position: absolute; opacity: 0.08; z-index: 0,
-        clip-path: polygon(100% 0, 100% 100%, 50% 100%, 50% 0), transform: scaleX(1) translateX(-50%)" /> -->
-
-        <div
+        <!-- Renderizar los 2 logos de los elementos -->
+        <div v-for="(element, index) in [pokemonElement, pokemonElement2]" :key="element" 
+            :style="{ position: 'absolute', opacity: 1, bottom: '20px', left: index === 0 ? '30px' : 'auto', right: index === 1 ? '30px' : 'auto' }" 
+            class="d-flex justify-center align-center">
+          <img :src="getElementTypeLogo(element)" 
+              :style="{ width: '90px', height: '90px', objectFit: 'contain', order: index === 0 ? 0 : 1 }" />
+          <span :style="{ order: index === 0 ? 1 : 0 }">
+            <h1 :class="[element === 'flying' ? 'gray--text' : 'white--text', 'ms-2', index === 0 ? '' : 'me-2']">
+              {{ element[0].toUpperCase() + element.slice(1) }}
+            </h1>
+          </span>
+        </div>
+   
+        <!-- Renderizar los logos gradiantes de fondo -->
+        <div v-for="(type, index) in pokemonData.types" :key="index"
           :style="{
               width: '800px',
               height: '800px',
-              backgroundImage: 'url(' + getElementTypeLogo(pokemonData.types[0].type.name) + ')',
+              backgroundImage: 'url(' + getElementTypeLogo(type.type.name) + ')',
               backgroundRepeat: 'no-repeat',
               backgroundPosition: 'center',
               backgroundSize: 'cover',
               position: 'absolute',
               opacity: '0.08',
-              marginTop: '10px',
-              marginLeft: 'auto',
-              marginRight: 'auto',
+              marginTop: index === 0 ? '10px' : '0',
+              marginLeft: index === 0 ? 'auto' : '0',
+              marginRight: index === 0 ? 'auto' : '0',
+              bottom: index === 1 ? '0' : 'auto',
+              right: index === 1 ? '0' : 'auto',
+              top: index === 0 ? '0' : 'auto',
+              left: index === 0 ? '0' : 'auto',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              top: '0',
-              left: '0',
-              clipPath: 'polygon(100% 0, 100% 100%, 50% 100%, 50% 0)', /* Mostrar lado derecho */                    
-              transform: 'scaleX(1) translateX(-50%)', /* Escalar y ajustar la posición de la imagen */
-          }">
-        </div>        
-        <div
-          :style="{
-              width: '800px',
-              height: '800px',
-              backgroundImage: 'url(' + getElementTypeLogo(pokemonData.types[1].type.name) + ')',
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center',
-              backgroundSize: 'cover',
-              position: 'absolute',
-              opacity: '0.08',
-              bottom: '0',            
-              right: '0',
-              clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0% 100%)', /* Cambiado el clipPath */
-              transform: 'scaleX(1) translateX(50%)', /* Escalar y ajustar la posición de la imagen */
+              clipPath: index === 0 ? 'polygon(100% 0, 100% 100%, 50% 100%, 50% 0)' : 'polygon(0 0, 50% 0, 50% 100%, 0% 100%)',
+              transform: index === 0 ? 'scaleX(1) translateX(-50%)' : 'scaleX(1) translateX(50%)',
           }">
         </div>
+
         
       </template>
    
 
     <v-carousel
+      v-model="carouselModel"
       :cycle="true"
       :continuous="true"
       :show-arrows="false"
-      delimiter-icon="mdi-square"
+      delimiter-icon="mdi-home"
+      :hide-delimiters="true"
+      delimiter
       height="100%"
       hide-delimiter-background
+      interval="5000"
     >
+      <div class="d-flex justify-center align-center" style="position: absolute; bottom: 0; left: 0; right: 0; margin-bottom: 45px; z-index: 1">
+        <div v-for="(slide, index) in slides" :key="index" class="d-flex justify-center align-center">
+          <v-btn
+            class="mx-2"
+            style="text-decoration: none !important; color: white !important;"
+            color="white"              
+            outlined
+            rounded
+            @click="carouselModel = index"
+          >
+            <v-icon color="white" >
+              {{ slide.icon }}
+            </v-icon>
+            <span v-show="index === carouselModel">
+              {{ slide.title }}
+            </span>
+            
+          </v-btn>
+        </div>
+      </div>
+
       <v-carousel-item
-        v-for="(slide, i) in slides"
-        :key="i"
+        v-for="(slide, index) in slides"
+        :key="index"
       >
+
         <v-sheet
-          :color="colors[i]"
+          color="transparent"
           height="100%"
           tile
         >
+
           <div class="d-flex fill-height justify-center align-center">
-            <div class="text-h2 white--text" v-if="slide !== 'First'">
-              {{ slide }} Slide
+            <div class="text-h2 white--text" v-if="slide.title !== 'First'">
+              {{ slide.title }} Slide
             </div>
-            <v-row class="d-flex justify-center align-center pt-12" v-if="slide === 'First'">     
+            <v-row class="d-flex justify-center align-center pt-12" v-if="slide.title === 'First'">     
               <v-col
                 cols="12"
                 xs="12"
@@ -99,7 +123,7 @@
                     <v-avatar size="400" class="rounded-sm">
                       <img
                         alt="pokemon"
-                        :src="pokemonSprites[index]"
+                        :src="pokemonSprites[indexSlide]"
                         class=""
                         style="border: 0px solid white;"
                       />                 
@@ -173,6 +197,7 @@ export default {
   name: 'PokemonDetails',
   data() {
     return {
+      carouselModel: 0,
       pokemonData: null,
       pokemonElement: null,
       pokemonElement2: null,
@@ -202,24 +227,27 @@ export default {
           color: 'deep-purple lighten-1',
         },
       ],
-      index: 0,
+      indexSlide: 0,
       rootStore: useRootStore(),
       typeView: 'pure',
-
-        colors: [
-          'transparent',
-          'transparent',
-          'transparent',
-          'transparent',
-          'transparent',
-        ],
-        slides: [
-          'First',
-          'Second',
-          'Third',
-          'Fourth',
-          'Fifth',
-        ],      
+      slides: [
+        {
+          title: 'First',
+          icon: 'mdi-pokeball',
+        },
+        {
+          title: 'Second',
+          icon: 'mdi-home',
+        },
+        {
+          title: 'Third',
+          icon: 'mdi-account',
+        },
+        {
+          title: 'Fourth',
+          icon: 'mdi-heart',
+        }
+      ],      
     };
   },
   created() {
@@ -227,7 +255,7 @@ export default {
     this.getPokemonData();
 
     setInterval(() => {
-      this.index = this.index === 3 ? 0 : this.index + 1;
+      this.indexSlide = this.indexSlide === 3 ? 0 : this.indexSlide + 1;
     }, 1000);
 
     console.log('currentBreakpoint: ', this.currentBreakpoint);
@@ -257,7 +285,7 @@ export default {
           this.pokemonData.sprites.back_shiny,
         ];     
 
-        // console.log(this.pokemonData, 'pokemonData');
+        console.log(this.pokemonData, 'pokemonData');
       } catch (error) {
         console.warn(error);
       }
