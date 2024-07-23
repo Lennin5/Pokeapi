@@ -25,7 +25,7 @@
       <template v-else>
         <!-- Renderizar los 2 logos de los elementos -->
         <div v-for="(element, index) in [pokemonElement, pokemonElement2]" :key="element" 
-            :style="{ position: 'absolute', opacity: 1, bottom: isMdAndUp ? '20px' : 'inherit', top: isMdAndUp ? 'inherit' : '90px',
+            :style="{ position: 'absolute', opacity: 1, bottom: isMdAndUp ? '20px' : 'inherit', top: isMdAndUp ? 'inherit' : '70px',
             left: index === 0 ? '30px' : 'auto', right: index === 1 ? '30px' : 'auto', 'z-index': 4 }"
             class="d-flex justify-center align-center">
           <img :src="getElementTypeLogo(element)" 
@@ -75,7 +75,7 @@
         delimiter
         height="100%"
         hide-delimiter-background
-        interval="5000"
+        interval="9000"
         class="l-"
       >
         <div class="d-flex justify-center align-center" style="position: absolute; bottom: 0; left: 0; right: 0; padding-bottom: 20px; z-index: 3">
@@ -112,13 +112,16 @@
             tile
             class="d-flex justify-center align-center"
           >
-            <div class="d-flex fill-height justify-center align-center overflow-auto l-" style="width: 90%; height: 50%">
-              <div class="text-h2 white--text" v-if="slide.title !== 'FFirst'" >
-                <p v-for="n in 5" :key="n">
+            <div class="d-flex justify-center align-start overflow-auto overflow-x-hidden l-" style="width: 90%"
+            :style="{
+              height: customHeight,
+            }">
+              <div class="text-h2 white--text" v-if="slide.title !== 'A'" >
+                <p v-for="n in 10" :key="n">
                   {{ slide.title }} Slide
                 </p>                         
               </div>
-              <!-- <v-row class="d-flex justify-center align-center pt-12" v-if="slide.title === 'First'">     
+              <v-row class="d-flex justify-center align-center pt-12" v-if="slide.title === 'A'">     
                 <v-col
                   cols="12"
                   xs="12"
@@ -130,21 +133,21 @@
                 >
                   <div class="d-flex justify-center align-center">
                     <div class="d-flex flex-column justify-center align-center">
-                      <v-avatar size="400" class="rounded-sm">
+                      <v-avatar size="400" class="rounded-sm l- d-flex flex-column">
                         <img
                           alt="pokemon"
                           :src="pokemonSprites[indexSlide]"
-                          class=""
+                          class="l-"
                           style="border: 0px solid white;"
-                        />                 
+                        />
                       </v-avatar> 
-                      <span class="align-center white--text font-weight-bold" style="font-size: 40px">
+                      <span class="align-center white--text font-weight-bold l-" style="font-size: 40px;">
                         {{ pokemonData.name[0].toUpperCase() + pokemonData.name.slice(1) }}
-                      </span>
+                      </span>                         
                     </div>
                   </div>
                 </v-col>
-              </v-row>                             -->
+              </v-row>                            
             </div>
           </v-sheet>
         </v-carousel-item>
@@ -321,6 +324,24 @@ export default {
       // retornar si el breakpoint actual es mayor o igual a md, es decir: md, lg, xl y xxl
       return this.$vuetify.breakpoint.mdAndUp;
     },
+    customHeight() {
+      switch (this.currentBreakpoint) {
+        case 'xs':
+          return '60%';
+        case 'sm':
+          return '60%';
+        case 'md':
+          return '60%';
+        case 'lg':
+          return '70%';
+        case 'xl':
+          return '70%';
+        case '2xl':
+          return '80%';
+        default:
+          return '50%';
+      }
+    },    
   },  
 };
 
