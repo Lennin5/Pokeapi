@@ -3,13 +3,13 @@
   :style="{
     background: pokemonElement2 ? `linear-gradient(to right, ${getElementColorHex(pokemonElement)}, ${getElementColorHex(pokemonElement2)})` : getElementColorHex(pokemonElement),
     }">
-
-    <!-- {{currentBreakpoint}}
-    {{isMdAndUp}} -->
-
+     <!-- {{currentBreakpoint}} -->
+    <!-- {{isMdAndUp}} -->
       <template v-if="typeView == 'pure' ">
         <img :src="getElementTypeLogo(pokemonElement)" class="l-" 
-        style="width: 800px; height: 800px; object-fit: contain; position: absolute; opacity: 0.08; z-index: 0" />
+        style="width: 700px; height: 700px; object-fit: contain; position: absolute; z-index: 0" 
+        :style="{opacity: isMdAndUp ? '0.06' : '0.05',}"
+        />
 
         <div class="d-flex justify-center align-center"
         :style="{ position: 'absolute', opacity: 1, bottom: isMdAndUp ? '20px' : 'auto', top: isMdAndUp ? 'auto' : '90px',
@@ -29,10 +29,11 @@
             left: index === 0 ? '30px' : 'auto', right: index === 1 ? '30px' : 'auto', 'z-index': 4 }"
             class="d-flex justify-center align-center">
           <img :src="getElementTypeLogo(element)" 
-              :style="{ width: '90px', height: '90px', objectFit: 'contain', order: index === 0 ? 0 : 1 }" />
+            :style="{ width: '90px', height: '90px', objectFit: 'contain', order: index === 0 ? 0 : 1 }" />
           <span :style="{ order: index === 0 ? 1 : 0 }">
             <span :class="[
-            element === 'flying' ? 'gray--text' : 'white--text', 'ms-2', index === 0 ? '' : 'me-2',
+            element === 'flying' ? 'gray--text' : 'white--text', 
+            'ms-2', index === 0 ? '' : 'me-2',
             ]"
             class="font-weight-bold text-subtitle-2 text-sm-h6 text-md-h5 text-lg-h4 text-xl-h4 text-2xl-h3">
               {{ element[0].toUpperCase() + element.slice(1) }}
@@ -43,14 +44,14 @@
         <!-- Renderizar los logos gradiantes de fondo -->
         <div v-for="(type, index) in pokemonData.types" :key="index"
           :style="{
-              width: '700px',
-              height: '700px',
+              width: '600px',
+              height: '600px',
               backgroundImage: 'url(' + getElementTypeLogo(type.type.name) + ')',
               backgroundRepeat: 'no-repeat',
               backgroundPosition: 'center',
               backgroundSize: 'cover',
               position: 'absolute',
-              opacity: '0.08',
+              opacity: isMdAndUp ? '0.06' : '0.03',
               marginLeft: index === 0 ? 'auto' : '0',
               marginRight: index === 0 ? 'auto' : '0',
               right: index === 1 ? '0' : 'auto',
@@ -61,100 +62,93 @@
               clipPath: index === 0 ? 'polygon(100% 0, 100% 100%, 50% 100%, 50% 0)' : 'polygon(0 0, 50% 0, 50% 100%, 0% 100%)',
               transform: index === 0 ? 'scaleX(1) translateX(-50%)' : 'scaleX(1) translateX(50%)',
           }">
-        </div>
-
-        
+        </div>        
       </template>
-   
-
-    <v-carousel
-      v-model="carouselModel"
-      :cycle="true"
-      :continuous="true"
-      :show-arrows="false"
-      delimiter-icon="mdi-square"
-      :hide-delimiters="true"
-      delimiter
-      height="100%"
-      hide-delimiter-background
-      interval="5000"
-      class="l-"
-    >
-
-      <div class="d-flex justify-center align-center" style="position: absolute; bottom: 0; left: 0; right: 0; padding-bottom: 20px; z-index: 3">
-        <div class="d-flex justify-center align-center pa-3 rounded-pill" style="z-index: 3">
-          <div v-for="(slide, index) in slides" :key="index" class="d-flex justify-center align-center" style="transition: 5s">
-            <v-btn
-              :style="{
-                background: index === carouselModel ? 'rgba(266, 266, 266, 0.3)' : 'rgba(266, 266, 266, 0.09)',
-                transition: '0.4s',
-                transform: index === carouselModel ? 'scale(1.2)' : 'scale(1)',
-              }"
-              class="mx-2"
-              style="text-decoration: none !important; color: white !important; box-shadow: none;"
-              rounded
-              @click="carouselModel = index"
-            >
-              <v-icon color="white">
-                {{ slide.icon }}
-              </v-icon>
-              <span style="text-transform: none" v-show="index === carouselModel">
-                {{ slide.title }}
-              </span>
-            </v-btn>
+  
+      <v-carousel
+        v-model="carouselModel"
+        :cycle="true"
+        :continuous="true"
+        :show-arrows="false"
+        delimiter-icon="mdi-square"
+        :hide-delimiters="true"
+        delimiter
+        height="100%"
+        hide-delimiter-background
+        interval="5000"
+        class="l-"
+      >
+        <div class="d-flex justify-center align-center" style="position: absolute; bottom: 0; left: 0; right: 0; padding-bottom: 20px; z-index: 3">
+          <div class="d-flex justify-center align-center pa-3 rounded-pill" style="z-index: 3">
+            <div v-for="(slide, index) in slides" :key="index" class="d-flex justify-center align-center" style="transition: 5s">
+              <v-btn
+                :style="{
+                  background: index === carouselModel ? 'rgba(266, 266, 266, 0.3)' : 'rgba(266, 266, 266, 0.09)',
+                  transition: '0.4s',
+                  transform: index === carouselModel ? 'scale(1.2)' : 'scale(1)',
+                }"
+                class="mx-2"
+                style="text-decoration: none !important; color: white !important; box-shadow: none;"
+                rounded
+                @click="carouselModel = index"
+              >
+                <v-icon color="white">
+                  {{ slide.icon }}
+                </v-icon>
+                <span style="text-transform: none" v-show="index === carouselModel">
+                  {{ slide.title }}
+                </span>
+              </v-btn>
+            </div>
           </div>
         </div>
-      </div>
-
-      <v-carousel-item
-        v-for="(slide, index) in slides"
-        :key="index"
-      >
-
-        <v-sheet
-          color="transparent"
-          height="100%"
-          tile
-          class="d-flex justify-center align-center"
+        <v-carousel-item
+          v-for="(slide, index) in slides"
+          :key="index"
         >
-
-          <div class="d-flex fill-height justify-center align-center overflow-auto l-" style="width: 90%; height: 50%">
-            <div class="text-h2 white--text" v-if="slide.title !== 'FFirst'" >
-              <p v-for="n in 5" :key="n">
-                {{ slide.title }} Slide
-              </p>                         
-            </div>
-            <!-- <v-row class="d-flex justify-center align-center pt-12" v-if="slide.title === 'First'">     
-              <v-col
-                cols="12"
-                xs="12"
-                sm="12"
-                md="12"
-                lg="12"
-                xl="12"          
-                class="d-flex justify-center"
-              >
-                <div class="d-flex justify-center align-center">
-                  <div class="d-flex flex-column justify-center align-center">
-                    <v-avatar size="400" class="rounded-sm">
-                      <img
-                        alt="pokemon"
-                        :src="pokemonSprites[indexSlide]"
-                        class=""
-                        style="border: 0px solid white;"
-                      />                 
-                    </v-avatar> 
-                    <span class="align-center white--text font-weight-bold" style="font-size: 40px">
-                      {{ pokemonData.name[0].toUpperCase() + pokemonData.name.slice(1) }}
-                    </span>
+          <v-sheet
+            color="transparent"
+            height="100%"
+            tile
+            class="d-flex justify-center align-center"
+          >
+            <div class="d-flex fill-height justify-center align-center overflow-auto l-" style="width: 90%; height: 50%">
+              <div class="text-h2 white--text" v-if="slide.title !== 'FFirst'" >
+                <p v-for="n in 5" :key="n">
+                  {{ slide.title }} Slide
+                </p>                         
+              </div>
+              <!-- <v-row class="d-flex justify-center align-center pt-12" v-if="slide.title === 'First'">     
+                <v-col
+                  cols="12"
+                  xs="12"
+                  sm="12"
+                  md="12"
+                  lg="12"
+                  xl="12"          
+                  class="d-flex justify-center"
+                >
+                  <div class="d-flex justify-center align-center">
+                    <div class="d-flex flex-column justify-center align-center">
+                      <v-avatar size="400" class="rounded-sm">
+                        <img
+                          alt="pokemon"
+                          :src="pokemonSprites[indexSlide]"
+                          class=""
+                          style="border: 0px solid white;"
+                        />                 
+                      </v-avatar> 
+                      <span class="align-center white--text font-weight-bold" style="font-size: 40px">
+                        {{ pokemonData.name[0].toUpperCase() + pokemonData.name.slice(1) }}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </v-col>
-            </v-row>                             -->
-          </div>
-        </v-sheet>
-      </v-carousel-item>
-    </v-carousel>      
+                </v-col>
+              </v-row>                             -->
+            </div>
+          </v-sheet>
+        </v-carousel-item>
+      </v-carousel>      
 
       <!-- <v-row class="d-flex justify-center align-center pt-12">      
         <v-col
