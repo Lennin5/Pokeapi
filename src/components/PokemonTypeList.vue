@@ -11,7 +11,7 @@
         xl="3"
         class="d-flex justify-center"
     >
-    {{pokemon.id}}
+    <!-- {{pokemon.id}} -->
         <!-- Data rendered -->
         <v-card
           width="100%"
@@ -83,7 +83,7 @@
                     background: pokemon.element !== pokemonType ?
                     'linear-gradient(to right, ' + getElementColorHex(pokemonType) + ', ' + getElementColorHex(pokemon.element) + ')'
                     : getElementColorHex(pokemon.element)}">
-            <div class="font-weight-bold mt-0 d-flex justify-center" style="color: #f2f2f2bc">
+            <div class="font-weight-bold mt-0 d-flex justify-center" :style="{color: pokemonType === 'flying' ? '#343838' : '#f2f2f2bc'}">
                 <h4>                  
                     {{ pokemonType[0].toUpperCase() + pokemonType.slice(1) }}
                         {{ pokemonType !== pokemon.element ? ' / ' + pokemon.element[0].toUpperCase() + pokemon.element.slice(1) : '' }}
