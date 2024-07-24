@@ -18,7 +18,7 @@
           :style="{
             background: pokemon.elements.length === 1 ?
             getElementColorHex(pokemonType)
-            : 'linear-gradient(to bottom right, ' + getElementColorHex(pokemonType) + ', ' + getElementColorHex(pokemon.elements[0].type.name === pokemonType ? pokemon.elements[1].type.name : pokemon.elements[0].type.name) + ')',           
+            : 'linear-gradient(to bottom right, ' + getElementColorHex(pokemonType) + ', ' + getElementColorHex(secondaryElementName(pokemon)) + ')',           
           }"
 
           >
@@ -39,7 +39,7 @@
                     backgroundPosition: 'center',
                     backgroundSize: 'cover',
                     position: 'absolute',
-                    opacity: '0.1',
+                    opacity: '0.06',
                     marginTop: pokemon.elements.length > 1 ? '0' : '130px',
                     marginLeft: 'auto',
                     marginRight: 'auto',
@@ -58,12 +58,12 @@
                 :style="{
                     width: '240px',
                     height: '240px',
-                    backgroundImage: 'url(' + getElementTypeLogo(pokemon.elements[0].type.name === pokemonType ? pokemon.elements[1].type.name : pokemon.elements[0].type.name) + ')',
+                    backgroundImage: 'url(' + getElementTypeLogo(secondaryElementName(pokemon)) + ')',
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',
                     backgroundSize: 'cover',
                     position: 'absolute',
-                    opacity: '0.1',
+                    opacity: '0.06',
                     bottom: '0',            
                     right: '0',
                     clipPath: 'polygon(0 0, 50% 0, 50% 100%, 0% 100%)', /* Cambiado el clipPath */
@@ -73,19 +73,24 @@
             <div class="">
                 <v-img :src="pokemon.sprites[0]" max-height="300px" max-width="150" class="" :class="'pokemon_image_'+pokemon.name"></v-img>
                 <div class="font-weight-bold d-flex justify-center"
-                :class="pokemon.element === 'flying' ? 'gray--text' : 'white--text'">
+                :class="pokemon.element === 'flying' ? 'black--text' : 'white--text'">
                 <h2>
                     {{ pokemon.name[0].toUpperCase() + pokemon.name.slice(1) }}
-                    {{ pokemon.id  }}
+                    {{ pokemon.element  }}
                 </h2>                
                 </div>
             </div>
           </div>        
             <v-card-text>
-            <div class="font-weight-bold mt-0 d-flex justify-center" :style="{color: pokemonType === 'flying' ? '#343838' : '#f2f2f2bc'}">
+            <div class="font-weight-bold mt-0 d-flex justify-center" 
+            :style="{
+                color: pokemonType === 'flying' ? 
+                    pokemon.element === 'flying' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(266, 266, 266, 0.8)'
+                    : 'rgba(266, 266, 266, 0.5)'
+            }">
                 <h4>                  
                     {{ pokemonType[0].toUpperCase() + pokemonType.slice(1) }}
-                        {{ pokemon.elements.length > 1 ? ' / ' + (pokemon.elements[0].type.name === pokemonType ? pokemon.elements[1].type.name : pokemon.elements[0].type.name) : '' }}
+                        {{ pokemon.elements.length > 1 ? ' / ' + (secondaryElementName(pokemon)) : '' }}
                 </h4>
             </div> 
             <div class="d-flex justify-center" style="background-color: transparent;">
@@ -110,7 +115,7 @@
                     class="container-element elevation-2 ms-1"
                     :style="{       
                     zIndex: '99',            
-                    backgroundColor: getElementColorHex(pokemon.elements[0].type.name === pokemonType ? pokemon.elements[1].type.name : pokemon.elements[0].type.name),
+                    backgroundColor: getElementColorHex(secondaryElementName(pokemon)),
                     boxShadow: pokemon.element === 'flying' ? '0px 0px 2px 0px #343838' : 'none',
                     // border: '1px solid #dbdbdb',
                     }"
