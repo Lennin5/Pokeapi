@@ -1,5 +1,5 @@
 <template>
-    <v-row>      
+    <v-row class="ma-1">      
     <v-col
         v-for="(pokemon) in pokemonsList"
         :key="pokemon.name"
@@ -76,7 +76,7 @@
                 :class="pokemon.element === 'flying' ? 'black--text' : 'white--text'">
                 <h2>
                     {{ pokemon.name[0].toUpperCase() + pokemon.name.slice(1) }}
-                    {{ pokemon.element  }}
+                    <!-- {{ pokemon.element  }} -->
                 </h2>                
                 </div>
             </div>
@@ -90,7 +90,7 @@
             }">
                 <h4>                  
                     {{ pokemonType[0].toUpperCase() + pokemonType.slice(1) }}
-                        {{ pokemon.elements.length > 1 ? ' / ' + (secondaryElementName(pokemon)) : '' }}
+                        {{ pokemon.elements.length > 1 ? ' / ' + (secondaryElementName(pokemon))[0].toUpperCase() + (secondaryElementName(pokemon)).slice(1) : '' }}
                 </h4>
             </div> 
             <div class="d-flex justify-center" style="background-color: transparent;">
@@ -140,16 +140,39 @@
                   :light="pokemon.element === 'flying' ? true : false">
                       View Details
                 </v-btn>                 -->
-                <v-btn
-                  :to="{ path: '/pokemon/' + pokemon.id }"
-                  :style="{background: pokemon.elements.length === 1 ?
-                    getElementColorHex(pokemonType)
-                    : 'linear-gradient(to bottom right, ' + getElementColorHex(pokemonType) + ', ' + getElementColorHex(secondaryElementName(pokemon)) + ')'}"
-                  class="mt-5 mb-5 rounded-lg"
-                  :dark="pokemon.element === 'flying' ? false : true"
-                  :light="pokemon.element === 'flying' ? true : false">
-                      View Details
-                </v-btn>
+
+                <!-- <v-btn
+                    :to="{ path: '/pokemon/' + pokemon.id }"
+                    :style="{
+                        background: pokemon.elements.length === 1 ?
+                            getElementColorHex(pokemonType)
+                            : 'linear-gradient(to bottom right, ' + getElementColorHex(pokemonType) + ', ' + getElementColorHex(secondaryElementName(pokemon)) + ')',
+                        opacity: '1',
+                        shadowColor: 'rgba(266, 266, 266, 0.2)',
+                        
+                    }"
+                    class="my-5 rounded-lg"
+                    :dark="pokemon.element === 'flying' ? false : true"
+                    :light="pokemon.element === 'flying' ? true : false"                    
+                >
+                    View Details
+                </v-btn> -->
+
+                <v-btn                    
+                    :to="{ path: '/pokemon/' + pokemon.id }"
+                    :style="{
+                        background: pokemon.element === 'flying' ? 'rgba(0, 0, 0, 0.1)' : 'rgba(266, 266, 266, 0.2)',
+                        opacity: '1',
+                        boxShadow: 'none',
+                        border: '1px solid rgba(266, 266, 266, 0.1)',
+                        zIndex: 99,
+                    }"
+                    class="my-5 rounded-lg"
+                    :dark="pokemon.element === 'flying' ? false : true"
+                    :light="pokemon.element === 'flying' ? true : false"                    
+                >
+                    View Details
+                </v-btn>                
               </div>
             </v-card-text>  
         </v-card>      
