@@ -11,16 +11,19 @@
         xl="3"
         class="d-flex justify-center"
     >
-    <!-- {{pokemon.id}} -->
         <!-- Data rendered -->
         <v-card
           width="100%"
-          class="card rounded-xl">
+          class="card rounded-xl"
+          :style="{
+            background: pokemon.elements.length === 1 ?
+            getElementColorHex(pokemonType)
+            : 'linear-gradient(to bottom right, ' + getElementColorHex(pokemonType) + ', ' + getElementColorHex(pokemon.elements[0].type.name === pokemonType ? pokemon.elements[1].type.name : pokemon.elements[0].type.name) + ')',           
+          }"
+
+          >
           <div class="d-flex justify-center align-center" 
           :style="{
-            background: pokemon.element !== pokemonType ?
-            'linear-gradient(to right, ' + getElementColorHex(pokemonType) + ', ' + getElementColorHex(pokemon.element) + ')'
-            : getElementColorHex(pokemon.element),
             width: '100%',
             height: '170px',              
           }"
@@ -29,33 +32,33 @@
             <div
                 :class="'pokemon_card_' + pokemon.name"
                 :style="{
-                    width: pokemon.element !== pokemonType ? '240px' : '200px',
-                    height: pokemon.element !== pokemonType ? '240px' : '200px',
+                    width: pokemon.elements.length > 1 ? '240px' : '200px',
+                    height: pokemon.elements.length > 1 ? '240px' : '200px',
                     backgroundImage: 'url(' + getElementTypeLogo(pokemonType) + ')',
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',
                     backgroundSize: 'cover',
                     position: 'absolute',
                     opacity: '0.1',
-                    marginTop: pokemon.element !== pokemonType ? '0' : '130px',
+                    marginTop: pokemon.elements.length > 1 ? '0' : '130px',
                     marginLeft: 'auto',
                     marginRight: 'auto',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
-                    top: pokemon.element !== pokemonType ? '0' : 'inherit',
-                    left: pokemon.element !== pokemonType ? '0' : 'inherit',
-                    clipPath: pokemon.element !== pokemonType && 'polygon(100% 0, 100% 100%, 50% 100%, 50% 0)', /* Mostrar lado derecho */                    
-                    transform: pokemon.element !== pokemonType && 'scaleX(1) translateX(-50%)', /* Escalar y ajustar la posición de la imagen */
+                    top: pokemon.elements.length > 1 ? '0' : 'inherit',
+                    left: pokemon.elements.length > 1 ? '0' : 'inherit',
+                    clipPath: pokemon.elements.length > 1 && 'polygon(100% 0, 100% 100%, 50% 100%, 50% 0)', /* Mostrar lado derecho */                    
+                    transform: pokemon.elements.length > 1 && 'scaleX(1) translateX(-50%)', /* Escalar y ajustar la posición de la imagen */
                 }"
             />          
             <div
-                v-if="pokemon.element !== pokemonType"
+                v-if="pokemon.elements.length > 1"
                 :class="'pokemon_card_' + pokemon.name"
                 :style="{
                     width: '240px',
                     height: '240px',
-                    backgroundImage: 'url(' + getElementTypeLogo(pokemon.element) + ')',
+                    backgroundImage: 'url(' + getElementTypeLogo(pokemon.elements[0].type.name === pokemonType ? pokemon.elements[1].type.name : pokemon.elements[0].type.name) + ')',
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',
                     backgroundSize: 'cover',
@@ -67,26 +70,22 @@
                     transform: 'scaleX(1) translateX(50%)', /* Escalar y ajustar la posición de la imagen */
                 }"
             />            
-          <div class="">
-            <v-img :src="pokemon.sprites[0]" max-height="300px" max-width="150" class="" :class="'pokemon_image_'+pokemon.name"></v-img>
-            <div class="font-weight-bold d-flex justify-center"
-            :class="pokemon.element === 'flying' ? 'gray--text' : 'white--text'">
-              <h2>
-                {{ pokemon.name[0].toUpperCase() + pokemon.name.slice(1) }}
-                <!-- {{ pokemon.id  }} -->
-              </h2>                
+            <div class="">
+                <v-img :src="pokemon.sprites[0]" max-height="300px" max-width="150" class="" :class="'pokemon_image_'+pokemon.name"></v-img>
+                <div class="font-weight-bold d-flex justify-center"
+                :class="pokemon.element === 'flying' ? 'gray--text' : 'white--text'">
+                <h2>
+                    {{ pokemon.name[0].toUpperCase() + pokemon.name.slice(1) }}
+                    {{ pokemon.id  }}
+                </h2>                
+                </div>
             </div>
-          </div>
           </div>        
-            <v-card-text 
-                :style="{
-                    background: pokemon.element !== pokemonType ?
-                    'linear-gradient(to right, ' + getElementColorHex(pokemonType) + ', ' + getElementColorHex(pokemon.element) + ')'
-                    : getElementColorHex(pokemon.element)}">
+            <v-card-text>
             <div class="font-weight-bold mt-0 d-flex justify-center" :style="{color: pokemonType === 'flying' ? '#343838' : '#f2f2f2bc'}">
                 <h4>                  
                     {{ pokemonType[0].toUpperCase() + pokemonType.slice(1) }}
-                        {{ pokemonType !== pokemon.element ? ' / ' + pokemon.element[0].toUpperCase() + pokemon.element.slice(1) : '' }}
+                        {{ pokemon.elements.length > 1 ? ' / ' + (pokemon.elements[0].type.name === pokemonType ? pokemon.elements[1].type.name : pokemon.elements[0].type.name) : '' }}
                 </h4>
             </div> 
             <div class="d-flex justify-center" style="background-color: transparent;">
@@ -107,11 +106,11 @@
                     />
                 </div>
                 <div
-                    v-if="pokemon.element !== pokemonType"
+                    v-if="pokemon.elements.length > 1"
                     class="container-element elevation-2 ms-1"
                     :style="{       
                     zIndex: '99',            
-                    backgroundColor: getElementColorHex(pokemon.element),
+                    backgroundColor: getElementColorHex(pokemon.elements[0].type.name === pokemonType ? pokemon.elements[1].type.name : pokemon.elements[0].type.name),
                     boxShadow: pokemon.element === 'flying' ? '0px 0px 2px 0px #343838' : 'none',
                     // border: '1px solid #dbdbdb',
                     }"
@@ -119,8 +118,8 @@
                     <div
                     class="element-icon"
                     :style="{
-                        backgroundImage: 'url(' + getElementTypeLogo(pokemon.element) + ')',
-                    }"
+                        backgroundImage: 'url(' + getElementTypeLogo(secondaryElementName(pokemon)) + ')',
+                    }"                    
                     />
                 </div>
             </div>     
@@ -128,7 +127,7 @@
               <div class="d-flex justify-center pb-2">
                 <!-- <v-btn
                   :to="{ path: '/details', query: { pokemonObject: pokemon, spritesObject: Object.values(pokemon.sprites) } }"
-                  :style="{background: pokemon.element !== pokemonType ?
+                  :style="{background: pokemon.elements.length > 1 ?
                     'linear-gradient(to right, ' + getElementColorHex(pokemonType) + ', ' + getElementColorHex(pokemon.element) + ')'
                     : getElementColorHex(pokemon.element)}"
                   class="mt-5 mb-5 rounded-lg"
@@ -138,9 +137,9 @@
                 </v-btn>                 -->
                 <v-btn
                   :to="{ path: '/pokemon/' + pokemon.id }"
-                  :style="{background: pokemon.element !== pokemonType ?
-                    'linear-gradient(to right, ' + getElementColorHex(pokemonType) + ', ' + getElementColorHex(pokemon.element) + ')'
-                    : getElementColorHex(pokemon.element)}"
+                  :style="{background: pokemon.elements.length === 1 ?
+                    getElementColorHex(pokemonType)
+                    : 'linear-gradient(to bottom right, ' + getElementColorHex(pokemonType) + ', ' + getElementColorHex(secondaryElementName(pokemon)) + ')'}"
                   class="mt-5 mb-5 rounded-lg"
                   :dark="pokemon.element === 'flying' ? false : true"
                   :light="pokemon.element === 'flying' ? true : false">
@@ -163,6 +162,13 @@ export default {
         pokemonType: {
             type: String,
             required: true,
+        },
+    },
+
+    methods: {
+        // Función para obtener el segundo elemento del pokemon, (recordemos que el índice 0 del primer elemento no siempre es el elemento actual del tipo en el que nos encontramos)
+        secondaryElementName(pokemon) {            
+            return pokemon.elements[0].type.name === this.pokemonType ? pokemon.elements[1].type.name : pokemon.elements[0].type.name;
         },
     }
 }

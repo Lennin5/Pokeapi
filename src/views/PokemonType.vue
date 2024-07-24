@@ -238,8 +238,8 @@ export default {
   methods: {
     async getPurePokemons(){
       // setTimeout(() => {
-        const pokemonsPure = this.pokemonsList.filter(pokemon => pokemon.element === this.pokemonType);
-        const pokemonsNotPure = this.pokemonsList.filter(pokemon => pokemon.element !== this.pokemonType);
+        const pokemonsPure = this.pokemonsList.filter(pokemon => pokemon.elements.length === 1);
+        const pokemonsNotPure = this.pokemonsList.filter(pokemon => pokemon.elements.length > 1);
         this.pokemonsPure = pokemonsPure;
         this.pokemonsNotPure = pokemonsNotPure;
       // }, 1000);
@@ -260,6 +260,7 @@ export default {
           const name = pokemonResponse.data.name;
           const spriteURL = pokemonResponse.data.sprites.front_default;
           const element = pokemonResponse.data.types[0].type.name;
+          const elements = pokemonResponse.data.types;
           const abilities = pokemonResponse.data.abilities;
 
           const id = pokemonResponse.data.id;
@@ -276,6 +277,7 @@ export default {
             name: name,
             spriteURL: spriteURL,
             element: element,
+            elements: elements,
             sprites: sprites,
             abilities: abilities,
             id: id,
