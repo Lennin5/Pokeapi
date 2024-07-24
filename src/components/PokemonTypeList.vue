@@ -97,7 +97,6 @@
                 <div
                     class="container-element elevation-2"
                     :style="{            
-                    zIndex: '99',    
                     backgroundColor: getElementColorHex(pokemonType),
                     boxShadow: pokemonType === 'flying' ? '0px 0px 2px 0px #343838' : 'none',
                     // border: '1px solid #dbdbdb',
@@ -113,8 +112,7 @@
                 <div
                     v-if="pokemon.elements.length > 1"
                     class="container-element elevation-2 ms-1"
-                    :style="{       
-                    zIndex: '99',            
+                    :style="{                
                     backgroundColor: getElementColorHex(secondaryElementName(pokemon)),
                     boxShadow: pokemon.element === 'flying' ? '0px 0px 2px 0px #343838' : 'none',
                     // border: '1px solid #dbdbdb',
@@ -165,7 +163,6 @@
                         opacity: '1',
                         boxShadow: 'none',
                         border: '1px solid rgba(266, 266, 266, 0.1)',
-                        zIndex: 99,
                     }"
                     class="my-5 rounded-lg"
                     :dark="pokemon.element === 'flying' ? false : true"
