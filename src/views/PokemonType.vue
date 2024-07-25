@@ -34,7 +34,7 @@
                 background-position: center;"
               >
             </div>
-            <div class="d-flex justify-start align-end mb-0 cursor-pointer" style="margin-top: -150px; margin-left: 10px; z-index: 10" @click="$router.go(-1)">
+            <div class="d-flex justify-start align-end mb-0 cursor-pointer" style="margin-top: -150px; margin-left: 10px; z-index: 1" @click="$router.go(-1)">
               <div>
                 <v-icon                  
                 :style="{color: pokemonType === 'flying' ? '#0000008a' : '#ffffff8a'}"

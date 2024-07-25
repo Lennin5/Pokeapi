@@ -143,7 +143,7 @@ Vue.prototype.getElementColorHex = (element) => {
     case 'steel':
       return '#546E7A';
     case 'flying':
-      return '#fff';
+      return '#EEEEEE';
     default:
       return '#FF9800';
   }
