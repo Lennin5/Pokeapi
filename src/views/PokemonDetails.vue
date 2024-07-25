@@ -4,6 +4,19 @@
     background: pokemonElement2 ? `linear-gradient(to right, ${getElementColorHex(pokemonElement)}, ${getElementColorHex(pokemonElement2)})` : getElementColorHex(pokemonElement),
     }">
 
+      <div class="d-flex justify-center align-center cursor-pointer mt-3 ms-3" style="position: absolute; top: 0; left: 0; z-index: 1" @click="$router.go(-1)">
+        <div class="d-flex justify-center align-center">
+          <v-icon                  
+          :style="{color: pokemonElement === 'flying' ? '#0000008a' : '#ffffff8a'}"
+          >mdi-chevron-left</v-icon>                      
+        </div>
+        <div class="d-flex justify-center align-center">
+          <span class="block text-subtitle-1"
+          :style="{color: pokemonElement === 'flying' ? '#0000008a' : '#ffffff8a'}"
+          >Back</span>
+        </div>
+      </div>  
+
      <!-- {{currentBreakpoint}} -->
     <!-- {{isMdAndUp}} -->
       <template v-if="typeView == 'pure' ">
@@ -141,7 +154,7 @@
                   {{ slide.title }} Slide
                 </p>                         
               </div>
-              <v-row class="d-flex justify-center align-center pt-12" v-if="slide.title === 'A'">     
+              <v-row class="d-flex justify-center align-center pt-12" v-if="slide.title === 'Aa'">     
                 <v-col
                   cols="12"
                   xs="12"
