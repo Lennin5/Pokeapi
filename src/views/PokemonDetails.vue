@@ -139,17 +139,94 @@
             color="transparent"
             height="100%"
             tile
-            class="d-flex justify-center align-center "        
+            class="d-flex justify-center align-center lr"        
             :dark="pokemonElement !== 'flying'"
             :light="pokemonElement == 'flying'"                
           >
-            <div class="d-flex justify-center align-start overflow-auto overflow-x-hidden custom-scroll-bar l- " 
+            <div class="d-flex justify-center align-start overflow-auto overflow-x-hidden custom-scroll-bar " 
             
             style="width: 90%"
             :style="{
               height: customScrollHeight,
             }">
-              <div class="text-h2" v-if="slide.title !== 'A'" >
+              <!-- Mostrar los sprites solo en la tab A -->
+              <section
+                v-if="slide.title === 'Sprites'"
+                class="d-flex flex-column justify-center align-center w-100 custom-scroll-bar"
+                style="height: 100%; overflow: auto;"
+              >
+                <!-- Columna izquierda: Sprite seleccionado -->
+                <main
+                  class="d-flex flex-column align-center justify-center"
+                  style="width: 300px; height: 300px; flex-shrink: 0; margin-right: 32px;"
+                > 
+                  <section v-if="selectedSprite" class="" style="position: relative; width: 300px; height: 300px;">
+                    <!-- Texto de fondo centrado -->
+                    <span
+                      style="
+                        position: absolute;
+                        top: -75px;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        align-items: start;
+                        justify-content: center;
+                        font-size: 100px;
+                        font-weight: bold;
+                        color: rgba(255, 255, 255, 0.3);
+                        text-align: center;
+                        pointer-events: none;
+                        z-index: 1;
+                      "
+                    >
+                      {{ pokemonData.name.toUpperCase() }}
+                    </span>
+
+                    <!-- Imagen del sprite -->
+                    <img
+                      :src="selectedSprite"
+                      alt="Selected Sprite"
+                      width="300"
+                      height="auto"
+                      style="object-fit: contain; background: transparent; display: block; margin: 0 auto; z-index: 2; position: relative; "
+                    />
+                    <!-- <div style="position: absolute; margin-bottom: 100px; border-bottom: 5px solid rgba(255, 255, 255, 0.1);"></div> -->
+                  </section>
+
+                  <span v-else class="white--text">No sprite selected</span>
+                </main>
+
+                <!-- Columna derecha: Cuadrícula de sprites (2x2) -->
+                <footer
+                  class="d-flex flex-row justify-center align-center"
+                  style="gap: 16px; width: 100%; max-width: 100vw; overflow-x: auto; overflow-y: hidden; padding-bottom: 8px;"
+                >
+                  <div
+                    v-for="(sprite, spriteIndex) in pokemonSprites.slice(0, 4)"
+                    v-tooltip="'sprite.name'"
+                    :key="spriteIndex"
+                    class="d-flex justify-center align-center cursor-pointer"
+                    :class="[
+                      selectedSprite !== sprite.url ? 'pokemon-sprite-thumnail' : ''
+                    ]"
+                    :style="{
+                      minWidth: '120px',
+                      height: '120px',
+                      border: selectedSprite === sprite.url ? '2px solid rgba(255,255,255,0.2)' : 'none',
+                      borderRadius: '8px',
+                      background: selectedSprite === sprite.url ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.02)',
+                      transition: 'border 0.3s, all 0.3s',
+                      marginRight: '8px'
+                    }"
+                    @click="selectedSprite = sprite.url; spriteIndex = spriteIndex"
+                  >
+                    <img :src="sprite.url" :alt="'sprite-' + spriteIndex" width="150" height="150" style="object-fit: contain;" />
+                  </div>
+                </footer>
+              </section>
+
+              <div class="text-h2" v-if="slide.title !== 'Sprites'" >
                 <p v-for="n in 10" :key="n">
                   {{ slide.title }} Slide
                 </p>                         
@@ -263,6 +340,8 @@ export default {
       pokemonHeight: null,
       pokemonLevel: null,
       pokemonSprites: [],
+      selectedSprite: null,
+      spriteIndex: 0,
       BgPokemon,
       messages: [
         {
@@ -289,12 +368,12 @@ export default {
       typeView: 'pure',
       slides: [
         {
-          title: 'A',
-          icon: 'mdi-pokeball',
+          title: 'Sprites',
+          icon: 'mdi-file-image',
         },
         {
           title: 'B',
-          icon: 'mdi-home',
+          icon: 'mdi-pokeball',
         },
         {
           title: 'C',
@@ -338,18 +417,34 @@ export default {
         }      
         
         this.rootStore.updateNavigationDrawerColor(this.getElementColorNormal(this.pokemonElement));
-        this.pokemonSprites = [
-          this.pokemonData.sprites.front_default,
-          this.pokemonData.sprites.back_default,
-          this.pokemonData.sprites.front_shiny,
-          this.pokemonData.sprites.back_shiny,
-        ];     
-
+        this.pokemonSprites = [];
+        const spriteMap = [
+          { key: 'front_default', label: 'Front Default' },
+          { key: 'back_default', label: 'Back Default' },
+          { key: 'front_shiny', label: 'Front Shiny' },
+          { key: 'back_shiny', label: 'Back Shiny' },
+        ];
+        spriteMap.forEach(({ key, label }) => {
+          const spriteUrl = this.pokemonData.sprites[key];
+          if (spriteUrl) {
+            this.pokemonSprites.push({ url: spriteUrl, name: label });
+          }
+        });
+        this.selectedSprite = this.pokemonSprites[0]?.url || null;
+        this.autoSelectSprite();
         console.log(this.pokemonData, 'pokemonData');
         this.setColorToScrollBar();
       } catch (error) {
         console.warn(error);
       }      
+    },
+    autoSelectSprite() {
+      setInterval(() => {
+        if (this.pokemonSprites.length > 0) {
+          this.spriteIndex = (this.spriteIndex + 1) % this.pokemonSprites.length;
+          this.selectedSprite = this.pokemonSprites[this.spriteIndex].url;
+        }
+      }, 3000);
     },
     setColorToScrollBar(){
       const styleElement = document.createElement('style');
@@ -482,4 +577,9 @@ export default {
 </script>
 
 <style scoped>
+.pokemon-sprite-thumnail:hover {
+  /* border: 2px solid rgba(255, 255, 255, 0.2) !important; */
+  background: rgba(255, 255, 255, 0.1) !important;
+  transition: border 0.3s, background 0.3s;
+}
 </style>

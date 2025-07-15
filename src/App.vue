@@ -118,7 +118,7 @@ export default {
       { text: 'All Types', icon: 'mdi-checkbox-multiple-blank', path: '/type' },
       { text: 'Legendary Pokemons', icon: 'mdi-star', path: '/legendary-pokemons'},
       { text: 'Pokémon Game', icon: 'mdi-gamepad-variant', path: '/pokemon-game' },
-      { text: 'API', icon: 'mdi-open-in-new', path: 'https://pokeapi.co/' },      
+      { text: 'API', icon: 'mdi-api', path: 'https://pokeapi.co/' },      
       { text: 'lenninlemus.com', icon: 'mdi-coffee', path: 'https://lenninlemus.com'},
       
     ],
