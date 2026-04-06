@@ -24,6 +24,41 @@
       </div>
     </div>
 
+    <button
+      type="button"
+      class="pokemon-random-btn"
+      aria-label="Pokemon aleatorio"
+      @click="goRandomPokemon"
+    >
+      <v-icon :style="{ color: pokemonElement === 'flying' ? '#0000008a' : '#ffffff8a' }">
+        mdi-dice-multiple
+      </v-icon>
+    </button>
+
+    <div class="pokemon-page-nav-wrapper">
+      <button
+        type="button"
+        class="pokemon-page-nav"
+        :class="[contentTextClass, { 'pokemon-page-nav--disabled': !canGoPrevPokemon }]"
+        :disabled="!canGoPrevPokemon"
+        aria-label="Pokemon anterior"
+        @click="goPreviousPokemon"
+      >
+        <v-icon class="pokemon-page-nav__icon">mdi-chevron-left</v-icon>
+      </button>
+
+      <button
+        type="button"
+        class="pokemon-page-nav"
+        :class="[contentTextClass, { 'pokemon-page-nav--disabled': !canGoNextPokemon }]"
+        :disabled="!canGoNextPokemon"
+        aria-label="Pokemon siguiente"
+        @click="goNextPokemon"
+      >
+        <v-icon class="pokemon-page-nav__icon">mdi-chevron-right</v-icon>
+      </button>
+    </div>
+
     <template v-if="typeView === 'pure'">
       <img
         :src="getElementTypeLogo(pokemonElement)"
@@ -746,6 +781,31 @@ export default {
       const chunks = url.split('/').filter(Boolean);
       return chunks[chunks.length - 1] || null;
     },
+    navigatePokemon(offset) {
+      const currentId = this.currentPokemonNumericId;
+
+      if (!Number.isInteger(currentId)) {
+        return;
+      }
+
+      const nextId = currentId + offset;
+
+      if (nextId < 1 || nextId === currentId) {
+        return;
+      }
+
+      this.$router.push({ path: `/pokemon/${nextId}` });
+    },
+    goPreviousPokemon() {
+      this.navigatePokemon(-1);
+    },
+    goNextPokemon() {
+      this.navigatePokemon(1);
+    },
+    goRandomPokemon() {
+      const randomId = Math.floor(Math.random() * 1025) + 1;
+      this.$router.push({ path: `/pokemon/${randomId}` });
+    },
     getElementTypeLogo(element) {
       return this.$root.getElementTypeLogo(element);
     },
@@ -967,6 +1027,16 @@ export default {
         this.pokemonSprites.find((sprite) => sprite.url === this.selectedSprite)?.name || 'Sprite'
       );
     },
+    currentPokemonNumericId() {
+      const normalizedId = Number(this.pokemonData?.id || this.pokemonId);
+      return Number.isInteger(normalizedId) ? normalizedId : null;
+    },
+    canGoPrevPokemon() {
+      return (this.currentPokemonNumericId || 0) > 1;
+    },
+    canGoNextPokemon() {
+      return Number.isInteger(this.currentPokemonNumericId);
+    },
   },
 };
 </script>
@@ -994,15 +1064,88 @@ export default {
 }
 
 .pokemon-scroll-area--sprites {
-  overflow: hidden;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 .sprites-section {
-  overflow: hidden;
+  position: relative;
+  overflow: visible;
+  --sprites-content-max: 1240px;
 }
 
 .sprites-layout {
   height: 100%;
+  width: 100%;
+  max-width: var(--sprites-content-max);
+  margin: 0 auto;
+}
+
+.pokemon-random-btn {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  z-index: 5;
+  background: transparent;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.pokemon-page-nav-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.pokemon-page-nav {
+  pointer-events: auto;
+  flex-shrink: 0;
+  width: clamp(84px, 6.8vw, 112px);
+  height: clamp(84px, 6.8vw, 112px);
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--pokemon-text-color);
+  padding: 0;
+  cursor: pointer;
+  opacity: 0;
+  animation: pokemonPageNavBlink 5s ease-in-out infinite;
+}
+
+.pokemon-page-nav__icon {
+  font-size: clamp(108px, 9vw, 140px) !important;
+  font-weight: 800;
+  line-height: 1;
+  color: inherit !important;
+}
+
+.pokemon-page-nav:active {
+  transform: scale(0.96);
+}
+
+.pokemon-page-nav--disabled {
+  opacity: 0 !important;
+  animation: none;
+  cursor: default;
+  pointer-events: none;
+}
+
+@keyframes pokemonPageNavBlink {
+  0%   { opacity: 0; }
+  40%  { opacity: 0; }
+  50%  { opacity: 0.24; }
+  90%  { opacity: 0.24; }
+  100% { opacity: 0; }
 }
 
 .sprite-selection-scroll {
@@ -1246,6 +1389,19 @@ export default {
 
   .sprite-thumb {
     min-width: 132px;
+  }
+
+  .pokemon-page-nav {
+    width: clamp(60px, 9vw, 84px);
+    height: clamp(60px, 9vw, 84px);
+  }
+
+  .pokemon-page-nav__icon {
+    font-size: clamp(76px, 11vw, 100px) !important;
+  }
+
+  .pokemon-page-nav-wrapper {
+    padding: 0 2px;
   }
 }
 </style>
