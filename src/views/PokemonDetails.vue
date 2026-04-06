@@ -1,29 +1,11 @@
 <template>
-  <div
-    v-if="pokemonData"
-    class="pokemon-details-page w-100 ma-0 d-flex justify-center align-center"
-    :style="detailPageStyle"
-  >
+  <div class="pokemon-page-shell">
+    <div class="pokemon-bg-layer" :style="prevShellBgStyle"></div>
     <div
-      class="d-flex justify-center align-center cursor-pointer mt-3 ms-3"
-      style="position: absolute; top: 0; left: 0; z-index: 5"
-      @click="$router.go(-1)"
-    >
-      <div class="d-flex justify-center align-center">
-        <v-icon :style="{ color: pokemonElement === 'flying' ? '#0000008a' : '#ffffff8a' }">
-          mdi-chevron-left
-        </v-icon>
-      </div>
-      <div class="d-flex justify-center align-center">
-        <span
-          class="block text-subtitle-1"
-          :style="{ color: pokemonElement === 'flying' ? '#0000008a' : '#ffffff8a' }"
-        >
-          Back
-        </span>
-      </div>
-    </div>
-
+      class="pokemon-bg-layer pokemon-bg-layer--top"
+      :class="{ 'pokemon-bg-layer--visible': bgReady }"
+      :style="shellBgStyle"
+    ></div>
     <button
       type="button"
       class="pokemon-random-btn"
@@ -57,6 +39,32 @@
       >
         <v-icon class="pokemon-page-nav__icon">mdi-chevron-right</v-icon>
       </button>
+    </div>
+
+    <transition name="pokemon-content">
+    <div
+      v-if="pokemonData"
+      class="pokemon-details-page w-100 ma-0 d-flex justify-center align-center"
+      :style="detailPageStyle"
+    >
+    <div
+      class="d-flex justify-center align-center cursor-pointer mt-3 ms-3"
+      style="position: absolute; top: 0; left: 0; z-index: 5"
+      @click="$router.go(-1)"
+    >
+      <div class="d-flex justify-center align-center">
+        <v-icon :style="{ color: pokemonElement === 'flying' ? '#0000008a' : '#ffffff8a' }">
+          mdi-chevron-left
+        </v-icon>
+      </div>
+      <div class="d-flex justify-center align-center">
+        <span
+          class="block text-subtitle-1"
+          :style="{ color: pokemonElement === 'flying' ? '#0000008a' : '#ffffff8a' }"
+        >
+          Back
+        </span>
+      </div>
     </div>
 
     <template v-if="typeView === 'pure'">
@@ -536,6 +544,8 @@
         </v-sheet>
       </v-carousel-item>
     </v-carousel>
+    </div>
+    </transition>
   </div>
 </template>
 
@@ -568,6 +578,9 @@ export default {
       pokemonSpeciesData: null,
       pokemonElement: null,
       pokemonElement2: null,
+      prevPokemonElement: null,
+      prevPokemonElement2: null,
+      bgReady: true,
       pokemonId: this.$route.params.id,
       pokemonSprites: [],
       selectedSprite: null,
@@ -614,6 +627,12 @@ export default {
   methods: {
     async getPokemonData() {
       try {
+        if (this.pokemonElement) {
+          this.prevPokemonElement = this.pokemonElement;
+          this.prevPokemonElement2 = this.pokemonElement2;
+          this.bgReady = false;
+        }
+
         this.pokemonData = null;
         this.pokemonSpeciesData = null;
         this.pokemonSprites = [];
@@ -640,6 +659,10 @@ export default {
 
         this.pokemonSprites = this.buildSpriteGallery(this.pokemonData.sprites);
         this.selectedSprite = this.pokemonSprites[0]?.url || null;
+
+        this.$nextTick(() => {
+          this.bgReady = true;
+        });
       } catch (error) {
         console.warn(error);
       }
@@ -834,17 +857,11 @@ export default {
     },
     detailPageStyle() {
       const primaryColor = this.getElementColorHex(this.pokemonElement || 'normal');
-      const secondaryColor = this.getElementColorHex(
-        this.pokemonElement2 || this.pokemonElement || 'normal'
-      );
       const red = parseInt(primaryColor.slice(1, 3), 16);
       const green = parseInt(primaryColor.slice(3, 5), 16);
       const blue = parseInt(primaryColor.slice(5, 7), 16);
 
       return {
-        background: this.pokemonElement2
-          ? `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`
-          : primaryColor,
         '--pokemon-scroll-track':
           this.typeView === 'pure'
             ? this.isFlyingMono
@@ -876,6 +893,28 @@ export default {
         '--pokemon-card-shadow': this.isFlyingMono
           ? '0 16px 40px rgba(0, 0, 0, 0.08)'
           : '0 20px 50px rgba(0, 0, 0, 0.2)',
+      };
+    },
+    shellBgStyle() {
+      const primaryColor = this.getElementColorHex(this.pokemonElement || 'normal');
+      const secondaryColor = this.getElementColorHex(
+        this.pokemonElement2 || this.pokemonElement || 'normal'
+      );
+      return {
+        background: this.pokemonElement2
+          ? `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`
+          : primaryColor,
+      };
+    },
+    prevShellBgStyle() {
+      const el = this.prevPokemonElement || this.pokemonElement || 'normal';
+      const el2 = this.prevPokemonElement !== null ? this.prevPokemonElement2 : this.pokemonElement2;
+      const primaryColor = this.getElementColorHex(el);
+      const secondaryColor = this.getElementColorHex(el2 || el);
+      return {
+        background: el2
+          ? `linear-gradient(135deg, ${primaryColor}, ${secondaryColor})`
+          : primaryColor,
       };
     },
     pokemonDisplayName() {
@@ -1042,6 +1081,46 @@ export default {
 </script>
 
 <style scoped>
+.pokemon-page-shell {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  max-height: 100vh;
+  max-height: 100dvh;
+  overflow: hidden;
+}
+
+.pokemon-bg-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pokemon-bg-layer--top {
+  opacity: 0;
+  transition: opacity 0.55s ease;
+  z-index: 1;
+}
+
+.pokemon-bg-layer--visible {
+  opacity: 1;
+}
+
+.pokemon-content-enter-active {
+  transition: opacity 0.4s ease;
+}
+
+.pokemon-content-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.pokemon-content-enter,
+.pokemon-content-leave-to {
+  opacity: 0;
+}
+
 .pokemon-details-page {
   position: relative;
   height: 100vh;
@@ -1049,6 +1128,8 @@ export default {
   max-height: 100vh;
   max-height: 100dvh;
   overflow: hidden;
+  background: transparent;
+  z-index: 2;
 }
 
 .pokemon-scroll-area {
