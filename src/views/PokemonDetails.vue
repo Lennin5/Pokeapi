@@ -827,15 +827,6 @@ export default {
       const randomId = Math.floor(Math.random() * 1025) + 1;
       this.$router.push({ path: `/pokemon/${randomId}` });
     },
-    getElementTypeLogo(element) {
-      return this.getElementTypeLogo(element);
-    },
-    getElementColorNormal(element) {
-      return this.getElementColorNormal(element);
-    },
-    getElementColorHex(element) {
-      return this.getElementColorHex(element);
-    },
   },
   computed: {
     currentBreakpoint() {
