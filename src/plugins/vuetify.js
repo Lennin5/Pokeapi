@@ -1,17 +1,16 @@
-import Vue from 'vue';
-import Vuetify from 'vuetify/lib/framework';
+import { createVuetify } from 'vuetify';
+import * as components from 'vuetify/components';
+import * as directives from 'vuetify/directives';
+import 'vuetify/styles';
+import { aliases, mdi } from 'vuetify/iconsets/mdi';
+import '@mdi/font/css/materialdesignicons.css';
 
-Vue.use(Vuetify);
-
-export default new Vuetify({
-    // theme: {
-    //     themes: {
-    //         light: {
-    //             whiteCustom: '#CFCFCF',
-    //         },
-    //         dark: {
-    //             whiteCustom: '#bdbdbd',
-    //         },
-    //     },
-    // },
+export default createVuetify({
+  components,
+  directives,
+  icons: {
+    defaultSet: 'mdi',
+    aliases,
+    sets: { mdi },
+  },
 });

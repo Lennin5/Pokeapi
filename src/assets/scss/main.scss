@@ -1,10 +1,23 @@
 body{
     overflow: hidden;
-  } 
+  }
   .w-100{
     width: 100%;
   }
-  
+
+  // Vuetify 2 color class compatibility
+  .white--text { color: #ffffff !important; }
+  .orange--text { color: #FF9800 !important; }
+  .gray--text { color: #9E9E9E !important; }
+  .grey--text { color: #9E9E9E !important; }
+  .black--text { color: #212121 !important; }
+  .deep-orange--text { color: #FF5722 !important; }
+  .grey--text.text--darken-4 { color: #212121 !important; }
+  // Vuetify 2 typography class compatibility
+  .subheading { font-size: 1rem !important; }
+  .title { font-size: 1.25rem !important; font-weight: 500 !important; }
+  .subtitle-2 { font-size: 0.875rem !important; font-weight: 500 !important; }
+
   // Scrollbar styles
   @mixin scrollbar {
     &::-webkit-scrollbar {

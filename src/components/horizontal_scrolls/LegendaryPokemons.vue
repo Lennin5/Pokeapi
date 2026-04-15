@@ -2,39 +2,40 @@
     <v-container>
       <div class="d-flex justify-space-between align-center">
         <h1 class="orange--text ml-4" >
-          <v-icon color="orange" size="40">mdi-star</v-icon>          
+          <v-icon color="orange" size="40">mdi-star</v-icon>
           Legendary
         </h1>
-  
-        <v-hover v-slot="{ hover }" class="d-flex justify-center align-center">
-          <span class="me-5 cursor-pointer" @click="$router.push('/legendary-pokemons')"
-          :class="hover ? 'deep-orange--text accent-4--text text-decoration-underline' : 'orange--text'">
+
+        <v-hover v-slot="{ isHovering, props }" class="d-flex justify-center align-center">
+          <span v-bind="props" class="me-5 cursor-pointer" @click="$router.push('/legendary-pokemons')"
+          :class="isHovering ? 'text-decoration-underline' : ''"
+          :style="{ color: isHovering ? '#FF5722' : '#FF9800' }">
             View all
-            <v-icon 
+            <v-icon
             class="ms-1"
-            :color="hover ? 'deep-orange accent-2' : 'orange'"
+            :color="isHovering ? 'deep-orange-accent-2' : 'orange'"
             size="15">mdi-arrow-right</v-icon>
           </span>
         </v-hover>
-      </div>    
+      </div>
       <div class="horizontal-scroll scroll-container-for-horizontal-div">
         <div>
           <!-- Skeleton loader -->
           <div v-if="legendaryPokemons.length === 0">
-            <v-card 
+            <v-card
             class="card ma-3 rounded-xl"
             :style="{
               width: '200px',
-              height: '255px',  
-              }" 
+              height: '255px',
+              }"
               v-for="n in 8" :key="n">
               <div class="d-flex justify-center align-center flex-column">
-                  <v-skeleton-loader type="image" aspect-ratio="0.9" height="170" class="mt-4 rounded-lg" style="width: 80%"></v-skeleton-loader>
+                  <v-skeleton-loader type="image" height="170" class="mt-4 rounded-lg" style="width: 80%"></v-skeleton-loader>
                 <v-card-actions class="d-flex justify-center">
-                  <v-skeleton-loader type="button" class="w-100 mt-1"></v-skeleton-loader>
-                </v-card-actions> 
-              </div>         
-            </v-card>           
+                  <v-skeleton-loader type="text" class="w-100 mt-1"></v-skeleton-loader>
+                </v-card-actions>
+              </div>
+            </v-card>
           </div>
           <!-- Data rendered -->
           <v-card
@@ -42,25 +43,25 @@
             :key="pokemon.name"
             width="200"
             class="card ma-3 rounded-xl">
-            <div class="d-flex justify-center align-center pt-0" 
+            <div class="d-flex justify-center align-center pt-0"
             :style="{
-            background: `linear-gradient(to right, 
+            background: `linear-gradient(to right,
             rgba(
-                ${Math.max(0, parseInt(getElementColorHex(pokemon.element).slice(1, 3), 16) - 40)}, 
-                ${Math.max(0, parseInt(getElementColorHex(pokemon.element).slice(3, 5), 16) - 40)}, 
-                ${Math.max(0, parseInt(getElementColorHex(pokemon.element).slice(5, 7), 16) + 10 )}), 
+                ${Math.max(0, parseInt(getElementColorHex(pokemon.element).slice(1, 3), 16) - 40)},
+                ${Math.max(0, parseInt(getElementColorHex(pokemon.element).slice(3, 5), 16) - 40)},
+                ${Math.max(0, parseInt(getElementColorHex(pokemon.element).slice(5, 7), 16) + 10 )}),
 
-            rgba(${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(1, 3), 16) + 10)}, 
-                ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(3, 5), 16) + 10)}, 
+            rgba(${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(1, 3), 16) + 10)},
+                ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(3, 5), 16) + 10)},
                 ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(5, 7), 16) + 30 )}))`,
 
               width: '100%',
-              height: '250px',              
+              height: '250px',
             }"
             @mouseover="setElementOpacity(pokemon.name, 0.3)"
             @mouseout="setElementOpacity(pokemon.name, 0.2)"
             >
-                            
+
             <div
             :class="'pokemon_card_' + pokemon.name"
               :style="{
@@ -73,11 +74,10 @@
                 position: 'absolute',
                 opacity: '0.2',
                 marginTop: '-30px',
-
               }" />
 
-            <div>    
-            <div class="d-flex justify-start mt-0" 
+            <div>
+            <div class="d-flex justify-start mt-0"
             style="border: 1px solid transparent;"
             :style="{
                     marginLeft: pokemon.name === 'deoxys-normal' || pokemon.name === 'giratina-altered' || pokemon.name === 'shaymin-land' ? '-5px' : '-40px',
@@ -86,32 +86,32 @@
                 <v-icon
                 :style="{
                     color: `rgba(
-                        ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(1, 3), 16) + 30)}, 
-                        ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(3, 5), 16) + 30)}, 
+                        ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(1, 3), 16) + 30)},
+                        ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(3, 5), 16) + 30)},
                         ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(5, 7), 16) + 30)})`
                 }"
                 class="me-0"
                 size="30"
                 >mdi-star</v-icon>
             </div>
-              <v-img :src="pokemon.sprites[spriteIndex || 0]" max-height="300px" max-width="150" class="mt-0" :class="'pokemon_image_'+pokemon.name"></v-img>
+              <v-img :src="pokemon.sprites[spriteIndex || 0]" max-height="300px" :max-width="150" class="mt-0" :class="'pokemon_image_'+pokemon.name"></v-img>
               <div class="font-weight-bold d-flex justify-center align-center mt-5"
               :class="pokemon.element === 'flying' ? 'gray--text' : 'white--text'">
 
                 <h2>
                   {{ pokemon.name[0].toUpperCase() + pokemon.name.slice(1) }}
-                </h2>          
-                      
+                </h2>
+
               </div>
             </div>
             </div>
-          </v-card>  
-  
+          </v-card>
+
         </div>
       </div>
     </v-container>
   </template>
-  
+
   <script>
   import pokeApi from '../../plugins/axios';
   export default {
@@ -158,28 +158,25 @@
                 console.warn(warning);
               }
 
-            }            
+            }
           } catch (error) {
             console.error("Issues when trying to get legendary pokemons: ", error);
           }
-      },   
+      },
     }
   };
   </script>
-  
+
   <style scoped>
   .horizontal-scroll {
   width: 100%;
-  overflow-x: auto; /* Habilita la barra de desplazamiento horizontal */
+  overflow-x: auto;
   overflow-y: hidden;
   border: 1px solid transparent;
-  white-space: nowrap; /* Evita que el contenido se divida en varias líneas */
+  white-space: nowrap;
   }
-  
+
   .card {
-  /* width: 100px;
-  height: 100px; */
-  display: inline-block; /* Para asegurar que las tarjetas se muestren en línea */
+  display: inline-block;
   }
   </style>
-  

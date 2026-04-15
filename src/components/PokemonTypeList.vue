@@ -136,8 +136,8 @@
                     'linear-gradient(to right, ' + getElementColorHex(pokemonType) + ', ' + getElementColorHex(pokemon.element) + ')'
                     : getElementColorHex(pokemon.element)}"
                   class="mt-5 mb-5 rounded-lg"
-                  :dark="pokemon.element === 'flying' ? false : true"
-                  :light="pokemon.element === 'flying' ? true : false">
+                  
+                  >
                       View Details
                 </v-btn>                 -->
 
@@ -152,8 +152,8 @@
                         
                     }"
                     class="my-5 rounded-lg"
-                    :dark="pokemon.element === 'flying' ? false : true"
-                    :light="pokemon.element === 'flying' ? true : false"                    
+                    
+                                        
                 >
                     View Details
                 </v-btn>
@@ -167,8 +167,8 @@
                         border: '1px solid rgba(266, 266, 266, 0.1)',
                     }"
                     class="my-5 rounded-lg"
-                    :dark="pokemon.element === 'flying' ? false : true"
-                    :light="pokemon.element === 'flying' ? true : false"                    
+                    
+                                        
                 >
                     View Details
                 </v-btn>                 -->

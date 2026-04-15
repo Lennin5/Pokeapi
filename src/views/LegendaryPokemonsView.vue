@@ -1,10 +1,10 @@
 <template>
   <v-container class="mt-10 mt-lg-0">
     <!-- Floating type pokemons button -->
-    <FloatingTypesButton 
+    <FloatingTypesButton
       pokemonType="normal"
-    />    
-    <v-row>          
+    />
+    <v-row>
         <v-col
             v-for="(pokemon, index) in legendaryPokemons"
             :key="index"
@@ -21,18 +21,18 @@
             @mouseover="updateNavigationDrawerColorDinamically(pokemon.element), setElementOpacity(pokemon.name, 0.3)"
             @mouseout="setElementOpacity(pokemon.name, 0.2)"
             :style="{
-            background: `linear-gradient(to right, 
+            background: `linear-gradient(to right,
             rgba(
-                ${Math.max(0, parseInt(getElementColorHex(pokemon.element).slice(1, 3), 16) - 40)}, 
-                ${Math.max(0, parseInt(getElementColorHex(pokemon.element).slice(3, 5), 16) - 40)}, 
-                ${Math.max(0, parseInt(getElementColorHex(pokemon.element).slice(5, 7), 16) + 10 )}), 
+                ${Math.max(0, parseInt(getElementColorHex(pokemon.element).slice(1, 3), 16) - 40)},
+                ${Math.max(0, parseInt(getElementColorHex(pokemon.element).slice(3, 5), 16) - 40)},
+                ${Math.max(0, parseInt(getElementColorHex(pokemon.element).slice(5, 7), 16) + 10 )}),
 
-            rgba(${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(1, 3), 16) + 10)}, 
-                ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(3, 5), 16) + 10)}, 
+            rgba(${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(1, 3), 16) + 10)},
+                ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(3, 5), 16) + 10)},
                 ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(5, 7), 16) + 30 )}))`,
 
               width: '100%',
-              height: 'auto',              
+              height: 'auto',
             }">
               <div
               :class="'pokemon_card_' + pokemon.name"
@@ -46,11 +46,10 @@
                   position: 'absolute',
                   opacity: '0.1',
                   right: '-5px',
-
                   top: getClassesToLogo('top'),
                   left: getClassesToLogo('left'),
                   transform: getClassesToLogo('transform'),
-                }" />  
+                }" />
             <div class="d-flex justify-start align-center mt-3"
             :style="{
               position: 'absolute',
@@ -60,44 +59,44 @@
                 size="30"
                 :style="{
                 color: `rgba(
-                    ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(1, 3), 16) + 30)}, 
-                    ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(3, 5), 16) + 30)}, 
+                    ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(1, 3), 16) + 30)},
+                    ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(3, 5), 16) + 30)},
                     ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(5, 7), 16) + 30)})`,
                 }"
-              >mdi-star</v-icon>     
-              <h1   
-                class="ms-1"               
-                :style="{    
-                  marginTop: '2px',             
+              >mdi-star</v-icon>
+              <h1
+                class="ms-1"
+                :style="{
+                  marginTop: '2px',
                   fontSize: '20px',
-                  fontWeight: 'bold',                    
+                  fontWeight: 'bold',
                   textTransform: 'uppercase',
                   color: `rgba(
-                  ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(1, 3), 16) + 30)}, 
-                  ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(3, 5), 16) + 30)}, 
+                  ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(1, 3), 16) + 30)},
+                  ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(3, 5), 16) + 30)},
                   ${Math.min(255, parseInt(getElementColorHex(pokemon.element).slice(5, 7), 16) + 30)})`,
                 }">
                 {{ pokemon.element }}
-              </h1>   
-            </div>             
+              </h1>
+            </div>
 
             <v-row class="ma-5 pt-5">
                 <v-col cols="12" lg="3" class="d-flex justify-center">
-                    <div 
+                    <div
                         :style="{
-                            border: '0px solid ' + getBorderColor(pokemon.element),                           
+                            border: '0px solid ' + getBorderColor(pokemon.element),
                         }"
                         style="
-                            padding: 0px;                            
+                            padding: 0px;
                             border-radius: 50%;
                             width: 150px;
                             height: 150px;
                         ">
-                        <v-img :src="pokemon.sprites[spriteIndex || 0]" max-height="300px" max-width="150" class="mt-0" :class="'pokemon_image_'+pokemon.name"></v-img>
-                    </div>                    
-                </v-col>                
+                        <v-img :src="pokemon.sprites[spriteIndex || 0]" max-height="300px" :max-width="150" class="mt-0" :class="'pokemon_image_'+pokemon.name"></v-img>
+                    </div>
+                </v-col>
                 <v-col cols="12" lg="8" class="">
-                    <div class="d-flex justify-start align-center l-" 
+                    <div class="d-flex justify-start align-center"
                         style="opacity: 0.8;"
                         :class="pokemon.element === 'flying' ? 'gray--text' : 'white--text'">
                         <div>
@@ -108,92 +107,80 @@
                                 height: '50px',
                                 backgroundImage: 'url(' + getElementTypeLogo(pokemon.element) + ')',
                             }"
-                            />                           
-                        </div>  
+                            />
+                        </div>
                         <div>
                             <h2 class="ms-2">
                                 {{ pokemon.name[0].toUpperCase() + pokemon.name.slice(1) }}
-                            </h2>                                 
-                        </div>                                              
-                    </div>   
+                            </h2>
+                        </div>
+                    </div>
                     <v-row justify="center" class="mt-3">
                       <v-col cols="12" lg="3" class="pa-1 pa-lg-0">
                         <v-chip
                           class="d-flex justify-center"
-                          :color="pokemon.element === 'flying' ? 'grey darken-3' : 'white'"
-                          outlined
+                          :color="pokemon.element === 'flying' ? 'grey-darken-3' : 'white'"
+                          variant="outlined"
                           style="width: 95%; backdrop-filter: blur(30px);">
-                          <v-icon left>
-                            mdi-weight
-                          </v-icon>
-                          <b>Weight 
-                            &nbsp;
-                          </b> {{ pokemon.weight }} kg
+                          <template #prepend>
+                            <v-icon>mdi-weight</v-icon>
+                          </template>
+                          <b>Weight &nbsp;</b> {{ pokemon.weight }} kg
                         </v-chip>
                       </v-col>
                       <v-col cols="12" lg="3" class="pa-1 pa-lg-0">
                         <v-chip
                           class="d-flex justify-center"
-                          :color="pokemon.element === 'flying' ? 'grey darken-3' : 'white'"
-                          outlined
+                          :color="pokemon.element === 'flying' ? 'grey-darken-3' : 'white'"
+                          variant="outlined"
                           style="width: 95%; backdrop-filter: blur(30px);"
                         >
-                          <v-icon left>
-                            mdi-creation
-                          </v-icon>                           
-                            {{ pokemon.moves.length }}
-                            &nbsp;
-                          <b>
-                            Moves
-                          </b>
-                        </v-chip>  
-                      </v-col>                       
-                      <v-col cols="12" lg="3" class="pa-1 pa-lg-0">
-                        <v-chip
-                          class="d-flex justify-center"
-                          :color="pokemon.element === 'flying' ? 'grey darken-3' : 'white'"
-                          outlined
-                          style="width: 95%; backdrop-filter: blur(30px);"
-                        >
-                          <v-icon left>
-                            mdi-head-cog
-                          </v-icon>
-                          <b>Experience 
-                            &nbsp;
-                          </b> {{ pokemon.base_experience }}
-                        </v-chip>   
+                          <template #prepend>
+                            <v-icon>mdi-creation</v-icon>
+                          </template>
+                          {{ pokemon.moves.length }} &nbsp;
+                          <b>Moves</b>
+                        </v-chip>
                       </v-col>
                       <v-col cols="12" lg="3" class="pa-1 pa-lg-0">
                         <v-chip
                           class="d-flex justify-center"
-                          :color="pokemon.element === 'flying' ? 'grey darken-3' : 'white'"                    
-                          outlined
+                          :color="pokemon.element === 'flying' ? 'grey-darken-3' : 'white'"
+                          variant="outlined"
+                          style="width: 95%; backdrop-filter: blur(30px);"
+                        >
+                          <template #prepend>
+                            <v-icon>mdi-head-cog</v-icon>
+                          </template>
+                          <b>Experience &nbsp;</b> {{ pokemon.base_experience }}
+                        </v-chip>
+                      </v-col>
+                      <v-col cols="12" lg="3" class="pa-1 pa-lg-0">
+                        <v-chip
+                          class="d-flex justify-center"
+                          :color="pokemon.element === 'flying' ? 'grey-darken-3' : 'white'"
+                          variant="outlined"
                           style="backdrop-filter: blur(30px);"
                           :style="{
                             width: isMdAndDown ? '95%' : '100%',
                           }"
                         >
-                          <v-icon left>
-                            mdi-ev-plug-type1
-                          </v-icon>
-                          <b>Forms 
-                            &nbsp;
-                          </b> 
-                          <span v-for="(item, index) in pokemon.types" :key="index">
+                          <template #prepend>
+                            <v-icon>mdi-ev-plug-type1</v-icon>
+                          </template>
+                          <b>Forms &nbsp;</b>
+                          <span v-for="(item, itemIndex) in pokemon.types" :key="itemIndex">
                             {{ item.type.name }}
-                            <!-- Si el item NO es el ultimo de la lista -->
-                            <span v-if="index !== pokemon.types.length - 1">
-                              -
-                            </span>                        
+                            <span v-if="itemIndex !== pokemon.types.length - 1">-</span>
                             &nbsp;
                           </span>
-                        </v-chip> 
-                      </v-col>                                              
-                    </v-row>                                                                
+                        </v-chip>
+                      </v-col>
+                    </v-row>
                 </v-col>
             </v-row>
-        </v-card>          
-                 
+        </v-card>
+
         </v-col>
     </v-row>
   </v-container>
@@ -226,40 +213,39 @@ export default {
   },
   computed: {
     isMdAndDown() {
-      return this.$vuetify.breakpoint.mdAndDown;
+      return this.$vuetify.display.mdAndDown;
     },
   },
   methods: {
     getClassesToLogo(position){
-      if(position === 'top'){        
-        return this.isMdAndDown ? '50%' : ''
+      if(position === 'top'){
+        return this.isMdAndDown ? '50%' : '';
       }else if(position === 'left'){
-        return this.isMdAndDown ? '50%' : ''
+        return this.isMdAndDown ? '50%' : '';
       }else if(position === 'transform'){
-        return this.isMdAndDown ? 'translate(-50%, -50%)' : ''
+        return this.isMdAndDown ? 'translate(-50%, -50%)' : '';
       }
-    },    
-    updateNavigationDrawerColorDinamically(pokemonElement){        
+    },
+    updateNavigationDrawerColorDinamically(pokemonElement){
         if(pokemonElement === 'flying'){
             this.rootStore.updateNavigationDrawerColor('white');
         }else{
             var color_rgb = `rgba(
-                    ${Math.max(0, parseInt(this.getElementColorHex(pokemonElement).slice(1, 3), 16) - 40)}, 
-                    ${Math.max(0, parseInt(this.getElementColorHex(pokemonElement).slice(3, 5), 16) - 40)}, 
+                    ${Math.max(0, parseInt(this.getElementColorHex(pokemonElement).slice(1, 3), 16) - 40)},
+                    ${Math.max(0, parseInt(this.getElementColorHex(pokemonElement).slice(3, 5), 16) - 40)},
                     ${Math.max(0, parseInt(this.getElementColorHex(pokemonElement).slice(5, 7), 16) + 10 )})`
-
             this.rootStore.updateNavigationDrawerColor(color_rgb);
-        }            
+        }
     },
     getBorderColor(type){
         if(type === 'flying')
             return '#0000008a';
         else
             return `rgba(
-                ${Math.min(255, parseInt(this.getElementColorHex(type).slice(1, 3), 16) + 30)}, 
-                ${Math.min(255, parseInt(this.getElementColorHex(type).slice(3, 5), 16) + 30)}, 
-                ${Math.min(255, parseInt(this.getElementColorHex(type).slice(5, 7), 16) + 30)})` 
-    },    
+                ${Math.min(255, parseInt(this.getElementColorHex(type).slice(1, 3), 16) + 30)},
+                ${Math.min(255, parseInt(this.getElementColorHex(type).slice(3, 5), 16) + 30)},
+                ${Math.min(255, parseInt(this.getElementColorHex(type).slice(5, 7), 16) + 30)})`;
+    },
     async getPokemonData() {
       this.legendaryPokemons = [];
         try {
@@ -269,8 +255,7 @@ export default {
             try {
               const { data, status } = await pokeApi.get(`/pokemon/${id}`);
               if(status==200){
-                const pokemon = data;                
-                // const name = pokemon.name;
+                const pokemon = data;
                 const sprites = [
                     pokemon.sprites.front_default,
                     pokemon.sprites.back_default,
@@ -281,17 +266,16 @@ export default {
 
                 pokemon.element = element;
                 pokemon.sprites = sprites;
-                this.legendaryPokemons.push(pokemon);                
+                this.legendaryPokemons.push(pokemon);
               }
             } catch (warning) {
               console.warn(warning);
-            }            
-          }  
-          // console.log(this.legendaryPokemons[0], 'POKEMON');          
+            }
+          }
         } catch (error) {
           console.error("Issues when trying to get legendary pokemons: ", error);
         }
-    },   
+    },
   }
 };
 </script>

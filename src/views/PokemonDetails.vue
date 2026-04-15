@@ -219,17 +219,15 @@
       :show-arrows="false"
       :hide-delimiters="true"
       height="100%"
-      hide-delimiter-background
       interval="9000"
     >
       <v-carousel-item v-for="slide in slides" :key="slide.key">
         <v-sheet
           color="transparent"
           height="100%"
-          tile
+          rounded="0"
           class="d-flex justify-center align-center"
-          :dark="pokemonElement !== 'flying'"
-          :light="pokemonElement === 'flying'"
+          :theme="pokemonElement !== 'flying' ? 'dark' : 'light'"
         >
           <div
             :class="[
@@ -326,7 +324,7 @@
                           #{{ paddedPokemonId }} - {{ pokemonGenus }}
                         </div>
                       </div>
-                      <v-chip small pill class="pokemon-chip font-weight-bold">
+                      <v-chip size="small" rounded="pill" class="pokemon-chip font-weight-bold">
                         {{ formatLabel(pokemonSpeciesData?.generation?.name || 'unknown') }}
                       </v-chip>
                     </div>
@@ -444,7 +442,7 @@
                         Distribucion de stats
                       </div>
                     </div>
-                    <v-chip small pill class="pokemon-chip font-weight-bold">
+                    <v-chip size="small" rounded="pill" class="pokemon-chip font-weight-bold">
                       Total {{ pokemonStatTotal }}
                     </v-chip>
                   </div>
@@ -458,9 +456,9 @@
                       <v-progress-linear
                         class="stat-progress-pill"
                         height="14"
-                        :background-color="statTrackColor"
+                        :bg-color="statTrackColor"
                         :color="stat.color"
-                        :value="stat.percentage"
+                        :model-value="stat.percentage"
                       ></v-progress-linear>
                       <div v-if="stat.effort" class="pokemon-muted text-caption mt-1">
                         EV yield: {{ stat.effort }}
@@ -531,8 +529,8 @@
                       </div>
                       <div class="pokemon-muted text-body-2 mt-2">{{ move.versionGroup }}</div>
                       <div class="d-flex flex-wrap mt-3" style="gap: 8px">
-                        <v-chip small pill class="pokemon-chip">{{ move.learnMethod }}</v-chip>
-                        <v-chip small pill class="pokemon-chip">{{ move.levelLabel }}</v-chip>
+                        <v-chip size="small" rounded="pill" class="pokemon-chip">{{ move.learnMethod }}</v-chip>
+                        <v-chip size="small" rounded="pill" class="pokemon-chip">{{ move.levelLabel }}</v-chip>
                       </div>
                     </v-card>
                   </v-col>
@@ -830,21 +828,21 @@ export default {
       this.$router.push({ path: `/pokemon/${randomId}` });
     },
     getElementTypeLogo(element) {
-      return this.$root.getElementTypeLogo(element);
+      return this.getElementTypeLogo(element);
     },
     getElementColorNormal(element) {
-      return this.$root.getElementColorNormal(element);
+      return this.getElementColorNormal(element);
     },
     getElementColorHex(element) {
-      return this.$root.getElementColorHex(element);
+      return this.getElementColorHex(element);
     },
   },
   computed: {
     currentBreakpoint() {
-      return this.$vuetify.breakpoint.name;
+      return this.$vuetify.display.name;
     },
     isMdAndUp() {
-      return this.$vuetify.breakpoint.mdAndUp;
+      return this.$vuetify.display.mdAndUp;
     },
     isFlyingMono() {
       return this.pokemonElement === 'flying' && !this.pokemonElement2;
