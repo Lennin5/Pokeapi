@@ -317,10 +317,6 @@ export default {
         const response = await pokeApi.get(`/pokemon/?offset=0&limit=${this.pokemonsLimit}`);
         const pokemons = response.data.results;
 
-        // console.log(pokemons[442], 'pokemons');
-        // Remove pokemon with id 442 because of problems with the image font_default
-        pokemons.splice(442, 1);
-
         const pokemonData = await Promise.all(
           pokemons.map(async (pokemon) => {
             const pokemonResponse = await pokeApi.get(`/pokemon/${pokemon.name}`);
@@ -351,7 +347,8 @@ export default {
           })
         );
 
-        this.pokemons = pokemonData;
+        // Filter out pokemons with no front_default sprite
+        this.pokemons = pokemonData.filter(pokemon => pokemon.sprites[0] !== null);
         // sort data randomly
         // this.pokemons.sort(() => Math.random() - 0.5);
       } catch (error) {

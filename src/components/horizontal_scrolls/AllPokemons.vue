@@ -150,7 +150,8 @@ export default {
             })
           );
 
-          this.allPokemons = pokemonData;
+          // Filter out pokemons with no front_default sprite
+          this.allPokemons = pokemonData.filter(pokemon => pokemon.sprites[0] !== null);
           // sort by random
           this.allPokemons.sort(() => Math.random() - 0.5);
           // filter by element
@@ -159,7 +160,7 @@ export default {
             this.allPokemons = this.allPokemons.filter(pokemon => pokemon.element === filter);
             // If random filter gets empty, show all pokemons
             if(this.allPokemons.length === 0) {
-              this.allPokemons = pokemonData;
+              this.allPokemons = pokemonData.filter(pokemon => pokemon.sprites[0] !== null);
               this.filter = 'all';
             }
           }
