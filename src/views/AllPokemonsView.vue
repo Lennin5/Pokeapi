@@ -348,7 +348,7 @@ export default {
         );
 
         // Filter out pokemons with no front_default sprite
-        this.pokemons = pokemonData.filter(pokemon => pokemon.sprites[0] !== null);
+        this.pokemons = pokemonData.filter(pokemon => pokemon.spriteURL !== null);
         // sort data randomly
         // this.pokemons.sort(() => Math.random() - 0.5);
       } catch (error) {

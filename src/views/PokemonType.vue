@@ -284,7 +284,7 @@ export default {
       );
 
       // Filter out pokemons with no front_default sprite
-      const filteredPokemonData = pokemonData.filter(pokemon => pokemon.sprites[0] !== null);
+      const filteredPokemonData = pokemonData.filter(pokemon => pokemon.spriteURL !== null);
 
       this.pokemonsList = filteredPokemonData;       
       this.pokemonsAll = filteredPokemonData;
